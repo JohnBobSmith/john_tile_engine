@@ -9,10 +9,14 @@
 class World : public sf::Drawable, public sf::Transformable
 {
     public:
-        World();
+        //Change levels.
+        bool loadNewLevel(std::string levelName);
 
         //Load our level file from disk
         bool loadLevelFromDisk(std::string pathToMapFile);
+
+        //Clear previous level data
+        void clearLevel() { currentLevel.clear(); };
 
         /*
             Load our tile map into the application.

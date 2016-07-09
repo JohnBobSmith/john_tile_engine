@@ -4,10 +4,18 @@
 #include <string>
 #include <sstream>
 
-World::World()
+bool World::loadNewLevel(std::string levelName)
 {
-    //Prevent errors...
-    currentLevel.push_back(0);
+    //Clear the contents of our level
+    clearLevel();
+
+    //Load new contents in its place
+    loadLevelFromDisk(levelName);
+
+    //Apply them to the engine
+    if (!load("textures/tilemap.png", sf::Vector2u(32, 32), 16, 16)) {
+        return false; //Error no tile image
+    }
 }
 
 bool World::loadLevelFromDisk(std::string pathToMapFile)

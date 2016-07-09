@@ -14,21 +14,16 @@ int main()
     //Allow for event handling
     sf::Event event;
 
+    //World object
+    World world;
+
     //Setup our render window using variables from __CONFIG.
     sf::RenderWindow window(sf::VideoMode(config.getScreenWidth(),\
                                         config.getScreenHeight()),\
                                         config.getAppName());
-    //World object
-    World world;
 
-    //Load our level file
-    world.loadLevelFromDisk("mapfile.map");
-
-    //Set it up to work in-game.
-    if (!world.load("textures/tilemap.png", sf::Vector2u(32, 32), 16, 16)) {
-        isRunning = false;
-        return -1; //Error no tile image
-    }
+    world.loadNewLevel("mapfile.map");
+    int time = 9000;
 
     while (isRunning)
     {
@@ -39,6 +34,14 @@ int main()
                 isRunning = false;
             }
         }
+
+        time--;
+        std::cout << time;
+
+        if (time <= 0) {
+            world.loadNewLevel("level01.map");
+        }
+
         //Basic window stuff here.
         window.clear(config.getWindowClearColor());
         window.draw(world);

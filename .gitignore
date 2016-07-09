@@ -40,3 +40,7 @@ textures
 *.cbp
 *.layout
 *.depend
+
+# Ignore additional directories
+bin
+obj

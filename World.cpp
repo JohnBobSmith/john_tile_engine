@@ -4,7 +4,13 @@
 #include <string>
 #include <sstream>
 
-bool World::loadNewLevel(std::string levelName)
+void World::clearLevel()
+{
+    //Empty the current level vector.
+    currentLevel.clear();
+}
+
+bool World::loadNewLevel(std::string levelName, std::string tileset)
 {
     //Clear the contents of our level
     clearLevel();
@@ -13,9 +19,11 @@ bool World::loadNewLevel(std::string levelName)
     loadLevelFromDisk(levelName);
 
     //Apply them to the engine
-    if (!load("textures/tilemap.png", sf::Vector2u(32, 32), 16, 16)) {
+    if (!load(tileset, sf::Vector2u(32, 32), 16, 16)) {
         return false; //Error no tile image
     }
+
+    return true;
 }
 
 bool World::loadLevelFromDisk(std::string pathToMapFile)
@@ -35,8 +43,8 @@ bool World::loadLevelFromDisk(std::string pathToMapFile)
             //Grab one character.
             tempData = file.get();
 
-            //Discard newline characters.
-            if(tempData == '\n' || tempData == '\r' ) {
+            //Discard newline and other junk characters.
+            if(tempData < '0' || tempData > '9' ) {
                 continue;
             }
 
@@ -48,6 +56,7 @@ bool World::loadLevelFromDisk(std::string pathToMapFile)
             currentLevel.push_back(data);
         }
     }
+    return true;
 }
 
 bool World::load(const std::string& tileset, sf::Vector2u tileSize, unsigned int width, unsigned int height)

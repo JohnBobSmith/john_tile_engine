@@ -26,7 +26,7 @@ class __CONFIG
         //Changing this may be useful if we want
         //to fake the appearance of a skyline or other
         //background without additional sprites/textures.
-        sf::Color WIN_CLEAR_COLOR = sf::Color::Black;
+        sf::Color WIN_CLEAR_COLOR = sf::Color::White;
 };
 
 #endif // __CONFIG_H

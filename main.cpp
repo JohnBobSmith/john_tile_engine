@@ -22,8 +22,11 @@ int main()
                                         config.getScreenHeight()),\
                                         config.getAppName());
 
-    world.loadNewLevel("mapfile.map");
-    int time = 9000;
+    //Always blankly initialize the level files.
+    //world.loadNewLevel("mapfile.map", "textures/tilemap.png");
+
+    //Load a real world file.
+    world.loadNewLevel("level01.map", "textures/level01.png");
 
     while (isRunning)
     {
@@ -33,13 +36,6 @@ int main()
                 window.close();
                 isRunning = false;
             }
-        }
-
-        time--;
-        std::cout << time;
-
-        if (time <= 0) {
-            world.loadNewLevel("level01.map");
         }
 
         //Basic window stuff here.

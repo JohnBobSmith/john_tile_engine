@@ -28,14 +28,6 @@
 *.out
 *.app
 
-# ignore all texture files as per rules of 
-# http://www.textures.com/terms-of-use.html
-# section 2.2, g). Better safe than sorry.
-textures
-*.png
-*.jpg
-*.xcf
-
 # Ignore codeblocks files
 *.cbp
 *.layout

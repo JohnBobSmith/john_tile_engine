@@ -33,8 +33,14 @@ bool World::loadLevelFromDisk(std::string pathToMapFile)
     //Our file object
     std::ifstream file(pathToMapFile);
 
-    //Store contents of file
-    char tempData;
+    //Store our characters
+    char charOne, charTwo;
+
+    //store our working data
+    int dataOne, dataTwo;
+
+    //Final data
+    int finalData;
 
     if (!file.is_open()) {
         //Error...
@@ -42,19 +48,45 @@ bool World::loadLevelFromDisk(std::string pathToMapFile)
     } else { //File is ready to use
          while (file)
         {
-            //Grab one character.
-            tempData = file.get();
+            //Grab a single character
+            charOne = file.get();
 
-            //Discard newline and other junk characters.
-            if ( tempData < '0' || tempData > '9' ) {
-                continue;
+            //Grab a second character
+            charTwo = file.get();
+
+            //Compare the two characters...
+            //If charOne contains a number and charTwo contains a comma...
+            if ((charOne >= '0' && charOne <= '9') && charTwo == ',') {
+                //We've ran into a single digit number.
+                //Convert charOne to ASCII integer and
+                //use this value in our final data.
+                dataOne = charOne - 48;
+                finalData = dataOne;
             }
 
-            //Convert that character to ascii integer
-            int data = tempData - 48;
+            //Repeat with inverse char's checked
+            if ((charTwo >= '0' && charTwo <= '9') && charOne == ',') {
+                //We've ran into a single digit number.
+                //Convert charTwo to ASCII integer and
+                //use this value in our final data.
+                dataTwo = charTwo - 48;
+                finalData = dataTwo;
+            }
 
-            //Our level vector.
-            currentLevel.push_back(data);
+            //However, if both values contain a number,
+            //we have a compound number IE 12.
+            if ((charOne >= '0' && charOne <= '9') && (charTwo >= '0' && charTwo <= '9')) {
+                //Convert both to ASCII integers
+                dataOne = charOne - 48;
+                dataTwo = charTwo - 48;
+
+                //Add the integers together + 9
+                //This allows for numbers > 9.
+                finalData = ((dataOne + dataTwo) + 9);
+            }
+
+            //update our level vector.
+            currentLevel.push_back(finalData);
         }
     }
     return true;

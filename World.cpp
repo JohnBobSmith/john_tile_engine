@@ -16,10 +16,12 @@ bool World::loadNewLevel(std::string levelName, std::string tileset)
     clearLevel();
 
     //Load new contents in its place
-    loadLevelFromDisk(levelName);
+    if (!loadLevelFromDisk(levelName)) {
+        return false;
+    }
 
     //Apply them to the engine
-    if (!load(tileset, sf::Vector2u(32, 32), 16, 16)) {
+    if (!load(tileset, sf::Vector2u(32, 32), 15, 15)) {
         return false; //Error no tile image
     }
 
@@ -38,18 +40,17 @@ bool World::loadLevelFromDisk(std::string pathToMapFile)
         //Error...
         return false;
     } else { //File is ready to use
-         while (file >> tempData)
+         while (file)
         {
             //Grab one character.
             tempData = file.get();
 
             //Discard newline and other junk characters.
-            if(tempData < '0' || tempData > '9' ) {
+            if ( tempData < '0' || tempData > '9' ) {
                 continue;
             }
 
-            //Convert that character
-            //to ascii integer.
+            //Convert that character to ascii integer
             int data = tempData - 48;
 
             //Our level vector.
@@ -76,6 +77,8 @@ bool World::load(const std::string& tileset, sf::Vector2u tileSize, unsigned int
 
             //Grab the current tile
             int tileNumber = currentLevel[i + j * width];
+
+            //std::cout << tileNumber;
 
             //Find its position on the texture
             int tu = tileNumber % (m_tileset.getSize().x / tileSize.x);

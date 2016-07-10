@@ -22,11 +22,10 @@ int main()
                                         config.getScreenHeight()),\
                                         config.getAppName());
 
-    //Always blankly initialize the level files.
-    //world.loadNewLevel("mapfile.map", "textures/tilemap.png");
-
-    //Load a real world file.
-    world.loadNewLevel("level01.map", "textures/level01.png");
+    if (!world.loadNewLevel("levels/level01.map", "textures/level01.png")) {
+        std::cout << "cannot load level...";
+        return -1;
+    }
 
     while (isRunning)
     {

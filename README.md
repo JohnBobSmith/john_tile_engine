@@ -12,8 +12,11 @@ get started with making 2D levels. It is not meant to be a complete
 game engine at this time.
 
 To compile this, you will need:
+
 SFML >= 2.3.2-4
+
 A C++ compiler
+
 And currently, a Linux based OS. I will not support Windows OS at this time. 
 
 I may write a makefile to make this easier in the future, we'll see. 

@@ -44,6 +44,7 @@ bool World::processLevelData(std::string pathToMapFile)
         } else { //We must have junk
             continue; // Discard it
         }
+
         //Update our level vector.
         currentLevel.push_back(data);
     }

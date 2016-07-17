@@ -4,10 +4,50 @@
 #include <string>
 #include <sstream>
 
+World::World()
+{
+    //...by initializing our level vector.
+     currentLevel.push_back(0);
+}
+
 void World::clearLevel()
 {
     //Empty the current level vector.
     currentLevel.clear();
+}
+
+bool World::processLevelData(std::string pathToMapFile)
+{
+    //File object
+    std::ifstream mapfile(pathToMapFile);
+
+    //Store our character.
+    char inputChar;
+
+    //Store our working data
+    int data;
+
+    //Loop get single characters.
+    while (mapfile)
+    {
+        //Grab the character
+        inputChar = mapfile.get();
+
+        //If we have a number
+        if (inputChar >= '0' && inputChar <= '9') {
+            //Convert to ASCII int
+            data = inputChar - 48;
+        } else if (isalpha(inputChar) && isupper(inputChar)) {
+            //If we  have an uppercase character...
+            //...convert to ASCII int too
+            data = inputChar - 55;
+        } else { //We must have junk
+            continue; // Discard it
+        }
+        //Update our level vector.
+        currentLevel.push_back(data);
+    }
+    mapfile.close(); //Remember to cleanup!
 }
 
 bool World::loadNewLevel(std::string levelName, std::string tileset)
@@ -28,68 +68,14 @@ bool World::loadNewLevel(std::string levelName, std::string tileset)
     return true;
 }
 
+//This is pretty much entirely for convenience...
 bool World::loadLevelFromDisk(std::string pathToMapFile)
 {
-    //Our file object
-    std::ifstream file(pathToMapFile);
-
-    //Store our characters
-    char charOne, charTwo;
-
-    //store our working data
-    int dataOne, dataTwo;
-
-    //Final data
-    int finalData;
-
-    if (!file.is_open()) {
-        //Error...
+    if (processLevelData(pathToMapFile)) {
+        return true;
+    } else {
         return false;
-    } else { //File is ready to use
-         while (file)
-        {
-            //Grab a single character
-            charOne = file.get();
-
-            //Grab a second character
-            charTwo = file.get();
-
-            //Compare the two characters...
-            //If charOne contains a number and charTwo contains a comma...
-            if ((charOne >= '0' && charOne <= '9') && charTwo == ',') {
-                //We've ran into a single digit number.
-                //Convert charOne to ASCII integer and
-                //use this value in our final data.
-                dataOne = charOne - 48;
-                finalData = dataOne;
-            }
-
-            //Repeat with inverse char's checked
-            if ((charTwo >= '0' && charTwo <= '9') && charOne == ',') {
-                //We've ran into a single digit number.
-                //Convert charTwo to ASCII integer and
-                //use this value in our final data.
-                dataTwo = charTwo - 48;
-                finalData = dataTwo;
-            }
-
-            //However, if both values contain a number,
-            //we have a compound number IE 12.
-            if ((charOne >= '0' && charOne <= '9') && (charTwo >= '0' && charTwo <= '9')) {
-                //Convert both to ASCII integers
-                dataOne = charOne - 48;
-                dataTwo = charTwo - 48;
-
-                //Add the integers together + 9
-                //This allows for numbers > 9.
-                finalData = ((dataOne + dataTwo) + 9);
-            }
-
-            //update our level vector.
-            currentLevel.push_back(finalData);
-        }
     }
-    return true;
 }
 
 bool World::load(const std::string& tileset, sf::Vector2u tileSize, unsigned int width, unsigned int height)
@@ -109,8 +95,6 @@ bool World::load(const std::string& tileset, sf::Vector2u tileSize, unsigned int
 
             //Grab the current tile
             int tileNumber = currentLevel[i + j * width];
-
-            //std::cout << tileNumber;
 
             //Find its position on the texture
             int tu = tileNumber % (m_tileset.getSize().x / tileSize.x);

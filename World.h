@@ -9,8 +9,14 @@
 class World : public sf::Drawable, public sf::Transformable
 {
     public:
+        //Prevent level errors...
+        World();
+
         //Clear previous level data
         void clearLevel();
+
+        //Do stuff with out data IE validate it.
+        bool processLevelData(std::string pathToMapFile);
 
         //Change levels
         bool loadNewLevel(std::string levelName, std::string tileset);

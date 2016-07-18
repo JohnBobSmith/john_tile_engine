@@ -22,7 +22,7 @@ int main()
                                         config.getScreenHeight()),\
                                         config.getAppName());
 
-    if (!world.loadNewLevel("levels/level01.map", "textures/level01.png")) {
+    if (!world.loadNewLevel("levels/level01.map", "textures/base/level01.png")) {
         std::cout << "cannot load level...";
         return -1;
     }

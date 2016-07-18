@@ -36,3 +36,4 @@
 # Ignore additional directories
 bin
 obj
+docs

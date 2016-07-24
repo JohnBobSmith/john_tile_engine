@@ -35,6 +35,16 @@ class World : public sf::Drawable, public sf::Transformable
         */
         bool load(const std::string& tileset, sf::Vector2u tileSize, unsigned int width, unsigned int height);
 
+        /*
+            Duplicate of our load function; the difference
+            being that we use a detail map instead
+            of our level map. I would just pass
+            the values as arguments but I'm getting
+            stupid errors regarding non static data members
+            and other weird bullshit...
+        */
+        bool loadDetailMap(const std::string& tileset, sf::Vector2u tileSize, unsigned int width, unsigned int height);
+
     private:
         //Our modified draw function
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -42,6 +52,10 @@ class World : public sf::Drawable, public sf::Transformable
         //Store texture and vertex data
         sf::VertexArray m_vertecies;
         sf::Texture m_tileset;
+
+        //Store our detailmap data
+        sf::VertexArray m_detailverts;
+        sf::Texture m_detailtex;
 
         //Store our level as a vector
         std::vector<long int> currentLevel;

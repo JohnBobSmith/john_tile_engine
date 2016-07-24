@@ -30,7 +30,6 @@ class World : public sf::Drawable, public sf::Transformable
             Arguments from left to right:
             -The texture file to load
             -The size in pixels of each tile on the map
-            -The tile map itself
             -The width of the tile map
             -The height of the tile map
         */

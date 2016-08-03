@@ -57,9 +57,7 @@ int main()
         //Update camera
         window.setView(camera.getCamera());
 
-        //Draw and display the world,
-        //with our player on top.
-        window.draw(player.getSprite());
+        //Draw and display the world.
         window.draw(world);
         window.display();
     }

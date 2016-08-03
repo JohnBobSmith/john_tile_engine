@@ -20,9 +20,8 @@ class Player
         //Get player position
         sf::Vector2f getPlayerPosition() { return position; }
 
-        //Get player sprite
-        sf::Sprite getSprite() { return player; }
-
+        //Draw our player
+        void draw();
 
 
     private:

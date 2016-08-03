@@ -19,6 +19,7 @@ class Camera
 
         //Zoom camera
         void zoomCam(float ammount) { camera.zoom(ammount); }
+
     private:
         sf::View camera;
 };

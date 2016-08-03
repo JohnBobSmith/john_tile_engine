@@ -36,15 +36,8 @@ void Player::handleEvents(sf::Event &event)
 
 void Player::move(float deltaTime)
 {
-    //Move our camera
-    Camera camera;
-
     position.x += velocity.x * deltaTime;
     position.y += velocity.y * deltaTime;
-
-    player.move(position.x, position.y);
-
-    camera.moveCam(position.x, position.y);
 }
 
 

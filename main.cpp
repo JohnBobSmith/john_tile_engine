@@ -2,6 +2,7 @@
 #include "__CONFIG.h"
 #include "World.h"
 #include "Camera.h"
+#include "Player.h"
 #include <iostream>
 
 int main()
@@ -21,12 +22,17 @@ int main()
     //Camera object
     Camera camera;
 
+    //Player object
+    Player player;
+
     //Setup our render window using variables from __CONFIG.
     sf::RenderWindow window(sf::VideoMode(config.getScreenWidth(),\
                                         config.getScreenHeight()),\
                                         config.getAppName());
 
-    if (!world.loadNewLevel("levels/level01.map", "textures/base/level01.png")) {
+    window.setFramerateLimit(60); //Cap frame rate.
+
+    if (!world.loadNewLevel("levels/level01.map", "textures/levels/level01.png")) {
         std::cout << "cannot load level...";
         return -1;
     }
@@ -39,39 +45,21 @@ int main()
                 window.close();
                 isRunning = false;
             }
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)) {
-                camera.zoomCam(1.1f);
-            }
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::X)) {
-                camera.zoomCam(0.9f);
-            }
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-                camera.moveCam(-5.0f, 0.0f);
-            }
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-                camera.moveCam(5.0f, 0.0f);
-            }
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-                camera.moveCam(0.0f, -5.0f);
-            }
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-                camera.moveCam(0.0f, 5.0f);
-            }
+            player.handleEvents(event);
         }
 
         //Basic window stuff here.
         window.clear(config.getWindowClearColor());
 
+        //Move our player
+        player.move(1/60.0f);
+
         //Update camera
         window.setView(camera.getCamera());
 
-        //Draw and display the world.
+        //Draw and display the world,
+        //with our player on top.
+        window.draw(player.getSprite());
         window.draw(world);
         window.display();
     }

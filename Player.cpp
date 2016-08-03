@@ -4,7 +4,7 @@
 
 Player::Player()
 {
-    if (!playerTexture.loadFromFile("textures/errors/errortex.png")) {
+    if (!playerTexture.loadFromFile("textures/characters/player.png")) {
         std::cout << "Error: Missing player texture...\n";
     }
 
@@ -17,20 +17,48 @@ Player::Player()
 
 void Player::handleEvents(sf::Event &event)
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        velocity.x -= PLAYER_VELOCITY;
+    //Keydown events.
+    if (event.type == sf::Event::KeyPressed) {
+        switch (event.key.code)
+        {
+            case sf::Keyboard::Left:
+                velocity.x -= PLAYER_VELOCITY;
+                break;
+
+            case sf::Keyboard::Right:
+                velocity.x += PLAYER_VELOCITY;
+                break;
+
+            case sf::Keyboard::Up:
+                velocity.y -= PLAYER_VELOCITY;
+                break;
+
+            case sf::Keyboard::Down:
+                velocity.y += PLAYER_VELOCITY;
+                break;
+        }
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        velocity.x += PLAYER_VELOCITY;
-    }
+    //Keyup events.
+    if (event.type == sf::Event::KeyReleased) {
+        switch (event.key.code)
+        {
+            case sf::Keyboard::Left:
+                velocity.x += PLAYER_VELOCITY;
+                break;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-        velocity.y -= PLAYER_VELOCITY;
-    }
+            case sf::Keyboard::Right:
+                velocity.x -= PLAYER_VELOCITY;
+                break;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-        velocity.y += PLAYER_VELOCITY;
+            case sf::Keyboard::Up:
+                velocity.y += PLAYER_VELOCITY;
+                break;
+
+            case sf::Keyboard::Down:
+                velocity.y -= PLAYER_VELOCITY;
+                break;
+        }
     }
 }
 
@@ -38,6 +66,8 @@ void Player::move(float deltaTime)
 {
     position.x += velocity.x * deltaTime;
     position.y += velocity.y * deltaTime;
+
+    player.move(position);
 }
 
 

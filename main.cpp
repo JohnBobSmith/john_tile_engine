@@ -31,6 +31,7 @@ int main()
                                         config.getAppName());
 
     window.setFramerateLimit(60); //Cap frame rate.
+    window.setKeyRepeatEnabled(false); //Disable key repeating
 
     if (!world.loadNewLevel("levels/level01.map", "textures/levels/level01.png")) {
         std::cout << "cannot load level...";
@@ -55,10 +56,12 @@ int main()
         player.move(1/60.0f);
 
         //Update camera
+        camera.setCamCenter(player.getPlayerPosition());
         window.setView(camera.getCamera());
 
         //Draw and display the world.
         window.draw(world);
+        window.draw(player.player);
         window.display();
     }
     return 0; //No error

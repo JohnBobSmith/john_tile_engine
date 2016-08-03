@@ -8,6 +8,9 @@
 class Player
 {
     public:
+        //Our player sprite
+        sf::Sprite player;
+
         //Automatic initialization
         Player();
 
@@ -20,17 +23,12 @@ class Player
         //Get player position
         sf::Vector2f getPlayerPosition() { return position; }
 
-        //Draw our player
-        void draw();
-
-
     private:
         //Player's maximum velocity
-        const float PLAYER_VELOCITY = 600.0f;
+        const float PLAYER_VELOCITY = 100.0f;
 
-        //Our player and his texture.
+        //Our player texture.
         sf::Texture playerTexture;
-        sf::Sprite player;
 
         //Players velocity
         sf::Vector2f velocity;

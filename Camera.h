@@ -20,6 +20,9 @@ class Camera
         //Zoom camera
         void zoomCam(float ammount) { camera.zoom(ammount); }
 
+        //Set camera center
+        void setCamCenter (sf::Vector2f centerPoint) { camera.setCenter(centerPoint); }
+
     private:
         sf::View camera;
 };

@@ -33,6 +33,13 @@ int main()
     window.setFramerateLimit(60); //Cap frame rate.
     window.setKeyRepeatEnabled(false); //Disable key repeating
 
+    //Center camera on player once.
+    camera.setCamCenter(player.getPlayerPosition());
+
+    //Zoom it in just slightly.
+    camera.zoomCam(0.80);
+
+    //Load levels
     if (!world.loadNewLevel("levels/level01.map", "textures/levels/level01.png")) {
         std::cout << "cannot load level...";
         return -1;
@@ -56,7 +63,7 @@ int main()
         player.move(1/60.0f);
 
         //Update camera
-        camera.setCamCenter(player.getPlayerPosition());
+        camera.moveCam(player.getPlayerPosition().x, player.getPlayerPosition().y);
         window.setView(camera.getCamera());
 
         //Draw and display the world.

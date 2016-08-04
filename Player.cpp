@@ -12,51 +12,49 @@ Player::Player()
 
     //Set players position.
     //Hopefully this is somewhere in our level...
-    player.setPosition(250, 250);
+    player.setPosition(0, 0);
 }
 
 void Player::handleEvents(sf::Event &event)
 {
-    //Keydown events.
     if (event.type == sf::Event::KeyPressed) {
         switch (event.key.code)
         {
             case sf::Keyboard::Left:
-                velocity.x -= PLAYER_VELOCITY;
+                position.x -= 1;
                 break;
 
             case sf::Keyboard::Right:
-                velocity.x += PLAYER_VELOCITY;
+                position.x += 1;
                 break;
 
             case sf::Keyboard::Up:
-                velocity.y -= PLAYER_VELOCITY;
+                position.y -= 1;
                 break;
 
             case sf::Keyboard::Down:
-                velocity.y += PLAYER_VELOCITY;
+                position.y += 1;
                 break;
         }
     }
 
-    //Keyup events.
     if (event.type == sf::Event::KeyReleased) {
         switch (event.key.code)
         {
             case sf::Keyboard::Left:
-                velocity.x += PLAYER_VELOCITY;
+                position.x += 1;
                 break;
 
             case sf::Keyboard::Right:
-                velocity.x -= PLAYER_VELOCITY;
+                position.x -= 1;
                 break;
 
             case sf::Keyboard::Up:
-                velocity.y += PLAYER_VELOCITY;
+                position.y += 1;
                 break;
 
             case sf::Keyboard::Down:
-                velocity.y -= PLAYER_VELOCITY;
+                position.y -= 1;
                 break;
         }
     }
@@ -64,10 +62,7 @@ void Player::handleEvents(sf::Event &event)
 
 void Player::move(float deltaTime)
 {
-    position.x += velocity.x * deltaTime;
-    position.y += velocity.y * deltaTime;
-
-    player.move(position);
+    player.move(position.x, position.y);
 }
 
 

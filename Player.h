@@ -24,14 +24,8 @@ class Player
         sf::Vector2f getPlayerPosition() { return position; }
 
     private:
-        //Player's maximum velocity
-        const float PLAYER_VELOCITY = 100.0f;
-
         //Our player texture.
         sf::Texture playerTexture;
-
-        //Players velocity
-        sf::Vector2f velocity;
 
         //Players position.
         sf::Vector2f position;

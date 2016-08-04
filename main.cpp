@@ -40,7 +40,7 @@ int main()
     camera.zoomCam(0.80);
 
     //Load levels
-    if (!world.loadNewLevel("levels/level01.map", "textures/levels/level01.png", sf::Vector2u(32, 32), 15, 15)) {
+    if (!world.loadNewLevel("levels/level01.map", "textures/levels/level01.png", sf::Vector2u(32, 32), 30, 30)) {
         std::cout << "cannot load level...";
         return -1;
     }

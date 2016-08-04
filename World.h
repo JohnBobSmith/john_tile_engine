@@ -19,7 +19,8 @@ class World : public sf::Drawable, public sf::Transformable
         bool processLevelData(std::string pathToMapFile);
 
         //Change levels
-        bool loadNewLevel(std::string levelName, std::string tileset);
+        bool loadNewLevel(std::string levelName, std::string tileset, sf::Vector2u tileSize,
+                                        unsigned int tileWidth, unsigned int tileHeight);
 
         //Load our level file from disk
         bool loadLevelFromDisk(std::string pathToMapFile);

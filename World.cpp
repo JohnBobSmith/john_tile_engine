@@ -51,7 +51,8 @@ bool World::processLevelData(std::string pathToMapFile)
     mapfile.close(); //Remember to cleanup!
 }
 
-bool World::loadNewLevel(std::string levelName, std::string tileset)
+bool World::loadNewLevel(std::string levelName, std::string tileset, sf::Vector2u tileSize,
+                                        unsigned int tileWidth, unsigned int tileHeight)
 {
     //Clear the contents of our level
     clearLevel();
@@ -62,7 +63,7 @@ bool World::loadNewLevel(std::string levelName, std::string tileset)
     }
 
     //Apply them to the engine
-    if (!load(tileset, sf::Vector2u(32, 32), 15, 15)) {
+    if (!load(tileset, tileSize, tileWidth, tileHeight)) {
         return false; //Error no tile image
     }
 

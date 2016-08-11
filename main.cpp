@@ -45,6 +45,7 @@ int main()
         return -1;
     }
 
+
     while (isRunning)
     {
         while (window.pollEvent(event))

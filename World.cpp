@@ -62,7 +62,7 @@ bool World::loadNewLevel(std::string levelName, std::string tileset)
     }
 
     //Apply them to the engine
-    if (!load(tileset, sf::Vector2u(32, 32), 15, 15)) {
+    if (!load(tileset, sf::Vector2u(256, 256), 15, 15)) {
         return false; //Error no tile image
     }
 

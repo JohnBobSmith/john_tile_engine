@@ -37,7 +37,7 @@ int main()
     camera.setCamCenter(player.getPlayerPosition());
 
     //Zoom it in just slightly.
-    camera.zoomCam(0.80);
+    camera.zoomCam(-2.0);
 
     //Load levels
     if (!world.loadNewLevel("levels/level01.map", "textures/levels/level01.png")) {

@@ -36,11 +36,11 @@ int main()
     //Center camera on player once.
     camera.setCamCenter(player.getPlayerPosition());
 
-    //Zoom it in just slightly.
-    camera.zoomCam(-2.0);
+    //Zoom camera to fit
+    camera.zoomCam(-100.0);
 
     //Load levels
-    if (!world.loadNewLevel("levels/level01.map", "textures/levels/level01.png")) {
+    if (!world.loadNewLevel("level/level01.map", "textures/level/level01.png")) {
         std::cout << "cannot load level...";
         return -1;
     }

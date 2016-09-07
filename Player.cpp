@@ -4,7 +4,7 @@
 
 Player::Player()
 {
-    if (!playerTexture.loadFromFile("textures/characters/player.png")) {
+    if (!playerTexture.loadFromFile("textures/entity/player.png")) {
         std::cout << "Error: Missing player texture...\n";
     }
 

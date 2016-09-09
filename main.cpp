@@ -37,10 +37,10 @@ int main()
     camera.setCamCenter(player.getPlayerPosition());
 
     //Zoom camera to fit
-    camera.zoomCam(-100.0);
+    camera.zoomCam(-10.0);
 
     //Load levels
-    if (!world.loadNewLevel("level/level01.map", "textures/level/level01.png")) {
+    if (!world.loadNewLevel("levels/level01.map", "textures/level/tileset.png")) {
         std::cout << "cannot load level...";
         return -1;
     }
@@ -58,7 +58,8 @@ int main()
         }
 
         //Basic window stuff here.
-        window.clear(config.getWindowClearColor());
+        //window.clear(config.getWindowClearColor());
+        window.clear(sf::Color::Magenta);
 
         //Move our player
         player.move(1/60.0f);

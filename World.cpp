@@ -28,27 +28,34 @@ bool World::processLevelData(std::string pathToMapFile)
     int data;
 
     //Loop get single characters.
-    while (mapfile)
-    {
-        //Grab the character
-        inputChar = mapfile.get();
+    if (mapfile.is_open()) {
+        while (mapfile)
+        {
+            //Grab the character
+            inputChar = mapfile.get();
 
-        //If we have a number
-        if (inputChar >= '0' && inputChar <= '9') {
-            //Convert to ASCII int
-            data = inputChar - 48;
-        } else if (isalpha(inputChar) && isupper(inputChar)) {
-            //If we  have an uppercase character...
-            //...convert to ASCII int too
-            data = inputChar - 55;
-        } else { //We must have junk
-            continue; // Discard it
+            //If we have a number
+            if (inputChar >= '0' && inputChar <= '9') {
+                //Convert to ASCII int
+                data = inputChar - 48;
+            } else if (isalpha(inputChar) && isupper(inputChar)) {
+                //If we  have an uppercase character...
+                //...convert to ASCII int too
+                data = inputChar - 55;
+            } else { //We must have junk
+                continue; // Discard it
+            }
+
+            //Update our level vector.
+            currentLevel.push_back(data);
         }
-
-        //Update our level vector.
-        currentLevel.push_back(data);
+    } else {
+        return false; //No mapfile found.
     }
+
     mapfile.close(); //Remember to cleanup!
+
+    return true;
 }
 
 bool World::loadNewLevel(std::string levelName, std::string tileset)
@@ -58,11 +65,11 @@ bool World::loadNewLevel(std::string levelName, std::string tileset)
 
     //Load new contents in its place
     if (!loadLevelFromDisk(levelName)) {
-        return false;
+        return false; //bad level file
     }
 
     //Apply them to the engine
-    if (!load(tileset, sf::Vector2u(256, 256), 15, 15)) {
+    if (!load(tileset, sf::Vector2u(32, 32), 16, 16)) {
         return false; //Error no tile image
     }
 

@@ -18,11 +18,8 @@ class World : public sf::Drawable, public sf::Transformable
         //Do stuff with out data IE validate it.
         bool processLevelData(std::string pathToMapFile);
 
-        //Change levels
+        //Change and load levels
         bool loadNewLevel(std::string levelName, std::string tileset);
-
-        //Load our level file from disk
-        bool loadLevelFromDisk(std::string pathToMapFile);
 
         /*
             Load our tile map into the application.

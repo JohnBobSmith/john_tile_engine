@@ -64,7 +64,7 @@ bool World::loadNewLevel(std::string levelName, std::string tileset)
     clearLevel();
 
     //Load new contents in its place
-    if (!loadLevelFromDisk(levelName)) {
+    if (!processLevelData(levelName)) {
         return false; //bad level file
     }
 
@@ -74,16 +74,6 @@ bool World::loadNewLevel(std::string levelName, std::string tileset)
     }
 
     return true;
-}
-
-//This is pretty much entirely for convenience...
-bool World::loadLevelFromDisk(std::string pathToMapFile)
-{
-    if (processLevelData(pathToMapFile)) {
-        return true;
-    } else {
-        return false;
-    }
 }
 
 bool World::load(const std::string& tileset, sf::Vector2u tileSize, unsigned int width, unsigned int height)

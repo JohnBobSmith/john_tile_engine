@@ -37,7 +37,7 @@ int main()
     camera.setCamCenter(player.getPlayerPosition());
 
     //Zoom camera to fit
-    camera.zoomCam(-10.0);
+    camera.zoomCam(1.0);
 
     //Load levels
     if (!world.loadNewLevel("levels/level01.map", "textures/level/tileset.png")) {
@@ -58,20 +58,29 @@ int main()
         }
 
         //Basic window stuff here.
-        //window.clear(config.getWindowClearColor());
-        window.clear(sf::Color::Magenta);
+        //The window clear color
+        sf::Color grey;
+        grey.r = 155;
+        grey.g = 155;
+        grey.b = 155;
+        grey.a = 255;
+
+        //Clear the window
+        window.clear(grey);
 
         //Move our player
         player.move(1/60.0f);
 
         //Update camera
         camera.moveCam(player.getPlayerPosition().x, player.getPlayerPosition().y);
+
+        //Use the camera
         window.setView(camera.getCamera());
 
-        //Draw and display the world.
+        //Draw and display the world/objects
         window.draw(world);
         window.draw(player.player);
         window.display();
     }
-    return 0; //No error
+    return 0;
 }

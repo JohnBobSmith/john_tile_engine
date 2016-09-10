@@ -1,8 +1,8 @@
 //see __CONFIG.h for additional configuration variables.
 #include "__CONFIG.h"
 
-sf::Color __CONFIG::setWindowClearColor(sf::Color color)
+__CONFIG::__CONFIG()
 {
-    WIN_CLEAR_COLOR = color;
-    return WIN_CLEAR_COLOR;
+    SCREEN_SIZE.x = SCREEN_WIDTH;
+    SCREEN_SIZE.y = SCREEN_HEIHGT;
 }

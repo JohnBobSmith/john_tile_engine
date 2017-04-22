@@ -1,5 +1,4 @@
 #include "Camera.h"
-#include "Player.h"
 
 Camera::Camera()
 {

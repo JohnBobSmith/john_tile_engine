@@ -9,13 +9,19 @@
 class World : public sf::Drawable, public sf::Transformable
 {
     public:
-        //Prevent level errors...
+        //Prevent errors of varying sorts.
         World();
+        //Because we have used "new" in
+        //this code, be sure to clean up!
+        ~World();
+
+        //Maximum collision boxes, for bounds checking and what not
+        static const int MAX_COLLISION_BOXES = 2048;
 
         //Clear previous level data
         void clearLevel();
 
-        //Do stuff with out data IE validate it.
+        //Do stuff with our data IE validate it.
         bool processLevelData(std::string pathToMapFile);
 
         //Change and load levels
@@ -32,6 +38,9 @@ class World : public sf::Drawable, public sf::Transformable
         */
         bool load(const std::string& tileset, sf::Vector2u tileSize, unsigned int width, unsigned int height);
 
+        //Store our level as a vector
+        std::vector<long int> currentLevel;
+
     private:
         //Our modified draw function
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -39,9 +48,6 @@ class World : public sf::Drawable, public sf::Transformable
         //Store texture and vertex data
         sf::VertexArray m_vertecies;
         sf::Texture m_tileset;
-
-        //Store our level as a vector
-        std::vector<long int> currentLevel;
 };
 
 #endif // WORLD_H

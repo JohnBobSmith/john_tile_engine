@@ -3,11 +3,17 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include "Collision.h"
 
 World::World()
 {
-    //...by initializing our level vector.
-     currentLevel.push_back(0);
+    //Initialize our level vector
+    currentLevel.push_back(0);
+}
+
+World::~World()
+{
+
 }
 
 void World::clearLevel()
@@ -45,16 +51,13 @@ bool World::processLevelData(std::string pathToMapFile)
             } else { //We must have junk
                 continue; // Discard it
             }
-
             //Update our level vector.
             currentLevel.push_back(data);
         }
     } else {
         return false; //No mapfile found.
     }
-
     mapfile.close(); //Remember to cleanup!
-
     return true;
 }
 

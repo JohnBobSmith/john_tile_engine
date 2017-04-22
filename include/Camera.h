@@ -9,7 +9,7 @@ class Camera
         Camera();
 
         //Grab our active camera
-        sf::View getCamera () { return camera; }
+        sf::View getCamera() { return camera; }
 
         //Move camera
         void moveCam(float x, float y) {camera.move(x, y); }

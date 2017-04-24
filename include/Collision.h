@@ -22,6 +22,17 @@ class Collision
         bool checkAABBcollision(float xA, float yA, float wA, float hA,
                                 float xB, float yB, float wB, float hB);
 
+        //Position our collision boxes that are on the
+        //borders of the screen.
+        void positionCollisionBoxes();
+
+        //Place the collision boxes at certain
+        //points in the level.
+        void positionWorldCollisionBoxes(std::vector<long int> level);
+
+        //Reset the collision boxes by placing them at 0,0.
+        void resetCollision();
+
         //Store our collisions boxes in an std::vector
         std::vector<sf::RectangleShape*> collVector;
 

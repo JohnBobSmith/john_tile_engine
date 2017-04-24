@@ -10,13 +10,24 @@ int main()
 {
     //Initialize our objects
     Config config;
-    //Base world without collision
-    World world;
-    //Additional "worlds" which we will
-    //check collision against.
+    //Load our worlds
+    World grassland;
     World brickland;
-    //Our collision class
+    World flags;
+    //Store a different set of collision
+    //boxes for different events.
     Collision collision;
+    Collision flagsCollision;
+    Collision grasslandCollision;
+    //Change flagsCollision fill color
+    for (int i = 0; i < flagsCollision.MAX_COLLISION_BOXES; ++i) {
+        flagsCollision.collVector[i]->setFillColor(sf::Color::Magenta);
+    }
+    //Change grasslandCollision fill color
+    for (int i = 0; i < grasslandCollision.MAX_COLLISION_BOXES; ++i) {
+        grasslandCollision.collVector[i]->setFillColor(sf::Color::Yellow);
+    }
+    //Camera and player
     Camera camera;
     Player player;
 
@@ -31,21 +42,24 @@ int main()
     //Are we running the game?
     bool isRunning = true;
 
-    //Determine which level we are loading
-    std::string LEVEL_STRING = "grassland";
-
     //Load our levels
-    if (!world.loadNewLevel("map/grassland.map", "textures/level/tileset.png")) {
+    if (!grassland.loadNewLevel("map/grassland.map", "textures/level/grassland.png")) {
         std::cerr << "FATAL ERROR: Missing required mapfile: grassland.map";
         return -1;
     }
 
-    if (!brickland.loadNewLevel("map/brickland.map", "textures/level/tileset.png")) {
+    if (!brickland.loadNewLevel("map/brickland.map", "textures/level/brickland.png")) {
         std::cerr << "FATAL ERROR: Missing required mapfile: brickland.map";
         return -1;
     }
 
-    //We need a sprite to display our cloud image
+    if (!flags.loadNewLevel("map/flags.map", "textures/level/flags.png")) {
+        std::cerr << "FATAL ERROR: Missing required mapfile: flags.map";
+        return -1;
+    }
+
+
+    //We need a sprite to display our cloud background image
     sf::Sprite cloudsBackground;
     sf::Texture cloudsTexture;
     cloudsTexture.setRepeated(true);
@@ -55,35 +69,29 @@ int main()
     cloudsBackground.setPosition(-500, -500);
 
     //Init the player
-    player.sprite.setPosition(280, 280);
-    player.setTexture("textures/entity/player.png");
+    player.sprite.setPosition(32, 32);
+    player.setTexture("textures/entity/player.anim.png");
+    player.sprite.setTextureRect(sf::IntRect(0, 0, 22, 32));
 
     //Init the camera
     camera.setCamCenter(player.sprite.getPosition());
 
     //Position our collision boxes
-    static int x = 0;
-    static int y = 0;
-    for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
-        collision.collVector[i]->setPosition(x, y);
-        x += 32;
-        if (i == 15) {
-            x = 32;
-            y = 480;
-        }
+    collision.positionCollisionBoxes();
+    //Position our world/level collision boxes
+    grasslandCollision.positionWorldCollisionBoxes(grassland.currentLevel);
+    //Position the collision boxes for our flags
+    for (int i = 0; i < flagsCollision.MAX_COLLISION_BOXES; ++i) {
+        flagsCollision.collVector[i]->setPosition(0, 0);
     }
-    y = 0;
-    for (int i = 30; i < collision.MAX_COLLISION_BOXES; ++i) {
-        collision.collVector[i]->setPosition(0, y);
-        y += 32;
-
-    }
-    y = 0;
-    for (int i = 46; i < collision.MAX_COLLISION_BOXES; ++i) {
-        collision.collVector[i]->setPosition(480, y);
-        y += 32;
-    }
-
+    //Top flag
+    flagsCollision.collVector[0]->setPosition(224, 32);
+    //Left flag
+    flagsCollision.collVector[1]->setPosition(32, 224);
+    //Right flag
+    flagsCollision.collVector[2]->setPosition(448, 224);
+    //Bottom flag
+    flagsCollision.collVector[3]->setPosition(224, 448);
 
     //Game loop.
     while (isRunning) {
@@ -94,10 +102,10 @@ int main()
             }
             player.handlePlayerEvents(event);
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)) {
-                LEVEL_STRING = "grassland";
+                grassland.LEVEL_STRING= "grassland";
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) {
-                LEVEL_STRING = "brickland";
+                grassland.LEVEL_STRING= "brickland";
             }
         }
 
@@ -105,16 +113,19 @@ int main()
         window.clear();
         window.draw(cloudsBackground);
         window.setView(camera.getCamera());
-        if (LEVEL_STRING == "grassland") {
-            window.draw(world);
+        if (grassland.LEVEL_STRING== "grassland") {
+            window.draw(grassland);
         }
-        if (LEVEL_STRING == "brickland") {
+        if (grassland.LEVEL_STRING== "brickland") {
             window.draw(brickland);
         }
+        window.draw(flags);
         //Draw collision boxes
         /*
         for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
             window.draw(*collision.collVector[i]);
+            window.draw(*flagsCollision.collVector[i]);
+            window.draw(*grasslandCollision.collVector[i]);
         }
         //*/
         //Resolve collisions before moving the player
@@ -125,6 +136,7 @@ int main()
                                              collision.collVector[i]->getPosition().y,
                                              collision.collVector[i]->getSize().x,
                                              collision.collVector[i]->getSize().y)) {
+
                 if (player.position.x == -1) {
                     player.sprite.move(1, 0);
                 }
@@ -140,10 +152,62 @@ int main()
                 camera.setCamCenter(sf::Vector2f(player.sprite.getPosition().x, player.sprite.getPosition().y));
             }
         }
+
+        //Collisions within our grasslands levels
+        for (int i = 0; i < grasslandCollision.MAX_COLLISION_BOXES; ++i) {
+            if (grasslandCollision.checkAABBcollision(player.sprite.getPosition().x, player.sprite.getPosition().y,
+                                             player.size.x - 8, player.size.y,
+                                             grasslandCollision.collVector[i]->getPosition().x,
+                                             grasslandCollision.collVector[i]->getPosition().y,
+                                             grasslandCollision.collVector[i]->getSize().x,
+                                             grasslandCollision.collVector[i]->getSize().y)) {
+
+                if (player.position.x == -1) {
+                    player.sprite.move(1, 0);
+                }
+                if (player.position.x == 1) {
+                    player.sprite.move(-1, 0);
+                }
+                if (player.position.y == 1) {
+                    player.sprite.move(0, -1);
+                }
+                if (player.position.y == -1) {
+                    player.sprite.move(0, 1);
+                }
+                camera.setCamCenter(sf::Vector2f(player.sprite.getPosition().x, player.sprite.getPosition().y));
+            }
+        }
+
+        //Did the player touch a flag?
+        //If so, change levels.
+        static bool isLevelChanged = false;
+        for (int i = 0; i < flagsCollision.MAX_COLLISION_BOXES; ++i) {
+            if (collision.checkAABBcollision(player.sprite.getPosition().x, player.sprite.getPosition().y,
+                                             player.size.x, player.size.y,
+                                             flagsCollision.collVector[i]->getPosition().x,
+                                             flagsCollision.collVector[i]->getPosition().y,
+                                             flagsCollision.collVector[i]->getSize().x,
+                                             flagsCollision.collVector[i]->getSize().y)) {
+
+                if (grassland.LEVEL_STRING == "brickland" && !isLevelChanged) {
+                    grassland.LEVEL_STRING = "grassland";
+                    isLevelChanged = true;
+                }
+                if (grassland.LEVEL_STRING == "grassland" && !isLevelChanged) {
+                    grassland.LEVEL_STRING = "brickland";
+                    isLevelChanged = true;
+                }
+                player.sprite.setPosition(40, 40);
+                camera.setCamCenter(sf::Vector2f(player.sprite.getPosition().x, player.sprite.getPosition().y));
+            }
+        }
+        if (isLevelChanged) {
+            isLevelChanged = false;
+        }
+        player.animate();
         player.movePlayer();
         camera.moveCam(player.position.x, player.position.y);
         window.draw(player.sprite);
-
         window.display();
     }
     return 0;

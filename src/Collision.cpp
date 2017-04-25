@@ -65,7 +65,7 @@ bool Collision::checkAABBcollision(float xA, float yA, float wA, float hA,
     return true;
 }
 
-void Collision::positionCollisionBoxes()
+void Collision::positionBoundaryCollisionBoxes()
 {
     static int x = 0;
     static int y = 0;
@@ -92,7 +92,7 @@ void Collision::positionCollisionBoxes()
     }
 }
 
-void Collision::positionWorldCollisionBoxes(std::vector<long int> level)
+void Collision::positionWorldCollisionBoxes(const std::vector<long int> &level)
 {
     resetCollision();
     int x = 0;
@@ -100,9 +100,12 @@ void Collision::positionWorldCollisionBoxes(std::vector<long int> level)
     for (int i = 0; i < MAX_COLLISION_BOXES; ++i) {
         x += 32;
         if (i % 16 == 0) {
+            //Adjust our positions, we have gone
+            //off the edge of the screen.
             x = 0;
             y += 32;
         }
+        //The world objects we should collide with.
         if (level[i] == 3 || level[i] == 6 || level[i] == 7 || level[i] == 10 ||
                     level[i] == 11 || level[i] == 12) {
 

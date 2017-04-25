@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "Player.h"
 #include "Collision.h"
+#include "AnimatedProps.h"
 #include <iostream>
 
 int main()
@@ -12,8 +13,11 @@ int main()
     Config config;
     //Load our worlds
     World grassland;
-    World brickland;
+    World farmland;
     World flags;
+    //Animated props
+    World animPropsWorld;
+    AnimatedProps animprops;
     //Store a different set of collision
     //boxes for different events.
     Collision collision;
@@ -48,8 +52,8 @@ int main()
         return -1;
     }
 
-    if (!brickland.loadNewLevel("map/brickland.map", "textures/level/brickland.png")) {
-        std::cerr << "FATAL ERROR: Missing required mapfile: brickland.map";
+    if (!farmland.loadNewLevel("map/farmland.map", "textures/level/farmland.png")) {
+        std::cerr << "FATAL ERROR: Missing required mapfile: farmland.map";
         return -1;
     }
 
@@ -58,6 +62,10 @@ int main()
         return -1;
     }
 
+    if (!animPropsWorld.loadNewLevel("map/animprops.map", "textures/level/animatedprops.png")) {
+        std::cerr << "FATAL ERROR: Missing required mapfile: animprops.map";
+        return -1;
+    }
 
     //We need a sprite to display our cloud background image
     sf::Sprite cloudsBackground;
@@ -76,8 +84,8 @@ int main()
     //Init the camera
     camera.setCamCenter(player.sprite.getPosition());
 
-    //Position our collision boxes
-    collision.positionCollisionBoxes();
+    //Position collision boxes on the edge of the map
+    collision.positionBoundaryCollisionBoxes();
     //Position our world/level collision boxes
     grasslandCollision.positionWorldCollisionBoxes(grassland.currentLevel);
     //Position the collision boxes for our flags
@@ -105,7 +113,7 @@ int main()
                 grassland.LEVEL_STRING= "grassland";
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) {
-                grassland.LEVEL_STRING= "brickland";
+                grassland.LEVEL_STRING= "farmland";
             }
         }
 
@@ -116,8 +124,14 @@ int main()
         if (grassland.LEVEL_STRING== "grassland") {
             window.draw(grassland);
         }
-        if (grassland.LEVEL_STRING== "brickland") {
-            window.draw(brickland);
+        if (grassland.LEVEL_STRING== "farmland") {
+            window.draw(farmland);
+            //Position the animated prop
+            animprops.windmill.setPosition(96, 320);
+            animprops.animate();
+            //Draw the sprite on top of the world
+            window.draw(animPropsWorld);
+            window.draw(animprops.windmill);
         }
         window.draw(flags);
         //Draw collision boxes
@@ -154,27 +168,29 @@ int main()
         }
 
         //Collisions within our grasslands levels
-        for (int i = 0; i < grasslandCollision.MAX_COLLISION_BOXES; ++i) {
-            if (grasslandCollision.checkAABBcollision(player.sprite.getPosition().x, player.sprite.getPosition().y,
-                                             player.size.x - 8, player.size.y,
-                                             grasslandCollision.collVector[i]->getPosition().x,
-                                             grasslandCollision.collVector[i]->getPosition().y,
-                                             grasslandCollision.collVector[i]->getSize().x,
-                                             grasslandCollision.collVector[i]->getSize().y)) {
+        if (grassland.LEVEL_STRING == "grassland") {
+            for (int i = 0; i < grasslandCollision.MAX_COLLISION_BOXES; ++i) {
+                if (grasslandCollision.checkAABBcollision(player.sprite.getPosition().x, player.sprite.getPosition().y,
+                                                 player.size.x - 8, player.size.y,
+                                                 grasslandCollision.collVector[i]->getPosition().x,
+                                                 grasslandCollision.collVector[i]->getPosition().y,
+                                                 grasslandCollision.collVector[i]->getSize().x,
+                                                 grasslandCollision.collVector[i]->getSize().y)) {
 
-                if (player.position.x == -1) {
-                    player.sprite.move(1, 0);
+                    if (player.position.x == -1) {
+                        player.sprite.move(1, 0);
+                    }
+                    if (player.position.x == 1) {
+                        player.sprite.move(-1, 0);
+                    }
+                    if (player.position.y == 1) {
+                        player.sprite.move(0, -1);
+                    }
+                    if (player.position.y == -1) {
+                        player.sprite.move(0, 1);
+                    }
+                    camera.setCamCenter(sf::Vector2f(player.sprite.getPosition().x, player.sprite.getPosition().y));
                 }
-                if (player.position.x == 1) {
-                    player.sprite.move(-1, 0);
-                }
-                if (player.position.y == 1) {
-                    player.sprite.move(0, -1);
-                }
-                if (player.position.y == -1) {
-                    player.sprite.move(0, 1);
-                }
-                camera.setCamCenter(sf::Vector2f(player.sprite.getPosition().x, player.sprite.getPosition().y));
             }
         }
 
@@ -183,21 +199,38 @@ int main()
         static bool isLevelChanged = false;
         for (int i = 0; i < flagsCollision.MAX_COLLISION_BOXES; ++i) {
             if (collision.checkAABBcollision(player.sprite.getPosition().x, player.sprite.getPosition().y,
-                                             player.size.x, player.size.y,
+                                             player.size.x - 8, player.size.y,
                                              flagsCollision.collVector[i]->getPosition().x,
                                              flagsCollision.collVector[i]->getPosition().y,
                                              flagsCollision.collVector[i]->getSize().x,
                                              flagsCollision.collVector[i]->getSize().y)) {
 
-                if (grassland.LEVEL_STRING == "brickland" && !isLevelChanged) {
+                if (grassland.LEVEL_STRING == "farmland" && !isLevelChanged) {
                     grassland.LEVEL_STRING = "grassland";
                     isLevelChanged = true;
                 }
                 if (grassland.LEVEL_STRING == "grassland" && !isLevelChanged) {
-                    grassland.LEVEL_STRING = "brickland";
+                    grassland.LEVEL_STRING = "farmland";
                     isLevelChanged = true;
                 }
-                player.sprite.setPosition(40, 40);
+                //Position our player depending on which
+                //flag he hit.
+                //Left Flag
+                if (player.sprite.getPosition().x < 80) {
+                    player.sprite.setPosition(400, 224);
+                }
+                //Right flag
+                if (player.sprite.getPosition().x > 410) {
+                    player.sprite.setPosition(85, 224);
+                }
+                //Top flag
+                if (player.sprite.getPosition().y < 80) {
+                    player.sprite.setPosition(224, 400);
+                }
+                //Bottom flag
+                if (player.sprite.getPosition().y > 410) {
+                    player.sprite.setPosition(224, 85);
+                }
                 camera.setCamCenter(sf::Vector2f(player.sprite.getPosition().x, player.sprite.getPosition().y));
             }
         }

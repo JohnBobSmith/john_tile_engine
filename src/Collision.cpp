@@ -1,4 +1,5 @@
 #include "Collision.h"
+#include "Config.h"
 #include <iostream>
 
 Collision::Collision()
@@ -92,8 +93,11 @@ void Collision::positionBoundaryCollisionBoxes()
     }
 }
 
-void Collision::positionWorldCollisionBoxes(const std::vector<long int> &level)
+void Collision::positionWorldCollisionBoxes(const std::vector<long int> &level, std::string world)
 {
+    //For LEVEL_STRING
+    Config config;
+
     resetCollision();
     int x = 0;
     int y = 0;
@@ -105,11 +109,18 @@ void Collision::positionWorldCollisionBoxes(const std::vector<long int> &level)
             x = 0;
             y += 32;
         }
-        //The world objects we should collide with.
-        if (level[i] == 3 || level[i] == 6 || level[i] == 7 || level[i] == 10 ||
-                    level[i] == 11 || level[i] == 12) {
+        //The world objects we should collide with per map basis.
+        if (world == "grassland") {
+            if (level[i] == 3 || level[i] == 6 || level[i] == 7 || level[i] == 10 ||
+                        level[i] == 11 || level[i] == 12) {
 
-            collVector[i]->setPosition(x, y - 32);
+                collVector[i]->setPosition(x, y - 32);
+            }
+        }
+        if (world == "farmland") {
+            if (level[i] == 3 || level[i] == 7 || level[i] == 8) {
+                collVector[i]->setPosition(x, y - 32);
+            }
         }
     }
 }

@@ -1,4 +1,6 @@
 #include "Player.h"
+#include "Camera.h"
+#include "Collision.h"
 #include <string>
 #include <iostream>
 
@@ -29,7 +31,7 @@ bool Player::setTexture(std::string path)
 
 void Player::movePlayer()
 {
-    //Move our player.
+    //Move our player
     position.x = velocity.x;
     position.y = velocity.y;
     sprite.move(position);
@@ -102,6 +104,32 @@ void Player::animate()
         //If we reached the end of the sheet, reset.
         if (counter == 88) {
             counter = 0;
+        }
+    }
+}
+
+bool Player::checkCollision(Collision &collision, Camera &camera)
+{
+    for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
+        if (collision.checkAABBcollision(sprite.getPosition().x, sprite.getPosition().y, size.x, size.y,
+                                         collision.collVector[i]->getPosition().x,
+                                         collision.collVector[i]->getPosition().y,
+                                         collision.collVector[i]->getSize().x,
+                                         collision.collVector[i]->getSize().y)) {
+
+            if (position.x == -1) {
+                sprite.move(1, 0);
+            }
+            if (position.x == 1) {
+                sprite.move(-1, 0);
+            }
+            if (position.y == 1) {
+                sprite.move(0, -1);
+            }
+            if (position.y == -1) {
+                sprite.move(0, 1);
+            }
+            camera.setCamCenter(sf::Vector2f(sprite.getPosition().x, sprite.getPosition().y));
         }
     }
 }

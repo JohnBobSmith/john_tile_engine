@@ -2,6 +2,8 @@
 #define PLAYER_H
 
 #include <SFML/Graphics.hpp>
+#include "Collision.h"
+#include "Camera.h"
 
 class Player
 {
@@ -26,6 +28,7 @@ class Player
         bool setTexture(std::string path);
         void handlePlayerEvents(sf::Event event);
         void movePlayer();
+        bool checkCollision(Collision &collision, Camera &camera);
 };
 
 

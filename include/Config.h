@@ -13,6 +13,9 @@ class Config
         int getScreenHeight() { return screenHeight; }
         sf::Vector2i getScreenSize() { return screenSize; }
 
+        //The level that is loaded
+        std::string LEVEL_STRING = "grassland";
+
     private:
         //The window name
         std::string appName = "World Testing";

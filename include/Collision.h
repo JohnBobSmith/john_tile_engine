@@ -27,7 +27,7 @@ class Collision
         void positionBoundaryCollisionBoxes();
 
         //Place the collision boxes at certain points in the level.
-        void positionWorldCollisionBoxes(const std::vector<long int> &level);
+        void positionWorldCollisionBoxes(const std::vector<long int> &level, std::string world);
 
         //Reset the collision boxes by placing them at 0,0.
         void resetCollision();

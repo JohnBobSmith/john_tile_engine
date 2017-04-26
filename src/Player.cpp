@@ -111,7 +111,7 @@ void Player::animate()
 bool Player::checkCollision(Collision &collision, Camera &camera)
 {
     for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
-        if (collision.checkAABBcollision(sprite.getPosition().x, sprite.getPosition().y, size.x, size.y,
+        if (collision.checkAABBcollision(sprite.getPosition().x, sprite.getPosition().y, size.x - 8, size.y,
                                          collision.collVector[i]->getPosition().x,
                                          collision.collVector[i]->getPosition().y,
                                          collision.collVector[i]->getSize().x,

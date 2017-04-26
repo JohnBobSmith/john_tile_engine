@@ -24,6 +24,7 @@ int main()
     Collision flagsCollision;
     Collision grasslandCollision;
     Collision farmlandCollision;
+    Collision animPropsCollision;
     //Change flagsCollision fill color
     for (int i = 0; i < flagsCollision.MAX_COLLISION_BOXES; ++i) {
         flagsCollision.collVector[i]->setFillColor(sf::Color::Magenta);
@@ -35,6 +36,10 @@ int main()
     //Change farmlandCollision fill color
     for (int i = 0; i < farmlandCollision.MAX_COLLISION_BOXES; ++i) {
         farmlandCollision.collVector[i]->setFillColor(sf::Color::White);
+    }
+    //Change animPropsCollision fill color
+    for (int i = 0; i < animPropsCollision.MAX_COLLISION_BOXES; ++i) {
+        animPropsCollision.collVector[i]->setFillColor(sf::Color::Green);
     }
     //Camera and player
     Camera camera;
@@ -94,6 +99,7 @@ int main()
     //Position our world/level collision boxes
     grasslandCollision.positionWorldCollisionBoxes(grassland.currentLevel, "grassland");
     farmlandCollision.positionWorldCollisionBoxes(farmland.currentLevel, "farmland");
+    animPropsCollision.positionWorldCollisionBoxes(animPropsWorld.currentLevel, "animprops");
     //Position the collision boxes for our flags
     for (int i = 0; i < flagsCollision.MAX_COLLISION_BOXES; ++i) {
         flagsCollision.collVector[i]->setPosition(0, 0);
@@ -115,22 +121,22 @@ int main()
                 isRunning = false;
             }
             player.handlePlayerEvents(event);
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)) {
-                config.LEVEL_STRING = "grassland";
-            }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) {
-                config.LEVEL_STRING = "farmland";
-            }
         }
 
         //Clear, move, and draw
         window.clear();
         window.draw(cloudsBackground);
         window.setView(camera.getCamera());
+        //Resolve collisions before moving the player
+        player.checkCollision(collision, camera);
+        player.checkCollision(animPropsCollision, camera);
+        //Draw the specific levels
         if (config.LEVEL_STRING== "grassland") {
+            player.checkCollision(grasslandCollision, camera);
             window.draw(grassland);
         }
         if (config.LEVEL_STRING== "farmland") {
+            player.checkCollision(farmlandCollision, camera);
             window.draw(farmland);
             //Position the animated prop
             animprops.windmill.setPosition(128, 320);
@@ -149,62 +155,6 @@ int main()
             window.draw(*farmlandCollision.collVector[i]);
         }
         //*/
-        //Resolve collisions before moving the player
-        player.checkCollision(collision, camera);
-
-        //Collisions within our grasslands levels
-        if (config.LEVEL_STRING == "grassland") {
-            for (int i = 0; i < grasslandCollision.MAX_COLLISION_BOXES; ++i) {
-                if (grasslandCollision.checkAABBcollision(player.sprite.getPosition().x, player.sprite.getPosition().y,
-                                                 player.size.x - 8, player.size.y,
-                                                 grasslandCollision.collVector[i]->getPosition().x,
-                                                 grasslandCollision.collVector[i]->getPosition().y,
-                                                 grasslandCollision.collVector[i]->getSize().x,
-                                                 grasslandCollision.collVector[i]->getSize().y)) {
-
-                    if (player.position.x == -1) {
-                        player.sprite.move(1, 0);
-                    }
-                    if (player.position.x == 1) {
-                        player.sprite.move(-1, 0);
-                    }
-                    if (player.position.y == 1) {
-                        player.sprite.move(0, -1);
-                    }
-                    if (player.position.y == -1) {
-                        player.sprite.move(0, 1);
-                    }
-                    camera.setCamCenter(sf::Vector2f(player.sprite.getPosition().x, player.sprite.getPosition().y));
-                }
-            }
-        }
-
-        //Collisions within our farmland levels
-        if (config.LEVEL_STRING == "farmland") {
-            for (int i = 0; i < farmlandCollision.MAX_COLLISION_BOXES; ++i) {
-                if (farmlandCollision.checkAABBcollision(player.sprite.getPosition().x, player.sprite.getPosition().y,
-                                                 player.size.x - 8, player.size.y,
-                                                 farmlandCollision.collVector[i]->getPosition().x,
-                                                 farmlandCollision.collVector[i]->getPosition().y,
-                                                 farmlandCollision.collVector[i]->getSize().x,
-                                                 farmlandCollision.collVector[i]->getSize().y)) {
-
-                    if (player.position.x == -1) {
-                        player.sprite.move(1, 0);
-                    }
-                    if (player.position.x == 1) {
-                        player.sprite.move(-1, 0);
-                    }
-                    if (player.position.y == 1) {
-                        player.sprite.move(0, -1);
-                    }
-                    if (player.position.y == -1) {
-                        player.sprite.move(0, 1);
-                    }
-                    camera.setCamCenter(sf::Vector2f(player.sprite.getPosition().x, player.sprite.getPosition().y));
-                }
-            }
-        }
 
         //Did the player touch a flag?
         //If so, change levels.

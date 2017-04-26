@@ -122,6 +122,11 @@ void Collision::positionWorldCollisionBoxes(const std::vector<long int> &level, 
                 collVector[i]->setPosition(x, y - 32);
             }
         }
+        if (world == "animprops") {
+            if (level[i] == 1 || level[i] == 4) {
+                collVector[i]->setPosition(x, y - 32);
+            }
+        }
     }
 }
 

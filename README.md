@@ -2,14 +2,8 @@
 Welcome to the repository for John's Tiling Engine, or JTE.
 
 Backstory:
-I was very frustrated with the lack of a proper tiling engine 
-for 2D video games. A lot of excellent game engines/framework also
-lack a scene graph, something I will be impleneting shortly.
-I also dislike the fact that there are no decent world/map editors.
-I may implement one of those too. We'll see, but lets not get ahead 
-of ourselves. This specific project aims to be a simple and awesome way to
-get started with making 2D levels. It is not meant to be a complete
-game engine at this time.
+I was very frustrated with the lack of a proper tiling engine support
+for 2D video games. So I've decided to make a simple tiling engine myself. 
 
 To compile this, you will need:
 

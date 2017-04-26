@@ -97,9 +97,9 @@ int main()
     //Position collision boxes on the edge of the map
     collision.positionBoundaryCollisionBoxes();
     //Position our world/level collision boxes
-    grasslandCollision.positionWorldCollisionBoxes(grassland.currentLevel, "grassland");
-    farmlandCollision.positionWorldCollisionBoxes(farmland.currentLevel, "farmland");
-    animPropsCollision.positionWorldCollisionBoxes(animPropsWorld.currentLevel, "animprops");
+    grasslandCollision.positionWorldCollisionBoxes(grassland.currentLevel, config.objectsInGrassland);
+    farmlandCollision.positionWorldCollisionBoxes(farmland.currentLevel, config.objectsInFarmland);
+    animPropsCollision.positionWorldCollisionBoxes(animPropsWorld.currentLevel, config.objectsInAnimprop);
     //Position the collision boxes for our flags
     for (int i = 0; i < flagsCollision.MAX_COLLISION_BOXES; ++i) {
         flagsCollision.collVector[i]->setPosition(0, 0);

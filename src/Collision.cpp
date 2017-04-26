@@ -93,9 +93,10 @@ void Collision::positionBoundaryCollisionBoxes()
     }
 }
 
-void Collision::positionWorldCollisionBoxes(const std::vector<long int> &level, std::string world)
+void Collision::positionWorldCollisionBoxes(const std::vector<long int> &level,
+                            const std::unordered_set<int> &objectsToCollideWith)
 {
-    //For LEVEL_STRING
+    //For our unordered sets
     Config config;
 
     resetCollision();
@@ -110,22 +111,8 @@ void Collision::positionWorldCollisionBoxes(const std::vector<long int> &level, 
             y += 32;
         }
         //The world objects we should collide with per map basis.
-        if (world == "grassland") {
-            if (level[i] == 3 || level[i] == 6 || level[i] == 7 || level[i] == 10 ||
-                        level[i] == 11 || level[i] == 12) {
-
-                collVector[i]->setPosition(x, y - 32);
-            }
-        }
-        if (world == "farmland") {
-            if (level[i] == 3 || level[i] == 7 || level[i] == 8) {
-                collVector[i]->setPosition(x, y - 32);
-            }
-        }
-        if (world == "animprops") {
-            if (level[i] == 1 || level[i] == 4) {
-                collVector[i]->setPosition(x, y - 32);
-            }
+        if (objectsToCollideWith.count(level[i])) {
+            collVector[i]->setPosition(x, y - 32);
         }
     }
 }

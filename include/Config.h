@@ -2,6 +2,7 @@
 #define CONFIG_H
 
 #include <SFML/Graphics.hpp>
+#include <unordered_set>
 #include <string>
 
 class Config
@@ -15,6 +16,10 @@ class Config
 
         //The level that is loaded
         std::string LEVEL_STRING = "grassland";
+
+        const std::unordered_set<int> objectsInGrassland = {3, 6, 7, 10, 11, 12};
+        const std::unordered_set<int> objectsInFarmland = {3, 7, 8};
+        const std::unordered_set<int> objectsInAnimprop = {1, 4};
 
     private:
         //The window name

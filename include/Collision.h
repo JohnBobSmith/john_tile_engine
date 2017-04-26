@@ -2,8 +2,10 @@
 #define COLLISION_H
 
 #include <SFML/Graphics.hpp>
+#include <unordered_set>
 #include <vector>
 #include <string>
+
 
 class Collision
 {
@@ -27,7 +29,7 @@ class Collision
         void positionBoundaryCollisionBoxes();
 
         //Place the collision boxes at certain points in the level.
-        void positionWorldCollisionBoxes(const std::vector<long int> &level, std::string world);
+        void positionWorldCollisionBoxes(const std::vector<long int> &level, const std::unordered_set<int> &objectsToCollideWith);
 
         //Reset the collision boxes by placing them at 0,0.
         void resetCollision();

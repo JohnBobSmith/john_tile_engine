@@ -24,6 +24,7 @@ class Camera
         void setCamCenter (sf::Vector2f centerPoint) { camera.setCenter(centerPoint); }
 
     private:
+        //The camera itself
         sf::View camera;
 };
 

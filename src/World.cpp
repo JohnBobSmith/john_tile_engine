@@ -13,7 +13,7 @@ World::World()
 
 World::~World()
 {
-
+    //Nothing to do currently.
 }
 
 void World::clearLevel()
@@ -58,7 +58,7 @@ bool World::processLevelData(std::string pathToMapFile)
         return false; //No mapfile found.
     }
     mapfile.close(); //Remember to cleanup!
-    return true;
+    return true; //Successfully loaded level
 }
 
 bool World::loadNewLevel(std::string levelName, std::string tileset)
@@ -76,6 +76,7 @@ bool World::loadNewLevel(std::string levelName, std::string tileset)
         return false; //Error no tile image
     }
 
+    //Successfully loaded a new level
     return true;
 }
 

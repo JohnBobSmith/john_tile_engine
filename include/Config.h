@@ -8,7 +8,10 @@
 class Config
 {
     public:
+        //Init our variables
         Config();
+
+        //Self explanatory functions for retrieving data
         std::string getAppName() { return appName; }
         int getScreenWidth() { return screenWidth; }
         int getScreenHeight() { return screenHeight; }
@@ -17,6 +20,7 @@ class Config
         //The level that is loaded
         std::string LEVEL_STRING = "grassland";
 
+        //The objects in our tilemap to collide with
         const std::unordered_set<int> objectsInGrassland = {3, 6, 7, 10, 11, 12};
         const std::unordered_set<int> objectsInFarmland = {3, 7, 8};
         const std::unordered_set<int> objectsInAnimprop = {1, 4};

@@ -41,6 +41,7 @@ int main()
     for (int i = 0; i < animPropsCollision.MAX_COLLISION_BOXES; ++i) {
         animPropsCollision.collVector[i]->setFillColor(sf::Color::Green);
     }
+
     //Camera and player
     Camera camera;
     Player player;
@@ -155,7 +156,6 @@ int main()
             window.draw(*farmlandCollision.collVector[i]);
         }
         //*/
-
         //Did the player touch a flag?
         //If so, change levels.
         static bool isLevelChanged = false;
@@ -175,8 +175,7 @@ int main()
                     config.LEVEL_STRING = "farmland";
                     isLevelChanged = true;
                 }
-                //Position our player depending on which
-                //flag he hit.
+                //Position our player depending on which the player hit.
                 //Left Flag
                 if (player.sprite.getPosition().x < 80) {
                     player.sprite.setPosition(400, 224);
@@ -193,7 +192,9 @@ int main()
                 if (player.sprite.getPosition().y > 410) {
                     player.sprite.setPosition(224, 85);
                 }
-                camera.setCamCenter(sf::Vector2f(player.sprite.getPosition().x, player.sprite.getPosition().y));
+                //Update the camera
+                camera.setCamCenter(sf::Vector2f(player.sprite.getPosition().x,
+                                                    player.sprite.getPosition().y));
             }
         }
         if (isLevelChanged) {

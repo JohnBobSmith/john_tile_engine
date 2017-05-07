@@ -7,6 +7,7 @@
 //Initialize our base values
 Player::Player()
 {
+    keyCounter = 0;
     isActive = true;
     isWalking = false;
     position.x = 0;
@@ -21,10 +22,12 @@ Player::Player()
 
 bool Player::setTexture(std::string path)
 {
+    //If we cannot load the texture, error out.
     if (!texture.loadFromFile(path.c_str())) {
         std::cerr << "Error: Missing texture " << path.c_str();
         return false;
     }
+    //Otherwise, set the texture and return success.
     sprite.setTexture(texture);
     return true;
 }
@@ -37,12 +40,14 @@ void Player::movePlayer()
     sprite.move(position);
 }
 
-//Keep track of how many keys are pressed.
-static int keyCounter = 0;
+
 void Player::handlePlayerEvents(sf::Event event)
 {
+    //If key is pressed...
     if (event.type == sf::Event::KeyPressed) {
+        //...Look for the keycode, and then...
         if (event.key.code == sf::Keyboard::Up) {
+            //...Do stuff
             velocity.y -= maxVelocity;
             keyCounter += 1;
             isWalking = true;
@@ -65,10 +70,15 @@ void Player::handlePlayerEvents(sf::Event event)
     }
     //Stop moving when we release the key
     if (event.type == sf::Event::KeyReleased) {
+        //If only one key is pressed...
         if (keyCounter == 1) {
+            //...Do stuff
             isWalking = false;
         }
+        //Reset our texture rect when we stop walking
         sprite.setTextureRect(sf::IntRect(0, 0, 22, 32));
+
+        //When we release a key, adjust player attributes
         if (event.key.code == sf::Keyboard::Up) {
             velocity.y += maxVelocity;
             keyCounter -= 1;
@@ -90,6 +100,12 @@ void Player::handlePlayerEvents(sf::Event event)
 
 void Player::animate()
 {
+    /* TODO:
+    A future version of this algorithm
+    should use SFML's clock and time features.
+    This works fine currently and I'm not going to
+    bother changing it (for now).
+    */
     //Animate the player
     static int counter = 0;
     static float timer = 5.0f;
@@ -110,13 +126,15 @@ void Player::animate()
 
 bool Player::checkCollision(Collision &collision, Camera &camera)
 {
+    //If there is a collision...
     for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
-        if (collision.checkAABBcollision(sprite.getPosition().x, sprite.getPosition().y, size.x - 8, size.y,
+        if (collision.checkAABBcollision(sprite.getPosition().x, sprite.getPosition().y,
+                                         size.x - 8, size.y, //Players size
                                          collision.collVector[i]->getPosition().x,
                                          collision.collVector[i]->getPosition().y,
                                          collision.collVector[i]->getSize().x,
                                          collision.collVector[i]->getSize().y)) {
-
+            //...Move the sprite back
             if (position.x == -1) {
                 sprite.move(1, 0);
             }
@@ -129,6 +147,7 @@ bool Player::checkCollision(Collision &collision, Camera &camera)
             if (position.y == -1) {
                 sprite.move(0, 1);
             }
+            //Update the camera
             camera.setCamCenter(sf::Vector2f(sprite.getPosition().x, sprite.getPosition().y));
         }
     }

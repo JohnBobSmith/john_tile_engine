@@ -9,10 +9,8 @@
 class World : public sf::Drawable, public sf::Transformable
 {
     public:
-        //Prevent errors of varying sorts.
+        //Init and cleanup our world
         World();
-        //Because we have used "new" in
-        //this code, be sure to clean up!
         ~World();
 
         //Maximum collision boxes, for bounds checking and what not
@@ -26,7 +24,6 @@ class World : public sf::Drawable, public sf::Transformable
 
         //Change and load levels
         bool loadNewLevel(std::string levelName, std::string tileset);
-
         /*
             Load our tile map into the application.
 

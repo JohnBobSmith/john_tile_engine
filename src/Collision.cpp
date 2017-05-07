@@ -15,6 +15,7 @@ Collision::Collision()
 
 Collision::~Collision()
 {
+    //Cleanup anything we've "newed"
     for (std::vector<sf::RectangleShape*>::iterator it = collVector.begin(); it != collVector.end(); ++it) {
         delete *it;
     }
@@ -68,8 +69,10 @@ bool Collision::checkAABBcollision(float xA, float yA, float wA, float hA,
 
 void Collision::positionBoundaryCollisionBoxes()
 {
+    //Position our boundary boxes on the edges of the map
     static int x = 0;
     static int y = 0;
+    //For every box, adjust its X and Y location
     for (int i = 0; i < MAX_COLLISION_BOXES; ++i) {
         collVector[i]->setPosition(x, y);
         x += 32;
@@ -99,6 +102,7 @@ void Collision::positionWorldCollisionBoxes(const std::vector<long int> &level,
     //For our unordered sets
     Config config;
 
+    //Reset the world
     resetCollision();
     int x = 0;
     int y = 0;
@@ -119,6 +123,8 @@ void Collision::positionWorldCollisionBoxes(const std::vector<long int> &level,
 
 void Collision::resetCollision()
 {
+    //Reset our collision vector by moving
+    //everything off screen.
     for (int i = 0; i < MAX_COLLISION_BOXES; ++i) {
         collVector[i]->setPosition(0, 0);
     }

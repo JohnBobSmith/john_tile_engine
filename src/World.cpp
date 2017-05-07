@@ -1,9 +1,9 @@
-#include "World.h"
+#include "../include/World.h"
+#include "../include/Collision.h"
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>
-#include "Collision.h"
 
 World::World()
 {

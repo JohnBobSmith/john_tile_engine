@@ -1,6 +1,6 @@
-#include "Player.h"
-#include "Camera.h"
-#include "Collision.h"
+#include "../include/Player.h"
+#include "../include/Camera.h"
+#include "../include/Collision.h"
 #include <string>
 #include <iostream>
 

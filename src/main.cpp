@@ -1,10 +1,10 @@
 #include <SFML/Graphics.hpp>
-#include "Config.h"
-#include "World.h"
-#include "Camera.h"
-#include "Player.h"
-#include "Collision.h"
-#include "AnimatedProps.h"
+#include "../include/Config.h"
+#include "../include/World.h"
+#include "../include/Camera.h"
+#include "../include/Player.h"
+#include "../include/Collision.h"
+#include "../include/AnimatedProps.h"
 #include <iostream>
 
 int main()

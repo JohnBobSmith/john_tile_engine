@@ -1,5 +1,5 @@
-#include "Collision.h"
-#include "Config.h"
+#include "../include/Collision.h"
+#include "../include/Config.h"
 #include <iostream>
 
 Collision::Collision()

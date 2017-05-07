@@ -1,4 +1,4 @@
-#include "AnimatedProps.h"
+#include "../include/AnimatedProps.h"
 #include <iostream>
 
 AnimatedProps::AnimatedProps()

@@ -38,9 +38,6 @@ class World : public sf::Drawable, public sf::Transformable
         //Store our level as a vector
         std::vector<long int> currentLevel;
 
-        //Determine which level we are loading
-        std::string LEVEL_STRING = "grassland";
-
     private:
         //Our modified draw function
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;

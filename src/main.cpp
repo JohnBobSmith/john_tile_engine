@@ -100,7 +100,6 @@ int main()
     //Position our world/level collision boxes
     grasslandCollision.positionWorldCollisionBoxes(grassland.currentLevel, config.objectsInGrassland);
     farmlandCollision.positionWorldCollisionBoxes(farmland.currentLevel, config.objectsInFarmland);
-    animPropsCollision.positionWorldCollisionBoxes(animPropsWorld.currentLevel, config.objectsInAnimprop);
     //Position the collision boxes for our flags
     for (int i = 0; i < flagsCollision.MAX_COLLISION_BOXES; ++i) {
         flagsCollision.collVector[i]->setPosition(0, 0);
@@ -141,6 +140,7 @@ int main()
             window.draw(farmland);
             //Position the animated prop
             animprops.windmill.setPosition(128, 320);
+            animPropsCollision.positionWorldCollisionBoxes(animPropsWorld.currentLevel, config.objectsInAnimprop);
             animprops.animate();
             //Draw the sprite on top of the world
             window.draw(animPropsWorld);

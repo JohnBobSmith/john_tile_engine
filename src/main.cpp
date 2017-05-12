@@ -5,12 +5,14 @@
 #include "../include/Player.h"
 #include "../include/Collision.h"
 #include "../include/AnimatedProps.h"
+#include "../include/Flags.h"
 #include <iostream>
 
 int main()
 {
     //Initialize our objects
     Config config;
+    Flags flagObject;
     //Load our worlds
     World grassland;
     World farmland;
@@ -84,7 +86,8 @@ int main()
     cloudsTexture.setRepeated(true);
     cloudsTexture.loadFromFile("textures/level/clouds.png");
     cloudsBackground.setTexture(cloudsTexture);
-    cloudsBackground.setTextureRect(sf::IntRect(0, 0, config.getScreenWidth() * 4, config.getScreenHeight() * 4));
+    cloudsBackground.setTextureRect(sf::IntRect(0, 0, config.getScreenWidth() * 4,
+                                                   config.getScreenHeight() * 4));
     cloudsBackground.setPosition(-500, -500);
 
     //Init the player
@@ -100,18 +103,7 @@ int main()
     //Position our world/level collision boxes
     grasslandCollision.positionWorldCollisionBoxes(grassland.currentLevel, config.objectsInGrassland);
     farmlandCollision.positionWorldCollisionBoxes(farmland.currentLevel, config.objectsInFarmland);
-    //Position the collision boxes for our flags
-    for (int i = 0; i < flagsCollision.MAX_COLLISION_BOXES; ++i) {
-        flagsCollision.collVector[i]->setPosition(0, 0);
-    }
-    //Top flag
-    flagsCollision.collVector[0]->setPosition(224, 32);
-    //Left flag
-    flagsCollision.collVector[1]->setPosition(32, 224);
-    //Right flag
-    flagsCollision.collVector[2]->setPosition(448, 224);
-    //Bottom flag
-    flagsCollision.collVector[3]->setPosition(224, 448);
+    flagObject.positionFlags(flagsCollision);
 
     //Game loop.
     while (isRunning) {
@@ -130,6 +122,7 @@ int main()
         //Resolve collisions before moving the player
         player.checkCollision(collision, camera);
         player.checkCollision(animPropsCollision, camera);
+        flagObject.checkCollision(flagsCollision, camera, player, config);
         //Draw the specific levels
         if (config.LEVEL_STRING== "grassland") {
             player.checkCollision(grasslandCollision, camera);
@@ -140,7 +133,8 @@ int main()
             window.draw(farmland);
             //Position the animated prop
             animprops.windmill.setPosition(128, 320);
-            animPropsCollision.positionWorldCollisionBoxes(animPropsWorld.currentLevel, config.objectsInAnimprop);
+            animPropsCollision.positionWorldCollisionBoxes(animPropsWorld.currentLevel,
+                                                             config.objectsInAnimprop);
             animprops.animate();
             //Draw the sprite on top of the world
             window.draw(animPropsWorld);
@@ -156,50 +150,6 @@ int main()
             window.draw(*farmlandCollision.collVector[i]);
         }
         //*/
-        //Did the player touch a flag?
-        //If so, change levels.
-        static bool isLevelChanged = false;
-        for (int i = 0; i < flagsCollision.MAX_COLLISION_BOXES; ++i) {
-            if (collision.checkAABBcollision(player.sprite.getPosition().x, player.sprite.getPosition().y,
-                                             player.size.x - 8, player.size.y,
-                                             flagsCollision.collVector[i]->getPosition().x,
-                                             flagsCollision.collVector[i]->getPosition().y,
-                                             flagsCollision.collVector[i]->getSize().x,
-                                             flagsCollision.collVector[i]->getSize().y)) {
-
-                if (config.LEVEL_STRING == "farmland" && !isLevelChanged) {
-                    config.LEVEL_STRING = "grassland";
-                    isLevelChanged = true;
-                }
-                if (config.LEVEL_STRING == "grassland" && !isLevelChanged) {
-                    config.LEVEL_STRING = "farmland";
-                    isLevelChanged = true;
-                }
-                //Position our player depending on which the player hit.
-                //Left Flag
-                if (player.sprite.getPosition().x < 80) {
-                    player.sprite.setPosition(400, 224);
-                }
-                //Right flag
-                if (player.sprite.getPosition().x > 410) {
-                    player.sprite.setPosition(85, 224);
-                }
-                //Top flag
-                if (player.sprite.getPosition().y < 80) {
-                    player.sprite.setPosition(224, 400);
-                }
-                //Bottom flag
-                if (player.sprite.getPosition().y > 410) {
-                    player.sprite.setPosition(224, 85);
-                }
-                //Update the camera
-                camera.setCamCenter(sf::Vector2f(player.sprite.getPosition().x,
-                                                    player.sprite.getPosition().y));
-            }
-        }
-        if (isLevelChanged) {
-            isLevelChanged = false;
-        }
         player.animate();
         player.movePlayer();
         camera.moveCam(player.position.x, player.position.y);

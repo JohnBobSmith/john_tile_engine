@@ -17,4 +17,6 @@ I may write a makefile to make this easier in the future, we'll see.
 
 Enjoy!
 
+All sounds are creative commons 0 license unless otherwise specified.
+
 Special thanks to anyone who has helped me with this project. You know who you are. :)

@@ -16,3 +16,5 @@ And currently, a Linux based OS. I will not support Windows OS at this time.
 I may write a makefile to make this easier in the future, we'll see. 
 
 Enjoy!
+
+Special thanks to anyone who has helped me with this project. You know who you are. :)

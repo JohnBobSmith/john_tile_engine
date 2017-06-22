@@ -16,9 +16,6 @@ int main()
     Flags flagObject;
     Audio audio;
 
-    //Testing of audio
-    audio.test.play();
-
     //Load our worlds
     World grassland;
     World farmland;
@@ -144,6 +141,8 @@ int main()
         player.movePlayer();
         camera.moveCam(player.position.x, player.position.y);
         window.draw(player.sprite);
+        //Testing of audio
+        audio.playFootsteps();
         window.display();
     }
     return 0;

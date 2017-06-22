@@ -11,15 +11,14 @@ class Player
         //Init the player
         Player();
 
-        //Players sprite
+        //Players sprite and texture
         sf::Sprite sprite;
-
-        //Players texture
         sf::Texture texture;
 
         //Players position and velocity
         sf::Vector2f position;
         sf::Vector2f velocity;
+        int maxVelocity;
 
         //Player dimensions
         sf::Vector2f size;
@@ -32,9 +31,6 @@ class Player
 
         //Do we animate the player?
         bool isWalking;
-
-        //Max speed
-        int maxVelocity;
 
         //Animate the player
         void animate();
@@ -55,7 +51,5 @@ class Player
         //Keep track of how many keys are pressed.
         int keyCounter;
 };
-
-
 
 #endif // PLAYER_H

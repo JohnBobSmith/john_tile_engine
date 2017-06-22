@@ -24,6 +24,7 @@ class World : public sf::Drawable, public sf::Transformable
 
         //Change and load levels
         bool loadNewLevel(std::string levelName, std::string tileset);
+
         /*
             Load our tile map into the application.
 

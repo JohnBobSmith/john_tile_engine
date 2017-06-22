@@ -13,36 +13,23 @@ int main()
     //Initialize our objects
     Config config;
     Flags flagObject;
+
     //Load our worlds
     World grassland;
     World farmland;
     World flags;
+
     //Animated props
     World animPropsWorld;
     AnimatedProps animprops;
+
     //Store a different set of collision
     //boxes for different events.
-    Collision collision;
-    Collision flagsCollision;
-    Collision grasslandCollision;
-    Collision farmlandCollision;
-    Collision animPropsCollision;
-    //Change flagsCollision fill color
-    for (int i = 0; i < flagsCollision.MAX_COLLISION_BOXES; ++i) {
-        flagsCollision.collVector[i]->setFillColor(sf::Color::Magenta);
-    }
-    //Change grasslandCollision fill color
-    for (int i = 0; i < grasslandCollision.MAX_COLLISION_BOXES; ++i) {
-        grasslandCollision.collVector[i]->setFillColor(sf::Color::Yellow);
-    }
-    //Change farmlandCollision fill color
-    for (int i = 0; i < farmlandCollision.MAX_COLLISION_BOXES; ++i) {
-        farmlandCollision.collVector[i]->setFillColor(sf::Color::White);
-    }
-    //Change animPropsCollision fill color
-    for (int i = 0; i < animPropsCollision.MAX_COLLISION_BOXES; ++i) {
-        animPropsCollision.collVector[i]->setFillColor(sf::Color::Green);
-    }
+    Collision collision(sf::Color::Magenta);
+    Collision flagsCollision(sf::Color::White);
+    Collision grasslandCollision(sf::Color::Yellow);
+    Collision farmlandCollision(sf::Color::Green);
+    Collision animPropsCollision(sf::Color::Blue);
 
     //Camera and player
     Camera camera;
@@ -98,11 +85,9 @@ int main()
     //Init the camera
     camera.setCamCenter(player.sprite.getPosition());
 
-    //Position collision boxes on the edge of the map
-    collision.positionBoundaryCollisionBoxes();
-    //Position our world/level collision boxes
-    grasslandCollision.positionWorldCollisionBoxes(grassland.currentLevel, config.objectsInGrassland);
-    farmlandCollision.positionWorldCollisionBoxes(farmland.currentLevel, config.objectsInFarmland);
+    //Position collision boxes
+    grasslandCollision.positionCollisionBoxes(grassland.currentLevel, config.objectsInGrassland);
+    farmlandCollision.positionCollisionBoxes(farmland.currentLevel, config.objectsInFarmland);
     flagObject.positionFlags(flagsCollision);
 
     //Game loop.
@@ -124,17 +109,17 @@ int main()
         player.checkCollision(animPropsCollision, camera);
         flagObject.checkCollision(flagsCollision, camera, player, config);
         //Draw the specific levels
-        if (config.LEVEL_STRING== "grassland") {
+        if (config.LEVEL_STRING == "grassland") {
             player.checkCollision(grasslandCollision, camera);
             window.draw(grassland);
         }
-        if (config.LEVEL_STRING== "farmland") {
+        if (config.LEVEL_STRING == "farmland") {
             player.checkCollision(farmlandCollision, camera);
             window.draw(farmland);
             //Position the animated prop
             animprops.windmill.setPosition(128, 320);
-            animPropsCollision.positionWorldCollisionBoxes(animPropsWorld.currentLevel,
-                                                             config.objectsInAnimprop);
+            animPropsCollision.positionCollisionBoxes(animPropsWorld.currentLevel,
+                                                        config.objectsInAnimprop);
             animprops.animate();
             //Draw the sprite on top of the world
             window.draw(animPropsWorld);

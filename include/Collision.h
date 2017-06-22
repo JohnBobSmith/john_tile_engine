@@ -10,7 +10,9 @@
 class Collision
 {
     public:
-        Collision();
+        //Allow our collision boxes to have a color,
+        //for debugging purposes.
+        Collision(sf::Color color = sf::Color::Cyan);
         ~Collision();
         /*
             bool checkAABBcollision(float xA, float yA, float wA, float hA,
@@ -24,12 +26,8 @@ class Collision
         bool checkAABBcollision(float xA, float yA, float wA, float hA,
                                 float xB, float yB, float wB, float hB);
 
-        //Position our collision boxes that are on the
-        //borders of the screen.
-        void positionBoundaryCollisionBoxes();
-
         //Place the collision boxes at certain points in the level.
-        void positionWorldCollisionBoxes(const std::vector<long int> &level,
+        void positionCollisionBoxes(const std::vector<long int> &level,
                                          const std::unordered_set<int> &objectsToCollideWith);
 
         //Reset the collision boxes by placing them at 0,0.

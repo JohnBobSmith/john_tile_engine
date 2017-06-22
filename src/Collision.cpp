@@ -2,13 +2,13 @@
 #include "../include/Config.h"
 #include <iostream>
 
-Collision::Collision()
+Collision::Collision(sf::Color color)
 {
     //Populate our collision vector
     for (int i = 0; i < MAX_COLLISION_BOXES; ++i) {
         collVector.push_back(new sf::RectangleShape);
         collVector[i]->setSize(sf::Vector2f(32, 32));
-        collVector[i]->setFillColor(sf::Color::Cyan);
+        collVector[i]->setFillColor(color);
         collVector[i]->setPosition(32, 0);
     }
 }
@@ -67,36 +67,7 @@ bool Collision::checkAABBcollision(float xA, float yA, float wA, float hA,
     return true;
 }
 
-void Collision::positionBoundaryCollisionBoxes()
-{
-    //Position our boundary boxes on the edges of the map
-    static int x = 0;
-    static int y = 0;
-    //For every box, adjust its X and Y location
-    for (int i = 0; i < MAX_COLLISION_BOXES; ++i) {
-        collVector[i]->setPosition(x, y);
-        x += 32;
-        if (i == 15) {
-            x = 32;
-            y = 480;
-        }
-    }
-    //Reset our vertical position, to move up and down
-    //instead of left or right
-    y = 0;
-    for (int i = 30; i < MAX_COLLISION_BOXES; ++i) {
-        collVector[i]->setPosition(0, y);
-        y += 32;
-
-    }
-    y = 0;
-    for (int i = 46; i < MAX_COLLISION_BOXES; ++i) {
-        collVector[i]->setPosition(480, y);
-        y += 32;
-    }
-}
-
-void Collision::positionWorldCollisionBoxes(const std::vector<long int> &level,
+void Collision::positionCollisionBoxes(const std::vector<long int> &level,
                             const std::unordered_set<int> &objectsToCollideWith)
 {
     //For our unordered sets

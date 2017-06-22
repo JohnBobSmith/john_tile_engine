@@ -23,7 +23,7 @@ void Flags::positionFlags(Collision &collision)
 void Flags::checkCollision(Collision &collision, Camera &camera, Player &player, Config &config)
 {
     //Did the player touch a flag?
-    //If so, change levels.
+    //If so, change levels
     static bool isLevelChanged = false;
     for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
         if (collision.checkAABBcollision(player.sprite.getPosition().x, player.sprite.getPosition().y,

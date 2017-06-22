@@ -6,6 +6,7 @@
 #include "../include/Collision.h"
 #include "../include/AnimatedProps.h"
 #include "../include/Flags.h"
+#include "../include/Audio.h"
 #include <iostream>
 
 int main()
@@ -13,6 +14,10 @@ int main()
     //Initialize our objects
     Config config;
     Flags flagObject;
+    Audio audio;
+
+    //Testing of audio
+    audio.test.play();
 
     //Load our worlds
     World grassland;

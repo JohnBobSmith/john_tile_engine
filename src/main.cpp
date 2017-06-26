@@ -6,6 +6,7 @@
 #include "../include/Collision.h"
 #include "../include/AnimatedProps.h"
 #include "../include/Flags.h"
+#include "../include/SoundManager.h"
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
@@ -18,6 +19,7 @@ int main()
     //Initialize our objects
     Config config;
     Flags flagObject;
+    SoundManager soundmngr;
 
     //Load our worlds
     World grassland;
@@ -98,6 +100,18 @@ int main()
     farmlandCollision.positionCollisionBoxes(farmland.currentLevel, config.objectsInFarmland);
     flagObject.positionFlags(flagsCollision);
     grasslandAudio.positionCollisionBoxes(grassland.currentLevel, config.grasslandAudio01);
+
+    //Register our sounds with the sound manager.
+    //Footsteps sounds, to go into bnkFootsteps (defined in SoundManager.h).
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps01.wav", "footsteps01");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps02.wav", "footsteps02");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps03.wav", "footsteps03");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps04.wav", "footsteps04");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps05.wav", "footsteps05");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps06.wav", "footsteps06");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps07.wav", "footsteps07");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps08.wav", "footsteps08");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps09.wav", "footsteps09");
 
     //Game loop.
     while (isRunning) {

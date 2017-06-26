@@ -152,3 +152,4 @@ bool Player::checkCollision(Collision &collision, Camera &camera)
         }
     }
 }
+

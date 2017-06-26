@@ -6,15 +6,18 @@
 #include "../include/Collision.h"
 #include "../include/AnimatedProps.h"
 #include "../include/Flags.h"
-#include "../include/Audio.h"
 #include <iostream>
+#include <stdlib.h>
+#include <time.h>
 
 int main()
 {
+    //Random numbers
+    srand(time(NULL));
+
     //Initialize our objects
     Config config;
     Flags flagObject;
-    Audio audio;
 
     //Load our worlds
     World grassland;
@@ -32,6 +35,9 @@ int main()
     Collision grasslandCollision(sf::Color::Yellow);
     Collision farmlandCollision(sf::Color::Green);
     Collision animPropsCollision(sf::Color::Blue);
+
+    //Audio collision boxes
+    Collision grasslandAudio(sf::Color::Green);
 
     //Camera and player
     Camera camera;
@@ -91,6 +97,7 @@ int main()
     grasslandCollision.positionCollisionBoxes(grassland.currentLevel, config.objectsInGrassland);
     farmlandCollision.positionCollisionBoxes(farmland.currentLevel, config.objectsInFarmland);
     flagObject.positionFlags(flagsCollision);
+    grasslandAudio.positionCollisionBoxes(grassland.currentLevel, config.grasslandAudio01);
 
     //Game loop.
     while (isRunning) {
@@ -129,20 +136,19 @@ int main()
         }
         window.draw(flags);
         //Draw collision boxes
-        /*
+        //*
         for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
             window.draw(*collision.collVector[i]);
             window.draw(*flagsCollision.collVector[i]);
             window.draw(*grasslandCollision.collVector[i]);
             window.draw(*farmlandCollision.collVector[i]);
+            window.draw(*grasslandAudio.collVector[i]);
         }
         //*/
         player.animate();
         player.movePlayer();
         camera.moveCam(player.position.x, player.position.y);
         window.draw(player.sprite);
-        //Testing of audio
-        audio.playFootsteps();
         window.display();
     }
     return 0;

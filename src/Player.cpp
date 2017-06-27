@@ -149,7 +149,28 @@ bool Player::checkCollision(Collision &collision, Camera &camera)
             }
             //Update the camera
             camera.setCamCenter(sf::Vector2f(sprite.getPosition().x, sprite.getPosition().y));
+
+            //Collided
+            return true;
         }
     }
+    //Did not collide
+    return false;
 }
 
+bool Player::checkAudioCollsion(Collision &collision)
+{
+    for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
+        if (collision.checkAABBcollision(sprite.getPosition().x, sprite.getPosition().y,
+                                         size.x - 8, size.y, //Players size
+                                         collision.collVector[i]->getPosition().x,
+                                         collision.collVector[i]->getPosition().y,
+                                         collision.collVector[i]->getSize().x,
+                                         collision.collVector[i]->getSize().y)) {
+            //Collided
+            return true;
+        }
+    }
+    //Did not collide
+    return false;
+}

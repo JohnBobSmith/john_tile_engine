@@ -47,6 +47,9 @@ class Player
         //Check for collisions against the player and X object.
         bool checkCollision(Collision &collision, Camera &camera);
 
+        //Play some sounds if the player collides with these tiles
+        bool checkAudioCollsion(Collision &collision);
+
     private:
         //Keep track of how many keys are pressed.
         int keyCounter;

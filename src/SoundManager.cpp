@@ -1,9 +1,5 @@
 #include "SoundManager.h"
-
-SoundManager::SoundManager()
-{
-    //ctor
-}
+#include <stdlib.h>
 
 SoundManager::~SoundManager()
 {
@@ -23,5 +19,15 @@ void SoundManager::registerNewSound(std::vector<jteSound*> &bnk, std::string pat
         bnk[i]->name = sndName;
         bnk[i]->sndBuffer.loadFromFile(path);
         bnk[i]->snd.setBuffer(bnk[i]->sndBuffer);
+    }
+}
+
+void SoundManager::playFootsteps(int randomNumber)
+{
+    static int timer = footstepDelay;
+    timer -= 0.01f;
+    if (timer == 0) {
+        bnkFootsteps[randomNumber]->snd.play();
+        timer = footstepDelay;
     }
 }

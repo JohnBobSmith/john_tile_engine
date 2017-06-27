@@ -32,14 +32,15 @@ int main()
 
     //Store a different set of collision
     //boxes for different events.
-    Collision collision(sf::Color::Magenta);
-    Collision flagsCollision(sf::Color::White);
-    Collision grasslandCollision(sf::Color::Yellow);
-    Collision farmlandCollision(sf::Color::Green);
-    Collision animPropsCollision(sf::Color::Blue);
+    Collision collision(sf::Color::Black);
+    Collision flagsCollision(sf::Color::Black);
+    Collision grasslandCollision(sf::Color::Black);
+    Collision farmlandCollision(sf::Color::Black);
+    Collision animPropsCollision(sf::Color::Black);
 
     //Audio collision boxes
-    Collision grasslandAudio(sf::Color::Green);
+    Collision grasslandAudioGrass(sf::Color::Green);
+    Collision grasslandAudioShrubs(sf::Color::Blue);
 
     //Camera and player
     Camera camera;
@@ -98,8 +99,11 @@ int main()
     //Position collision boxes
     grasslandCollision.positionCollisionBoxes(grassland.currentLevel, config.objectsInGrassland);
     farmlandCollision.positionCollisionBoxes(farmland.currentLevel, config.objectsInFarmland);
+    animPropsCollision.positionCollisionBoxes(animPropsWorld.currentLevel, config.objectsInAnimprop);
     flagObject.positionFlags(flagsCollision);
-    grasslandAudio.positionCollisionBoxes(grassland.currentLevel, config.grasslandAudio01);
+    //Audio
+    grasslandAudioGrass.positionCollisionBoxes(grassland.currentLevel, config.grasslandAudioGrass);
+    grasslandAudioShrubs.positionCollisionBoxes(grassland.currentLevel, config.grasslandAudioShrubs);
 
     //Register our sounds with the sound manager.
     //Footsteps sounds, to go into bnkFootsteps (defined in SoundManager.h).
@@ -129,20 +133,22 @@ int main()
         window.setView(camera.getCamera());
         //Resolve collisions before moving the player
         player.checkCollision(collision, camera);
-        player.checkCollision(animPropsCollision, camera);
         flagObject.checkCollision(flagsCollision, camera, player, config);
         //Draw the specific levels
         if (config.LEVEL_STRING == "grassland") {
+            if (player.checkAudioCollsion(grasslandAudioGrass) && player.isWalking) {
+                int randomNumber = rand() % (3 - 1 + 1) + 1;
+                soundmngr.playFootsteps(randomNumber);
+            }
             player.checkCollision(grasslandCollision, camera);
             window.draw(grassland);
         }
         if (config.LEVEL_STRING == "farmland") {
             player.checkCollision(farmlandCollision, camera);
+            player.checkCollision(animPropsCollision, camera);
             window.draw(farmland);
             //Position the animated prop
             animprops.windmill.setPosition(128, 320);
-            animPropsCollision.positionCollisionBoxes(animPropsWorld.currentLevel,
-                                                        config.objectsInAnimprop);
             animprops.animate();
             //Draw the sprite on top of the world
             window.draw(animPropsWorld);
@@ -154,9 +160,14 @@ int main()
         for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
             window.draw(*collision.collVector[i]);
             window.draw(*flagsCollision.collVector[i]);
-            window.draw(*grasslandCollision.collVector[i]);
-            window.draw(*farmlandCollision.collVector[i]);
-            window.draw(*grasslandAudio.collVector[i]);
+            if (config.LEVEL_STRING == "grassland") {
+                window.draw(*grasslandCollision.collVector[i]);
+                window.draw(*grasslandAudioGrass.collVector[i]);
+                window.draw(*grasslandAudioShrubs.collVector[i]);
+            }
+            if (config.LEVEL_STRING == "farmland") {
+                window.draw(*farmlandCollision.collVector[i]);
+            }
         }
         //*/
         player.animate();

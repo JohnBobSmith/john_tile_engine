@@ -5,7 +5,6 @@
     Manage our sounds.
 
     BASIC IDEAS:
-    One sound mananger.
     The sound manager manages banks containing our sounds
     A bank simply stores our sound and gives each sound a string ID.
     A bank can have one sound, or many sounds.
@@ -26,7 +25,6 @@
 class SoundManager
 {
     public:
-        SoundManager();
         ~SoundManager();
 
         struct jteSound
@@ -42,6 +40,13 @@ class SoundManager
 
         //Footsteps
         std::vector<jteSound*> bnkFootsteps;
+
+        //Play a random footstep sound
+        void playFootsteps(int randomNumber);
+
+    private:
+        //How long to delay before playing the next footstep sound
+        float footstepDelay = 35.0f;
 };
 
 #endif // SOUNDMANAGER_H

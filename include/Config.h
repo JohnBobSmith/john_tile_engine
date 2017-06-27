@@ -24,8 +24,11 @@ class Config
         const std::unordered_set<int> objectsInGrassland = {0, 3, 6, 7, 10, 11, 12};
         const std::unordered_set<int> objectsInFarmland = {0, 3, 7, 8, 9, 10, 11, 13, 14, 15};
         const std::unordered_set<int> objectsInAnimprop = {1, 4};
-        const std::unordered_set<int> grasslandAudioGrass = {1};
+        const std::unordered_set<int> grasslandAudioGrass = {1, 4, 5, 8, 9};
         const std::unordered_set<int> grasslandAudioShrubs = {2};
+        const std::unordered_set<int> farmlandGrass{1};
+        const std::unordered_set<int> farmlandRoad{12};
+        const std::unordered_set<int> farmlandCropAndShrub{2, 4, 5, 6};
 
     private:
         //The window name

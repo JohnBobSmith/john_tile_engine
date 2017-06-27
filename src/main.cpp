@@ -24,6 +24,7 @@ int main()
     //Load our worlds
     World grassland;
     World farmland;
+    World rockland;
     World flags;
 
     //Animated props
@@ -71,6 +72,11 @@ int main()
         return -1;
     }
 
+    if (!rockland.loadNewLevel("map/rockland.map", "textures/level/rockland.png")) {
+        std::cerr << "FATAL ERROR: Missing required mapfile: rockland.map";
+        return -1;
+    }
+
     if (!flags.loadNewLevel("map/flags.map", "textures/level/flags.png")) {
         std::cerr << "FATAL ERROR: Missing required mapfile: flags.map";
         return -1;
@@ -104,12 +110,14 @@ int main()
     farmlandCollision.positionCollisionBoxes(farmland.currentLevel, config.objectsInFarmland);
     animPropsCollision.positionCollisionBoxes(animPropsWorld.currentLevel, config.objectsInAnimprop);
     flagObject.positionFlags(flagsCollision);
+
     //Audio collision boxes
     grasslandAudioGrass.positionCollisionBoxes(grassland.currentLevel, config.grasslandAudioGrass);
     grasslandAudioShrubs.positionCollisionBoxes(grassland.currentLevel, config.grasslandAudioShrubs);
     farmlandGrass.positionCollisionBoxes(farmland.currentLevel, config.farmlandGrass);
     farmlandRoad.positionCollisionBoxes(farmland.currentLevel, config.farmlandRoad);
     farmlandCropAndShrub.positionCollisionBoxes(farmland.currentLevel, config.farmlandCropAndShrub);
+
     //Register our sounds with the sound manager.
     //Footsteps sounds, to go into bnkFootsteps (defined in SoundManager.h).
     soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps01.wav", "footsteps01");
@@ -155,6 +163,7 @@ int main()
             //Draw!
             window.draw(grassland);
         }
+
         if (config.LEVEL_STRING == "farmland") {
             //Check the audio collsion.
             if (player.checkAudioCollsion(farmlandGrass) && player.isWalking) {
@@ -179,6 +188,10 @@ int main()
             //Draw the sprite on top of the world
             window.draw(animPropsWorld);
             window.draw(animprops.windmill);
+        }
+
+        if (config.LEVEL_STRING == "rockland") {
+            window.draw(rockland);
         }
         //Draw collision boxes
         /*

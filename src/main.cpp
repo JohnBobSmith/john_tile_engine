@@ -146,7 +146,7 @@ int main()
                 int randomNumber = rand() % 3;
                 soundmngr.playFootsteps(randomNumber);
             }
-            if (player.checkAudioCollsion(grasslandAudioShrubs) && player.isActive) {
+            if (player.checkAudioCollsion(grasslandAudioShrubs) && player.isWalking) {
                 int randomNumber = rand() % (6 - 3) + 3;
                 soundmngr.playFootsteps(randomNumber);
             }
@@ -166,7 +166,7 @@ int main()
                 soundmngr.playFootsteps(randomNumber);
             }
             if (player.checkAudioCollsion(farmlandRoad) && player.isWalking) {
-                int randomNumber = rand() % (9 - 6) + 6;
+                int randomNumber = rand() % (8 - 6) + 6;
                 soundmngr.playFootsteps(randomNumber);
             }
             //Regular collision

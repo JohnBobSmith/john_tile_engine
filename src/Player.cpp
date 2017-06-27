@@ -40,7 +40,6 @@ void Player::movePlayer()
     sprite.move(position);
 }
 
-
 void Player::handlePlayerEvents(sf::Event event)
 {
     //If key is pressed...

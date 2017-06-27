@@ -43,9 +43,9 @@ class SoundManager
 
         //Play a random footstep sound
         /*
-            0-3 is grass
-            4-6 is shrubs/crops
-            7-9 is gravel
+            0-2 is grass
+            3-5 is shrubs/crops
+            6-8 is gravel
         */
         void playFootsteps(int randomNumber);
 

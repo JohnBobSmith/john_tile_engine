@@ -38,10 +38,15 @@ class SoundManager
         //Banks are simply std::vectors of type jteSound.
         void registerNewSound(std::vector<jteSound*> &bnk, std::string path, std::string sndName);
 
-        //Footsteps
+        //Footsteps bank
         std::vector<jteSound*> bnkFootsteps;
 
         //Play a random footstep sound
+        /*
+            0-3 is grass
+            4-6 is shrubs/crops
+            7-9 is gravel
+        */
         void playFootsteps(int randomNumber);
 
     private:

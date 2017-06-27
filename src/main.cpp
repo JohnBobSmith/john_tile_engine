@@ -180,9 +180,8 @@ int main()
             window.draw(animPropsWorld);
             window.draw(animprops.windmill);
         }
-        window.draw(flags);
         //Draw collision boxes
-        //*
+        /*
         for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
             window.draw(*collision.collVector[i]);
             window.draw(*flagsCollision.collVector[i]);
@@ -200,10 +199,14 @@ int main()
             }
         }
         //*/
+        //Always draw our flags
+        window.draw(flags);
+        //Animate and render the player
         player.animate();
         player.movePlayer();
         camera.moveCam(player.position.x, player.position.y);
         window.draw(player.sprite);
+        //Run the application
         window.display();
     }
     return 0;

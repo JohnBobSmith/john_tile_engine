@@ -14,11 +14,6 @@ class Flags
 
         //Check for collisions
         void checkCollision(Collision &collision, Camera &camera, Player &player, Config &config);
-
-    private:
-        //Change our level internally.
-        bool isLevelChanged = false;
-        void changeLevel(Config &config);
 };
 
 #endif // FLAGS_H

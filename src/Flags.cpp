@@ -51,7 +51,24 @@ void Flags::checkCollision(Collision &collision, Camera &camera, Player &player,
             //Update the camera
             camera.setCamCenter(sf::Vector2f(player.sprite.getPosition().x,
                                            player.sprite.getPosition().y));
+
+            //Move the player to the new world
+            if (config.LEVEL_STRING == "grassland" && !isLevelChanged) {
+                config.LEVEL_STRING = "farmland";
+                isLevelChanged = true;
+            }
+            if (config.LEVEL_STRING == "farmland" && !isLevelChanged) {
+                config.LEVEL_STRING = "rockland";
+                isLevelChanged = true;
+            }
+            if (config.LEVEL_STRING == "rockland" && !isLevelChanged) {
+                config.LEVEL_STRING = "grassland";
+                isLevelChanged = true;
+            }
         }
+    }
+    if (isLevelChanged) {
+        isLevelChanged = false;
     }
 }
 

@@ -38,13 +38,16 @@ int main()
     Collision grasslandCollision(sf::Color::Black);
     Collision farmlandCollision(sf::Color::Black);
     Collision animPropsCollision(sf::Color::Black);
+    Collision rocklandCollision{sf::Color::Black};
 
     //Audio collision boxes
-    Collision grasslandAudioGrass(sf::Color::Green);
-    Collision grasslandAudioShrubs(sf::Color::Blue);
+    Collision grasslandGrass(sf::Color::Green);
+    Collision grasslandShrubs(sf::Color::Blue);
     Collision farmlandGrass{sf::Color::White};
     Collision farmlandRoad{sf::Color::Yellow};
     Collision farmlandCropAndShrub{sf::Color::Red};
+    Collision rocklandDirt{sf::Color::Magenta};
+    Collision rocklandGrass{sf::Color::Cyan};
 
     //Camera and player
     Camera camera;
@@ -110,13 +113,16 @@ int main()
     farmlandCollision.positionCollisionBoxes(farmland.currentLevel, config.objectsInFarmland);
     animPropsCollision.positionCollisionBoxes(animPropsWorld.currentLevel, config.objectsInAnimprop);
     flagObject.positionFlags(flagsCollision);
+    rocklandCollision.positionCollisionBoxes(rockland.currentLevel, config.objectsInRockland);
 
     //Audio collision boxes
-    grasslandAudioGrass.positionCollisionBoxes(grassland.currentLevel, config.grasslandAudioGrass);
-    grasslandAudioShrubs.positionCollisionBoxes(grassland.currentLevel, config.grasslandAudioShrubs);
+    grasslandGrass.positionCollisionBoxes(grassland.currentLevel, config.grasslandGrass);
+    grasslandShrubs.positionCollisionBoxes(grassland.currentLevel, config.grasslandShrubs);
     farmlandGrass.positionCollisionBoxes(farmland.currentLevel, config.farmlandGrass);
     farmlandRoad.positionCollisionBoxes(farmland.currentLevel, config.farmlandRoad);
     farmlandCropAndShrub.positionCollisionBoxes(farmland.currentLevel, config.farmlandCropAndShrub);
+    rocklandDirt.positionCollisionBoxes(rockland.currentLevel, config.rocklandDirt);
+    rocklandGrass.positionCollisionBoxes(rockland.currentLevel, config.rocklandGrass);
 
     //Register our sounds with the sound manager.
     //Footsteps sounds, to go into bnkFootsteps (defined in SoundManager.h).
@@ -150,11 +156,11 @@ int main()
         //Draw the specific levels
         if (config.LEVEL_STRING == "grassland") {
             //Check our audio collision
-            if (player.checkAudioCollsion(grasslandAudioGrass) && player.isWalking) {
+            if (player.checkAudioCollsion(grasslandGrass) && player.isWalking) {
                 int randomNumber = rand() % 3;
                 soundmngr.playFootsteps(randomNumber);
             }
-            if (player.checkAudioCollsion(grasslandAudioShrubs) && player.isWalking) {
+            if (player.checkAudioCollsion(grasslandShrubs) && player.isWalking) {
                 int randomNumber = rand() % (6 - 3) + 3;
                 soundmngr.playFootsteps(randomNumber);
             }
@@ -175,7 +181,7 @@ int main()
                 soundmngr.playFootsteps(randomNumber);
             }
             if (player.checkAudioCollsion(farmlandRoad) && player.isWalking) {
-                int randomNumber = rand() % (8 - 6) + 6;
+                int randomNumber = rand() % (9 - 6) + 6;
                 soundmngr.playFootsteps(randomNumber);
             }
             //Regular collision
@@ -191,6 +197,15 @@ int main()
         }
 
         if (config.LEVEL_STRING == "rockland") {
+            if (player.checkAudioCollsion(rocklandGrass) && player.isWalking) {
+                int randomNumber = rand() % (6 - 3) + 3;
+                soundmngr.playFootsteps(randomNumber);
+            }
+            if (player.checkAudioCollsion(rocklandDirt) && player.isWalking) {
+                int randomNumber = rand() % (9 - 6) + 6;
+                soundmngr.playFootsteps(randomNumber);
+            }
+            player.checkCollision(rocklandCollision, camera);
             window.draw(rockland);
         }
         //Draw collision boxes
@@ -200,8 +215,8 @@ int main()
             window.draw(*flagsCollision.collVector[i]);
             if (config.LEVEL_STRING == "grassland") {
                 window.draw(*grasslandCollision.collVector[i]);
-                window.draw(*grasslandAudioGrass.collVector[i]);
-                window.draw(*grasslandAudioShrubs.collVector[i]);
+                window.draw(*grasslandGrass.collVector[i]);
+                window.draw(*grasslandShrubs.collVector[i]);
             }
             if (config.LEVEL_STRING == "farmland") {
                 window.draw(*farmlandCollision.collVector[i]);

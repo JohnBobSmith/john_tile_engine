@@ -5,7 +5,6 @@
 #include "../include/Player.h"
 #include "../include/Collision.h"
 #include "../include/AnimatedProps.h"
-#include "../include/Flags.h"
 #include "../include/SoundManager.h"
 #include <iostream>
 #include <stdlib.h>
@@ -18,14 +17,12 @@ int main()
 
     //Initialize our objects
     Config config;
-    Flags flagObject;
     SoundManager soundmngr;
 
     //Load our worlds
     World grassland;
     World farmland;
     World rockland;
-    World flags;
 
     //Animated props
     World animPropsWorld;
@@ -33,7 +30,6 @@ int main()
 
     //Store a different set of collision
     //boxes for different events.
-    Collision flagsCollision(sf::Color::Black);
     Collision grasslandCollision(sf::Color::Black);
     Collision farmlandCollision(sf::Color::Black);
     Collision animPropsCollision(sf::Color::Black);
@@ -80,11 +76,6 @@ int main()
         return -1;
     }
 
-    if (!flags.loadNewLevel("map/flags.map", "textures/level/flags.png")) {
-        std::cerr << "FATAL ERROR: Missing required mapfile: flags.map";
-        return -1;
-    }
-
     if (!animPropsWorld.loadNewLevel("map/animprops.map", "textures/level/animatedprops.png")) {
         std::cerr << "FATAL ERROR: Missing required mapfile: animprops.map";
         return -1;
@@ -112,7 +103,6 @@ int main()
     grasslandCollision.positionCollisionBoxes(grassland.currentLevel, config.objectsInGrassland);
     farmlandCollision.positionCollisionBoxes(farmland.currentLevel, config.objectsInFarmland);
     animPropsCollision.positionCollisionBoxes(animPropsWorld.currentLevel, config.objectsInAnimprop);
-    flagObject.positionFlags(flagsCollision);
     rocklandCollision.positionCollisionBoxes(rockland.currentLevel, config.objectsInRockland);
 
     //Audio collision boxes
@@ -136,6 +126,10 @@ int main()
     soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps08.wav", "footsteps08");
     soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps09.wav", "footsteps09");
 
+    //Position our worlds
+    rockland.setPosition(448, 0);
+    farmland.setPosition(0, -448);
+
     //Game loop.
     while (isRunning) {
         while (window.pollEvent(event)) {
@@ -151,7 +145,7 @@ int main()
         window.draw(cloudsBackground);
         window.setView(camera.getCamera());
         //Resolve collisions before moving the player
-        flagObject.checkCollision(flagsCollision, camera, player, config);
+        /*
         //Draw the specific levels
         if (config.LEVEL_STRING == "grassland") {
             //Check our audio collision
@@ -207,11 +201,11 @@ int main()
             player.checkCollision(rocklandCollision, camera);
             window.draw(rockland);
         }
+        */
         //Draw collision boxes
-        //*
+        /*
         for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
             window.draw(*collision.collVector[i]);
-            window.draw(*flagsCollision.collVector[i]);
             if (config.LEVEL_STRING == "grassland") {
                 window.draw(*grasslandCollision.collVector[i]);
                 window.draw(*grasslandGrass.collVector[i]);
@@ -231,8 +225,10 @@ int main()
             }
         }
         //*/
-        //Always draw our flags
-        window.draw(flags);
+        //Draw our worlds
+        window.draw(farmland);
+        window.draw(grassland);
+        window.draw(rockland);
         //Animate and render the player
         player.animate();
         player.movePlayer();

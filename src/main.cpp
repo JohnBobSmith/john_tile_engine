@@ -99,20 +99,27 @@ int main()
     //Init the camera
     camera.setCamCenter(player.sprite.getPosition());
 
+    //Position our worlds
+    rockland.setPosition(448, 0);
+    farmland.setPosition(0, -448);
+
+    //Position the animated prop
+    animprops.windmill.setPosition(128, 320);
+
     //Position collision boxes
-    grasslandCollision.positionCollisionBoxes(grassland.currentLevel, config.objectsInGrassland);
-    farmlandCollision.positionCollisionBoxes(farmland.currentLevel, config.objectsInFarmland);
-    animPropsCollision.positionCollisionBoxes(animPropsWorld.currentLevel, config.objectsInAnimprop);
-    rocklandCollision.positionCollisionBoxes(rockland.currentLevel, config.objectsInRockland);
+    grasslandCollision.positionCollisionBoxes(grassland.currentLevel, config.objectsInGrassland, 0, 0);
+    farmlandCollision.positionCollisionBoxes(farmland.currentLevel, config.objectsInFarmland, 0, -448);
+    animPropsCollision.positionCollisionBoxes(animPropsWorld.currentLevel, config.objectsInAnimprop, 0, -448);
+    rocklandCollision.positionCollisionBoxes(rockland.currentLevel, config.objectsInRockland, 448, 0);
 
     //Audio collision boxes
-    grasslandGrass.positionCollisionBoxes(grassland.currentLevel, config.grasslandGrass);
-    grasslandShrubs.positionCollisionBoxes(grassland.currentLevel, config.grasslandShrubs);
-    farmlandGrass.positionCollisionBoxes(farmland.currentLevel, config.farmlandGrass);
-    farmlandRoad.positionCollisionBoxes(farmland.currentLevel, config.farmlandRoad);
-    farmlandCropAndShrub.positionCollisionBoxes(farmland.currentLevel, config.farmlandCropAndShrub);
-    rocklandDirt.positionCollisionBoxes(rockland.currentLevel, config.rocklandDirt);
-    rocklandGrass.positionCollisionBoxes(rockland.currentLevel, config.rocklandGrass);
+    grasslandGrass.positionCollisionBoxes(grassland.currentLevel, config.grasslandGrass, 0, 0);
+    grasslandShrubs.positionCollisionBoxes(grassland.currentLevel, config.grasslandShrubs, 0, 0);
+    farmlandGrass.positionCollisionBoxes(farmland.currentLevel, config.farmlandGrass, 0, -448);
+    farmlandRoad.positionCollisionBoxes(farmland.currentLevel, config.farmlandRoad, 0, -448);
+    farmlandCropAndShrub.positionCollisionBoxes(farmland.currentLevel, config.farmlandCropAndShrub, 0, -448);
+    rocklandDirt.positionCollisionBoxes(rockland.currentLevel, config.rocklandDirt, 448, 0);
+    rocklandGrass.positionCollisionBoxes(rockland.currentLevel, config.rocklandGrass, 448, 0);
 
     //Register our sounds with the sound manager.
     //Footsteps sounds, to go into bnkFootsteps (defined in SoundManager.h).
@@ -125,10 +132,6 @@ int main()
     soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps07.wav", "footsteps07");
     soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps08.wav", "footsteps08");
     soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps09.wav", "footsteps09");
-
-    //Position our worlds
-    rockland.setPosition(448, 0);
-    farmland.setPosition(0, -448);
 
     //Game loop.
     while (isRunning) {
@@ -144,96 +147,80 @@ int main()
         window.clear();
         window.draw(cloudsBackground);
         window.setView(camera.getCamera());
-        //Resolve collisions before moving the player
-        /*
-        //Draw the specific levels
-        if (config.LEVEL_STRING == "grassland") {
-            //Check our audio collision
-            if (player.checkAudioCollsion(grasslandGrass) && player.isWalking) {
-                int randomNumber = rand() % 3;
-                soundmngr.playFootsteps(randomNumber);
-            }
-            if (player.checkAudioCollsion(grasslandShrubs) && player.isWalking) {
-                int randomNumber = rand() % (6 - 3) + 3;
-                soundmngr.playFootsteps(randomNumber);
-            }
-            //Object collision
-            player.checkCollision(grasslandCollision, camera);
-            //Draw!
-            window.draw(grassland);
+
+        //Check our audio collision
+        if (player.checkAudioCollsion(grasslandGrass) && player.isWalking) {
+            int randomNumber = rand() % 3;
+            soundmngr.playFootsteps(randomNumber);
+        }
+        if (player.checkAudioCollsion(grasslandShrubs) && player.isWalking) {
+            int randomNumber = rand() % (6 - 3) + 3;
+            soundmngr.playFootsteps(randomNumber);
         }
 
-        if (config.LEVEL_STRING == "farmland") {
-            //Check the audio collsion.
-            if (player.checkAudioCollsion(farmlandGrass) && player.isWalking) {
-                int randomNumber = rand() % 3;
-                soundmngr.playFootsteps(randomNumber);
-            }
-            if (player.checkAudioCollsion(farmlandCropAndShrub) && player.isWalking) {
-                int randomNumber = rand() % (6 - 3) + 3;
-                soundmngr.playFootsteps(randomNumber);
-            }
-            if (player.checkAudioCollsion(farmlandRoad) && player.isWalking) {
-                int randomNumber = rand() % (9 - 6) + 6;
-                soundmngr.playFootsteps(randomNumber);
-            }
-            //Regular collision
-            player.checkCollision(farmlandCollision, camera);
-            player.checkCollision(animPropsCollision, camera);
-            window.draw(farmland);
-            //Position the animated prop
-            animprops.windmill.setPosition(128, 320);
-            animprops.animate();
-            //Draw the sprite on top of the world
-            window.draw(animPropsWorld);
-            window.draw(animprops.windmill);
+        if (player.checkAudioCollsion(farmlandGrass) && player.isWalking) {
+            int randomNumber = rand() % 3;
+            soundmngr.playFootsteps(randomNumber);
+        }
+        if (player.checkAudioCollsion(farmlandCropAndShrub) && player.isWalking) {
+            int randomNumber = rand() % (6 - 3) + 3;
+            soundmngr.playFootsteps(randomNumber);
+        }
+        if (player.checkAudioCollsion(farmlandRoad) && player.isWalking) {
+            int randomNumber = rand() % (9 - 6) + 6;
+            soundmngr.playFootsteps(randomNumber);
         }
 
-        if (config.LEVEL_STRING == "rockland") {
-            if (player.checkAudioCollsion(rocklandGrass) && player.isWalking) {
-                int randomNumber = rand() % (6 - 3) + 3;
-                soundmngr.playFootsteps(randomNumber);
-            }
-            if (player.checkAudioCollsion(rocklandDirt) && player.isWalking) {
-                int randomNumber = rand() % (9 - 6) + 6;
-                soundmngr.playFootsteps(randomNumber);
-            }
-            player.checkCollision(rocklandCollision, camera);
-            window.draw(rockland);
+        if (player.checkAudioCollsion(rocklandGrass) && player.isWalking) {
+            int randomNumber = rand() % (6 - 3) + 3;
+            soundmngr.playFootsteps(randomNumber);
         }
-        */
-        //Draw collision boxes
-        /*
-        for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
-            window.draw(*collision.collVector[i]);
-            if (config.LEVEL_STRING == "grassland") {
-                window.draw(*grasslandCollision.collVector[i]);
-                window.draw(*grasslandGrass.collVector[i]);
-                window.draw(*grasslandShrubs.collVector[i]);
-            }
-            if (config.LEVEL_STRING == "farmland") {
-                window.draw(*farmlandCollision.collVector[i]);
-                window.draw(*farmlandGrass.collVector[i]);
-                window.draw(*farmlandRoad.collVector[i]);
-                window.draw(*farmlandCropAndShrub.collVector[i]);
-                window.draw(*animPropsCollision.collVector[i]);
-            }
-            if (config.LEVEL_STRING == "rockland") {
-                window.draw(*rocklandCollision.collVector[i]);
-                window.draw(*rocklandDirt.collVector[i]);
-                window.draw(*rocklandGrass.collVector[i]);
-            }
+        if (player.checkAudioCollsion(rocklandDirt) && player.isWalking) {
+            int randomNumber = rand() % (9 - 6) + 6;
+            soundmngr.playFootsteps(randomNumber);
         }
-        //*/
-        //Draw our worlds
+
+        //Regular collision checking
+        player.checkCollision(farmlandCollision, camera);
+        player.checkCollision(animPropsCollision, camera);
+        player.checkCollision(grasslandCollision, camera);
+        player.checkCollision(rocklandCollision, camera);
+
+        //Draw the animated sprite on top of the world
+        animprops.animate();
+        window.draw(animPropsWorld);
+        window.draw(animprops.windmill);
+
+        //Draw the worlds
         window.draw(farmland);
         window.draw(grassland);
         window.draw(rockland);
-        //Animate and render the player
+
+        //Draw collision boxes
+        //*
+        for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
+            window.draw(*collision.collVector[i]);
+            window.draw(*grasslandCollision.collVector[i]);
+            window.draw(*grasslandGrass.collVector[i]);
+            window.draw(*grasslandShrubs.collVector[i]);
+            window.draw(*farmlandCollision.collVector[i]);
+            window.draw(*farmlandGrass.collVector[i]);
+            window.draw(*farmlandRoad.collVector[i]);
+            window.draw(*farmlandCropAndShrub.collVector[i]);
+            window.draw(*animPropsCollision.collVector[i]);
+            window.draw(*rocklandCollision.collVector[i]);
+            window.draw(*rocklandDirt.collVector[i]);
+            window.draw(*rocklandGrass.collVector[i]);
+        }
+        //*/
+
+        //Animate and render the player,
+        //above the collision boxes.
         player.animate();
         player.movePlayer();
         camera.moveCam(player.position.x, player.position.y);
         window.draw(player.sprite);
+
         //Run the application
         window.display();
     }

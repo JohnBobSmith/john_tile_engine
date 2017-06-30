@@ -28,7 +28,8 @@ class Collision
 
         //Place the collision boxes at certain points in the level.
         void positionCollisionBoxes(const std::vector<long int> &level,
-                                    const std::unordered_set<int> &objectsToCollideWith);
+                                    const std::unordered_set<int> &objectsToCollideWith,
+                                    int offsetX, int offsetY);
 
         //Reset the collision boxes by placing them at 0,0.
         void resetCollision();

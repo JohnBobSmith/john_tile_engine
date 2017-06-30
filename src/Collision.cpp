@@ -68,21 +68,22 @@ bool Collision::checkAABBcollision(float xA, float yA, float wA, float hA,
 }
 
 void Collision::positionCollisionBoxes(const std::vector<long int> &level,
-                            const std::unordered_set<int> &objectsToCollideWith)
+                            const std::unordered_set<int> &objectsToCollideWith,
+                            int offsetX, int offsetY)
 {
     //For our unordered sets
     Config config;
 
     //Reset the world
     resetCollision();
-    int x = 0;
-    int y = 0;
+    int x = offsetX;
+    int y = offsetY;
     for (int i = 0; i < MAX_COLLISION_BOXES; ++i) {
         x += 32;
         if (i % 16 == 0) {
             //Adjust our positions, we have gone
             //off the edge of the screen.
-            x = 0;
+            x = offsetX;
             y += 32;
         }
         //The world objects we should collide with per map basis.

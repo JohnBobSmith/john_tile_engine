@@ -33,12 +33,12 @@ int main()
 
     //Store a different set of collision
     //boxes for different events.
-    Collision collision(sf::Color::Black);
     Collision flagsCollision(sf::Color::Black);
     Collision grasslandCollision(sf::Color::Black);
     Collision farmlandCollision(sf::Color::Black);
     Collision animPropsCollision(sf::Color::Black);
     Collision rocklandCollision{sf::Color::Black};
+    Collision collision; //Bounds checking
 
     //Audio collision boxes
     Collision grasslandGrass(sf::Color::Green);
@@ -151,7 +151,6 @@ int main()
         window.draw(cloudsBackground);
         window.setView(camera.getCamera());
         //Resolve collisions before moving the player
-        player.checkCollision(collision, camera);
         flagObject.checkCollision(flagsCollision, camera, player, config);
         //Draw the specific levels
         if (config.LEVEL_STRING == "grassland") {
@@ -209,7 +208,7 @@ int main()
             window.draw(rockland);
         }
         //Draw collision boxes
-        /*
+        //*
         for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
             window.draw(*collision.collVector[i]);
             window.draw(*flagsCollision.collVector[i]);
@@ -224,6 +223,11 @@ int main()
                 window.draw(*farmlandRoad.collVector[i]);
                 window.draw(*farmlandCropAndShrub.collVector[i]);
                 window.draw(*animPropsCollision.collVector[i]);
+            }
+            if (config.LEVEL_STRING == "rockland") {
+                window.draw(*rocklandCollision.collVector[i]);
+                window.draw(*rocklandDirt.collVector[i]);
+                window.draw(*rocklandGrass.collVector[i]);
             }
         }
         //*/

@@ -6,6 +6,7 @@
 #include "../include/Collision.h"
 #include "../include/AnimatedProps.h"
 #include "../include/SoundManager.h"
+#include "../include/Shader.h"
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
@@ -18,6 +19,7 @@ int main()
     //Initialize our objects
     Config config;
     SoundManager soundmngr;
+    Shader shader;
 
     //Load our worlds
     World grassland;
@@ -141,6 +143,14 @@ int main()
                 isRunning = false;
             }
             player.handlePlayerEvents(event);
+
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                player.isActive = false;
+                shader.deathShape.setPosition(player.sprite.getPosition().x, player.sprite.getPosition().y);
+            }
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+                player.isActive = true;
+            }
         }
 
         //Clear, move, and draw
@@ -149,35 +159,37 @@ int main()
         window.setView(camera.getCamera());
 
         //Check our audio collision
-        if (player.checkAudioCollsion(grasslandGrass) && player.isWalking) {
-            int randomNumber = rand() % 3;
-            soundmngr.playFootsteps(randomNumber);
-        }
-        if (player.checkAudioCollsion(grasslandShrubs) && player.isWalking) {
-            int randomNumber = rand() % (6 - 3) + 3;
-            soundmngr.playFootsteps(randomNumber);
-        }
+        if (player.isActive) {
+            if (player.checkAudioCollsion(grasslandGrass) && player.isWalking) {
+                int randomNumber = rand() % 3;
+                soundmngr.playFootsteps(randomNumber);
+            }
+            if (player.checkAudioCollsion(grasslandShrubs) && player.isWalking) {
+                int randomNumber = rand() % (6 - 3) + 3;
+                soundmngr.playFootsteps(randomNumber);
+            }
 
-        if (player.checkAudioCollsion(farmlandGrass) && player.isWalking) {
-            int randomNumber = rand() % 3;
-            soundmngr.playFootsteps(randomNumber);
-        }
-        if (player.checkAudioCollsion(farmlandCropAndShrub) && player.isWalking) {
-            int randomNumber = rand() % (6 - 3) + 3;
-            soundmngr.playFootsteps(randomNumber);
-        }
-        if (player.checkAudioCollsion(farmlandRoad) && player.isWalking) {
-            int randomNumber = rand() % (9 - 6) + 6;
-            soundmngr.playFootsteps(randomNumber);
-        }
+            if (player.checkAudioCollsion(farmlandGrass) && player.isWalking) {
+                int randomNumber = rand() % 3;
+                soundmngr.playFootsteps(randomNumber);
+            }
+            if (player.checkAudioCollsion(farmlandCropAndShrub) && player.isWalking) {
+                int randomNumber = rand() % (6 - 3) + 3;
+                soundmngr.playFootsteps(randomNumber);
+            }
+            if (player.checkAudioCollsion(farmlandRoad) && player.isWalking) {
+                int randomNumber = rand() % (9 - 6) + 6;
+                soundmngr.playFootsteps(randomNumber);
+            }
 
-        if (player.checkAudioCollsion(rocklandGrass) && player.isWalking) {
-            int randomNumber = rand() % (6 - 3) + 3;
-            soundmngr.playFootsteps(randomNumber);
-        }
-        if (player.checkAudioCollsion(rocklandDirt) && player.isWalking) {
-            int randomNumber = rand() % (9 - 6) + 6;
-            soundmngr.playFootsteps(randomNumber);
+            if (player.checkAudioCollsion(rocklandGrass) && player.isWalking) {
+                int randomNumber = rand() % (6 - 3) + 3;
+                soundmngr.playFootsteps(randomNumber);
+            }
+            if (player.checkAudioCollsion(rocklandDirt) && player.isWalking) {
+                int randomNumber = rand() % (9 - 6) + 6;
+                soundmngr.playFootsteps(randomNumber);
+            }
         }
 
         //Regular collision checking
@@ -197,7 +209,7 @@ int main()
         window.draw(rockland);
 
         //Draw collision boxes
-        //*
+        /*
         for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
             window.draw(*collision.collVector[i]);
             window.draw(*grasslandCollision.collVector[i]);
@@ -216,10 +228,17 @@ int main()
 
         //Animate and render the player,
         //above the collision boxes.
-        player.animate();
-        player.movePlayer();
-        camera.moveCam(player.position.x, player.position.y);
-        window.draw(player.sprite);
+        if (player.isActive) {
+            player.animate();
+            player.movePlayer();
+            camera.moveCam(player.position.x, player.position.y);
+            window.draw(player.sprite);
+        }
+
+        //Draw shader testing stuff and fluffs.
+        if (!player.isActive) {
+            window.draw(shader.deathShape, &shader.deathShader);
+        }
 
         //Run the application
         window.display();

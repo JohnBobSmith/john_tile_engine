@@ -104,9 +104,10 @@ int main()
     //Position our worlds
     rockland.setPosition(448, 0);
     farmland.setPosition(0, -448);
+    animPropsWorld.setPosition(0, -448);
 
     //Position the animated prop
-    animprops.windmill.setPosition(128, 320);
+    animprops.windmill.setPosition(128, -128);
 
     //Position collision boxes
     grasslandCollision.positionCollisionBoxes(grassland.currentLevel, config.objectsInGrassland, 0, 0);
@@ -198,15 +199,15 @@ int main()
         player.checkCollision(grasslandCollision, camera);
         player.checkCollision(rocklandCollision, camera);
 
-        //Draw the animated sprite on top of the world
-        animprops.animate();
-        window.draw(animPropsWorld);
-        window.draw(animprops.windmill);
-
         //Draw the worlds
         window.draw(farmland);
         window.draw(grassland);
         window.draw(rockland);
+
+        //Draw the animated sprite on top of the world
+        animprops.animate();
+        window.draw(animPropsWorld);
+        window.draw(animprops.windmill);
 
         //Draw collision boxes
         /*

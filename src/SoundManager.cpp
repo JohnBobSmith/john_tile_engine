@@ -1,8 +1,8 @@
 #include "SoundManager.h"
 #include <memory>
-#include <stdlib.h>
 
-void SoundManager::registerNewSound(std::vector<std::shared_ptr<jteSound>> &bnk, std::string path, std::string sndName)
+void SoundManager::registerNewSound(std::vector<std::shared_ptr<jteSound>> &bnk,
+                                            std::string path, std::string sndName)
 {
     static int counter = 0;
     for (int i = counter; counter <i+1; counter++) {

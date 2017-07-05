@@ -102,27 +102,27 @@ int main()
     camera.setCamCenter(player.sprite.getPosition());
 
     //Position our worlds
-    rockland.setPosition(448, 0);
-    farmland.setPosition(0, -448);
-    animPropsWorld.setPosition(0, -448);
+    rockland.setPosition(512, 0);
+    farmland.setPosition(0, -512);
+    animPropsWorld.setPosition(0, -512);
 
     //Position the animated prop
-    animprops.windmill.setPosition(128, -128);
+    animprops.windmill.setPosition(128, -192);
 
     //Position collision boxes
     grasslandCollision.positionCollisionBoxes(grassland.currentLevel, config.objectsInGrassland, 0, 0);
-    farmlandCollision.positionCollisionBoxes(farmland.currentLevel, config.objectsInFarmland, 0, -448);
-    animPropsCollision.positionCollisionBoxes(animPropsWorld.currentLevel, config.objectsInAnimprop, 0, -448);
-    rocklandCollision.positionCollisionBoxes(rockland.currentLevel, config.objectsInRockland, 448, 0);
+    farmlandCollision.positionCollisionBoxes(farmland.currentLevel, config.objectsInFarmland, 0, -512);
+    animPropsCollision.positionCollisionBoxes(animPropsWorld.currentLevel, config.objectsInAnimprop, 0, -512);
+    rocklandCollision.positionCollisionBoxes(rockland.currentLevel, config.objectsInRockland, 512, 0);
 
     //Audio collision boxes
     grasslandGrass.positionCollisionBoxes(grassland.currentLevel, config.grasslandGrass, 0, 0);
     grasslandShrubs.positionCollisionBoxes(grassland.currentLevel, config.grasslandShrubs, 0, 0);
-    farmlandGrass.positionCollisionBoxes(farmland.currentLevel, config.farmlandGrass, 0, -448);
-    farmlandRoad.positionCollisionBoxes(farmland.currentLevel, config.farmlandRoad, 0, -448);
-    farmlandCropAndShrub.positionCollisionBoxes(farmland.currentLevel, config.farmlandCropAndShrub, 0, -448);
-    rocklandDirt.positionCollisionBoxes(rockland.currentLevel, config.rocklandDirt, 448, 0);
-    rocklandGrass.positionCollisionBoxes(rockland.currentLevel, config.rocklandGrass, 448, 0);
+    farmlandGrass.positionCollisionBoxes(farmland.currentLevel, config.farmlandGrass, 0, -512);
+    farmlandRoad.positionCollisionBoxes(farmland.currentLevel, config.farmlandRoad, 0, -512);
+    farmlandCropAndShrub.positionCollisionBoxes(farmland.currentLevel, config.farmlandCropAndShrub, 0, -512);
+    rocklandDirt.positionCollisionBoxes(rockland.currentLevel, config.rocklandDirt, 512, 0);
+    rocklandGrass.positionCollisionBoxes(rockland.currentLevel, config.rocklandGrass, 512, 0);
 
     //Register our sounds with the sound manager.
     //Footsteps sounds, to go into bnkFootsteps (defined in SoundManager.h).

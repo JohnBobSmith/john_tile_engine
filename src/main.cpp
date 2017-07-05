@@ -236,9 +236,11 @@ int main()
         }
 
         //Draw shader testing stuff and fluffs.
+        /*
         if (!player.isActive) {
             window.draw(shader.deathShape, &shader.deathShader);
         }
+        //*/
 
         //Run the application
         window.display();

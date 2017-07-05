@@ -1,21 +1,12 @@
 #include "SoundManager.h"
+#include <memory>
 #include <stdlib.h>
 
-SoundManager::~SoundManager()
+void SoundManager::registerNewSound(std::vector<std::shared_ptr<jteSound>> &bnk, std::string path, std::string sndName)
 {
-    //Cleanup each sound bank that we use.
-    for (std::vector<jteSound*>::iterator it = bnkFootsteps.begin(); it != bnkFootsteps.end(); ++it) {
-        delete *it;
-    }
-}
-
-void SoundManager::registerNewSound(std::vector<jteSound*> &bnk, std::string path, std::string sndName)
-{
-    //Keep track of how many times this funciton is called,
-    //for bounds checking purposes.
     static int counter = 0;
     for (int i = counter; counter <i+1; counter++) {
-        bnk.push_back(new jteSound);
+        bnk.push_back(std::make_shared<jteSound>());
         bnk[i]->name = sndName;
         bnk[i]->sndBuffer.loadFromFile(path);
         bnk[i]->snd.setBuffer(bnk[i]->sndBuffer);

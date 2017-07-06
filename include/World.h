@@ -9,9 +9,7 @@
 class World : public sf::Drawable, public sf::Transformable
 {
     public:
-        //Init and cleanup our world
         World();
-        ~World();
 
         //Maximum collision boxes, for bounds checking and what not
         static const int MAX_COLLISION_BOXES = 2048;

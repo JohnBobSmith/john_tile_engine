@@ -10,11 +10,6 @@ World::World()
     currentLevel.push_back(0);
 }
 
-World::~World()
-{
-    //Nothing to do currently.
-}
-
 void World::clearLevel()
 {
     //Empty the current level vector.

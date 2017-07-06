@@ -146,11 +146,11 @@ int main()
             player.handlePlayerEvents(event);
 
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                player.isActive = false;
-                shader.deathShape.setPosition(player.sprite.getPosition().x, player.sprite.getPosition().y);
+                //player.isActive = false;
+                //shader.deathShape.setPosition(player.sprite.getPosition().x, player.sprite.getPosition().y);
             }
             if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
-                player.isActive = true;
+                //player.isActive = true;
             }
         }
 

@@ -55,10 +55,12 @@ bool World::processLevelData(std::string pathToMapFile)
     return true; //Successfully loaded level
 }
 
-bool World::loadNewLevel(std::string levelName, std::string tileset)
+bool World::loadNewLevel(std::string levelName, std::string tileset, bool doWeClearLevel)
 {
-    //Clear the contents of our level
-    clearLevel();
+    //Clear the contents of our level if required
+    if (doWeClearLevel) {
+        clearLevel();
+    }
 
     //Load new contents in its place
     if (!processLevelData(levelName)) {

@@ -126,3 +126,9 @@ void World::draw(sf::RenderTarget& target, sf::RenderStates states) const
     //Draw everything
     target.draw(m_vertecies, states);
 }
+
+void World::changeLevelData(int index, int newValue, std::string levelName, std::string tileSet)
+{
+    currentLevel[index] = newValue;
+    loadNewLevel(levelName, tileSet, false);
+}

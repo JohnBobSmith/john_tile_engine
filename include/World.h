@@ -34,6 +34,9 @@ class World : public sf::Drawable, public sf::Transformable
         */
         bool load(const std::string& tileset, sf::Vector2u tileSize, unsigned int width, unsigned int height);
 
+        //Change data in our level vector
+        void changeLevelData(int index, int newValue, std::string levelName, std::string tileSet);
+
         //Store our level as a vector
         std::vector<long int> currentLevel;
 

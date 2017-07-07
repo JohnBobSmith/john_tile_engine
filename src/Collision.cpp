@@ -6,19 +6,21 @@ Collision::Collision(sf::Color color)
 {
     //Populate our collision vector
     for (int i = 0; i < MAX_COLLISION_BOXES; ++i) {
-        collVector.push_back(new sf::RectangleShape);
-        collVector[i]->setSize(sf::Vector2f(32, 32));
-        collVector[i]->setFillColor(color);
-        collVector[i]->setPosition(32, 0);
+        collVector.push_back(std::make_shared<bbox>());
+        collVector[i]->bbox.setSize(sf::Vector2f(32, 32));
+        collVector[i]->bbox.setFillColor(color);
+        collVector[i]->bbox.setPosition(32, 0);
     }
 }
 
 Collision::~Collision()
 {
+    /*
     //Cleanup anything we've "newed"
     for (std::vector<sf::RectangleShape*>::iterator it = collVector.begin(); it != collVector.end(); ++it) {
         delete *it;
     }
+    */
 }
 
 bool Collision::checkAABBcollision(float xA, float yA, float wA, float hA,
@@ -88,7 +90,7 @@ void Collision::positionCollisionBoxes(const std::vector<long int> &level,
         }
         //The world objects we should collide with per map basis.
         if (objectsToCollideWith.count(level[i])) {
-            collVector[i]->setPosition(x, y - 32);
+            collVector[i]->bbox.setPosition(x, y - 32);
         }
     }
 }
@@ -98,6 +100,6 @@ void Collision::resetCollision()
     //Reset our collision vector by moving
     //everything off screen.
     for (int i = 0; i < MAX_COLLISION_BOXES; ++i) {
-        collVector[i]->setPosition(0, 0);
+        collVector[i]->bbox.setPosition(0, 0);
     }
 }

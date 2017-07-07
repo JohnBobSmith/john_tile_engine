@@ -129,10 +129,10 @@ bool Player::checkCollision(Collision &collision, Camera &camera)
     for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
         if (collision.checkAABBcollision(sprite.getPosition().x, sprite.getPosition().y,
                                          size.x - 8, size.y, //Players size
-                                         collision.collVector[i]->getPosition().x,
-                                         collision.collVector[i]->getPosition().y,
-                                         collision.collVector[i]->getSize().x,
-                                         collision.collVector[i]->getSize().y)) {
+                                         collision.collVector[i]->bbox.getPosition().x,
+                                         collision.collVector[i]->bbox.getPosition().y,
+                                         collision.collVector[i]->bbox.getSize().x,
+                                         collision.collVector[i]->bbox.getSize().y)) {
             //...Move the sprite back
             if (position.x == -1) {
                 sprite.move(1, 0);
@@ -162,10 +162,10 @@ bool Player::checkAudioCollsion(Collision &collision)
     for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
         if (collision.checkAABBcollision(sprite.getPosition().x, sprite.getPosition().y,
                                          size.x - 8, size.y, //Players size
-                                         collision.collVector[i]->getPosition().x,
-                                         collision.collVector[i]->getPosition().y,
-                                         collision.collVector[i]->getSize().x,
-                                         collision.collVector[i]->getSize().y)) {
+                                         collision.collVector[i]->bbox.getPosition().x,
+                                         collision.collVector[i]->bbox.getPosition().y,
+                                         collision.collVector[i]->bbox.getSize().x,
+                                         collision.collVector[i]->bbox.getSize().y)) {
             //Collided
             return true;
         }

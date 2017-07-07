@@ -5,6 +5,7 @@
 #include <unordered_set>
 #include <vector>
 #include <string>
+#include <memory>
 
 
 class Collision
@@ -35,7 +36,13 @@ class Collision
         void resetCollision();
 
         //Store our collisions boxes in an std::vector
-        std::vector<sf::RectangleShape*> collVector;
+        struct bbox
+        {
+            sf::RectangleShape bbox;
+            int id;
+        };
+
+        std::vector<std::shared_ptr<bbox>> collVector;
 
         //Cap our collisions boxes
         const int MAX_COLLISION_BOXES = 256;

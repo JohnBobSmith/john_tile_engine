@@ -57,6 +57,9 @@ bool World::processLevelData(std::string pathToMapFile)
 
 bool World::loadNewLevel(std::string levelName, std::string tileset, bool doWeClearLevel)
 {
+    privateLevelName = levelName;
+    privateTileSet = tileset;
+
     //Clear the contents of our level if required
     if (doWeClearLevel) {
         clearLevel();
@@ -127,8 +130,8 @@ void World::draw(sf::RenderTarget& target, sf::RenderStates states) const
     target.draw(m_vertecies, states);
 }
 
-void World::changeLevelData(int index, int newValue, std::string levelName, std::string tileSet)
+void World::changeLevelData(int index, int newValue)
 {
     currentLevel[index] = newValue;
-    loadNewLevel(levelName, tileSet, false);
+    loadNewLevel(this->privateLevelName, this->privateTileSet, false);
 }

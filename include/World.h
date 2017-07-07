@@ -35,7 +35,7 @@ class World : public sf::Drawable, public sf::Transformable
         bool load(const std::string& tileset, sf::Vector2u tileSize, unsigned int width, unsigned int height);
 
         //Change data in our level vector
-        void changeLevelData(int index, int newValue, std::string levelName, std::string tileSet);
+        void changeLevelData(int index, int newValue);
 
         //Store our level as a vector
         std::vector<long int> currentLevel;
@@ -47,6 +47,10 @@ class World : public sf::Drawable, public sf::Transformable
         //Store texture and vertex data
         sf::VertexArray m_vertecies;
         sf::Texture m_tileset;
+
+        //Our level file and texture file name
+        std::string privateLevelName;
+        std::string privateTileSet;
 };
 
 #endif // WORLD_H

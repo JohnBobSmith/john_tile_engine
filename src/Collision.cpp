@@ -6,10 +6,13 @@ Collision::Collision(sf::Color color)
 {
     //Populate our collision vector
     for (int i = 0; i < MAX_COLLISION_BOXES; ++i) {
+        static int idCounter = 0;
         collVector.push_back(std::make_shared<bbox>());
         collVector[i]->bbox.setSize(sf::Vector2f(32, 32));
         collVector[i]->bbox.setFillColor(color);
         collVector[i]->bbox.setPosition(32, 0);
+        collVector[i]->id = idCounter;
+        idCounter += 1;
     }
 }
 

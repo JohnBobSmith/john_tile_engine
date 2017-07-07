@@ -148,7 +148,7 @@ int main()
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
                 //player.isActive = false;
                 //shader.deathShape.setPosition(player.sprite.getPosition().x, player.sprite.getPosition().y);
-                //grassland.changeLevelData(20, 9, "map/grassland.map", "textures/level/grassland.png");
+                grassland.changeLevelData(5, 9);
             }
             if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
                 //player.isActive = true;

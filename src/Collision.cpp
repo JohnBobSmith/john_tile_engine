@@ -16,16 +16,6 @@ Collision::Collision(sf::Color color)
     }
 }
 
-Collision::~Collision()
-{
-    /*
-    //Cleanup anything we've "newed"
-    for (std::vector<sf::RectangleShape*>::iterator it = collVector.begin(); it != collVector.end(); ++it) {
-        delete *it;
-    }
-    */
-}
-
 bool Collision::checkAABBcollision(float xA, float yA, float wA, float hA,
                                    float xB, float yB, float wB, float hB)
 {

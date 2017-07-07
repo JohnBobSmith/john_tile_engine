@@ -14,7 +14,6 @@ class Collision
         //Allow our collision boxes to have a color,
         //for debugging purposes.
         Collision(sf::Color color = sf::Color::Cyan);
-        ~Collision();
         /*
             bool checkAABBcollision(float xA, float yA, float wA, float hA,
                             float xB, float yB, float wB, float hB);

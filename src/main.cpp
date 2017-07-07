@@ -170,7 +170,6 @@ int main()
                 int randomNumber = rand() % (6 - 3) + 3;
                 soundmngr.playFootsteps(randomNumber);
             }
-
             if (player.checkAudioCollsion(farmlandGrass) && player.isWalking) {
                 int randomNumber = rand() % 3;
                 soundmngr.playFootsteps(randomNumber);
@@ -183,7 +182,6 @@ int main()
                 int randomNumber = rand() % (9 - 6) + 6;
                 soundmngr.playFootsteps(randomNumber);
             }
-
             if (player.checkAudioCollsion(rocklandGrass) && player.isWalking) {
                 int randomNumber = rand() % (6 - 3) + 3;
                 soundmngr.playFootsteps(randomNumber);

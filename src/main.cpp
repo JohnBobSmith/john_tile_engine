@@ -163,6 +163,7 @@ int main()
         for (int i = 0; i < grasslandCollision.MAX_COLLISION_BOXES; ++i) {
             if (grasslandCollision.collVector[i]->isTouching) {
                 grassland.changeLevelData(i, 9);
+                grasslandCollision.collVector[i]->bbox.setPosition(-9999, 9999);
                 std::cout << grasslandCollision.collVector[i]->id << "\n";
             }
         }

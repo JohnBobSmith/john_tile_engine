@@ -133,6 +133,9 @@ bool Player::checkCollision(Collision &collision, Camera &camera)
                                          collision.collVector[i]->bbox.getPosition().y,
                                          collision.collVector[i]->bbox.getSize().x,
                                          collision.collVector[i]->bbox.getSize().y)) {
+            //We touched a collision box
+            collision.collVector[i]->isTouching = true;
+
             //...Move the sprite back
             if (position.x == -1) {
                 sprite.move(1, 0);
@@ -151,6 +154,9 @@ bool Player::checkCollision(Collision &collision, Camera &camera)
 
             //Collided
             return true;
+        } else {
+            //Reset the collision
+            collision.collVector[i]->isTouching = false;
         }
     }
     //Did not collide

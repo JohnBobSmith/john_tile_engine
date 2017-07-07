@@ -39,6 +39,7 @@ class Collision
         {
             sf::RectangleShape bbox;
             int id;
+            bool isTouching;
         };
 
         std::vector<std::shared_ptr<bbox>> collVector;

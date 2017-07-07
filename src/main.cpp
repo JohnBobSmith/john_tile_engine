@@ -160,6 +160,13 @@ int main()
         window.draw(cloudsBackground);
         window.setView(camera.getCamera());
 
+        for (int i = 0; i < grasslandCollision.MAX_COLLISION_BOXES; ++i) {
+            if (grasslandCollision.collVector[i]->isTouching) {
+                grassland.changeLevelData(i, 9);
+                std::cout << grasslandCollision.collVector[i]->id << "\n";
+            }
+        }
+
         //Check our audio collision
         if (player.isActive) {
             if (player.checkAudioCollsion(grasslandGrass) && player.isWalking) {

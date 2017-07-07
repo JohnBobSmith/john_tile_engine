@@ -11,6 +11,7 @@ Collision::Collision(sf::Color color)
         collVector[i]->bbox.setSize(sf::Vector2f(32, 32));
         collVector[i]->bbox.setFillColor(color);
         collVector[i]->bbox.setPosition(32, 0);
+        collVector[i]->isTouching = false;
         collVector[i]->id = idCounter;
         idCounter += 1;
     }

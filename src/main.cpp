@@ -89,9 +89,9 @@ int main()
     cloudsTexture.setRepeated(true);
     cloudsTexture.loadFromFile("textures/level/clouds.png");
     cloudsBackground.setTexture(cloudsTexture);
-    cloudsBackground.setTextureRect(sf::IntRect(0, 0, config.getScreenWidth() * 4,
-                                                   config.getScreenHeight() * 4));
-    cloudsBackground.setPosition(-500, -500);
+    cloudsBackground.setTextureRect(sf::IntRect(0, 0, config.getScreenWidth() * 8,
+                                                   config.getScreenHeight() * 8));
+    cloudsBackground.setPosition(-1000, -1000);
 
     //Init the player
     player.sprite.setPosition(32, 32);
@@ -144,15 +144,6 @@ int main()
                 isRunning = false;
             }
             player.handlePlayerEvents(event);
-
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                //player.isActive = false;
-                //shader.deathShape.setPosition(player.sprite.getPosition().x, player.sprite.getPosition().y);
-                grassland.changeLevelData(5, 9);
-            }
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
-                //player.isActive = true;
-            }
         }
 
         //Clear, move, and draw
@@ -160,6 +151,7 @@ int main()
         window.draw(cloudsBackground);
         window.setView(camera.getCamera());
 
+        /*
         for (int i = 0; i < grasslandCollision.MAX_COLLISION_BOXES; ++i) {
             if (grasslandCollision.collVector[i]->isTouching) {
                 grassland.changeLevelData(i, 9);
@@ -167,6 +159,7 @@ int main()
                 std::cout << grasslandCollision.collVector[i]->id << "\n";
             }
         }
+        */
 
         //Check our audio collision
         if (player.isActive) {

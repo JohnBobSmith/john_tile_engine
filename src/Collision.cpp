@@ -10,7 +10,7 @@ Collision::Collision(sf::Color color)
         collVector.push_back(std::make_shared<bbox>());
         collVector[i]->bbox.setSize(sf::Vector2f(32, 32));
         collVector[i]->bbox.setFillColor(color);
-        collVector[i]->bbox.setPosition(32, 0);
+        collVector[i]->bbox.setPosition(-999, 0);
         collVector[i]->isTouching = false;
         collVector[i]->id = idCounter;
         idCounter += 1;
@@ -94,6 +94,6 @@ void Collision::resetCollision()
     //Reset our collision vector by moving
     //everything off screen.
     for (int i = 0; i < MAX_COLLISION_BOXES; ++i) {
-        collVector[i]->bbox.setPosition(0, 0);
+        collVector[i]->bbox.setPosition(-999, 0);
     }
 }

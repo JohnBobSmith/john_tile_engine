@@ -25,6 +25,7 @@ int main()
     World grassland;
     World farmland;
     World rockland;
+    World jungleland;
 
     //Animated props
     World animPropsWorld;
@@ -36,6 +37,7 @@ int main()
     Collision farmlandCollision(sf::Color::Black);
     Collision animPropsCollision(sf::Color::Black);
     Collision rocklandCollision{sf::Color::Black};
+    Collision junglelandCollision{sf::Color::Black};
     Collision collision; //Bounds checking
 
     //Audio collision boxes
@@ -83,6 +85,11 @@ int main()
         return -1;
     }
 
+    if (!jungleland.loadNewLevel("map/jungleland.map", "textures/level/jungleland.png")) {
+        std::cerr << "FATAL ERROR: Missing required mapfile: jungleland.map";
+        return -1;
+    }
+
     //We need a sprite to display our cloud background image
     sf::Sprite cloudsBackground;
     sf::Texture cloudsTexture;
@@ -105,6 +112,7 @@ int main()
     rockland.setPosition(512, 0);
     farmland.setPosition(0, -512);
     animPropsWorld.setPosition(0, -512);
+    jungleland.setPosition(512, -512);
 
     //Position the animated prop
     animprops.windmill.setPosition(128, -192);
@@ -114,6 +122,7 @@ int main()
     farmlandCollision.positionCollisionBoxes(farmland.currentLevel, config.objectsInFarmland, 0, -512);
     animPropsCollision.positionCollisionBoxes(animPropsWorld.currentLevel, config.objectsInAnimprop, 0, -512);
     rocklandCollision.positionCollisionBoxes(rockland.currentLevel, config.objectsInRockland, 512, 0);
+    junglelandCollision.positionCollisionBoxes(jungleland.currentLevel, config.objectsInJungleland, 512, -512);
 
     //Audio collision boxes
     grasslandGrass.positionCollisionBoxes(grassland.currentLevel, config.grasslandGrass, 0, 0);
@@ -198,11 +207,13 @@ int main()
         player.checkCollision(animPropsCollision, camera);
         player.checkCollision(grasslandCollision, camera);
         player.checkCollision(rocklandCollision, camera);
+        player.checkCollision(junglelandCollision, camera);
 
         //Draw the worlds
         window.draw(farmland);
         window.draw(grassland);
         window.draw(rockland);
+        window.draw(jungleland);
 
         //Draw the animated sprite on top of the world
         animprops.animate();
@@ -224,6 +235,7 @@ int main()
             window.draw(*rocklandCollision.collVector[i]);
             window.draw(*rocklandDirt.collVector[i]);
             window.draw(*rocklandGrass.collVector[i]);
+            window.draw(*junglelandCollision.collvector[i]);
         }
         //*/
 

@@ -9,6 +9,8 @@ class Shader
         Shader();
         sf::Shader deathShader;
         sf::CircleShape deathShape;
+
+        void animate(bool isAnimated);
 };
 
 #endif // SHADERS_H

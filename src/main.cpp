@@ -152,15 +152,18 @@ int main()
                 window.close();
                 isRunning = false;
             }
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                shader.deathShape.setPosition(player.sprite.getPosition().x - 100,
+                                              player.sprite.getPosition().y - 100);
+                player.isActive = false;
+            }
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+                player.isActive = true;
+            }
             player.handlePlayerEvents(event);
         }
 
-        //Clear, move, and draw
-        window.clear();
-        window.draw(cloudsBackground);
-        window.setView(camera.getCamera());
-
-        /*
+                /*
         for (int i = 0; i < grasslandCollision.MAX_COLLISION_BOXES; ++i) {
             if (grasslandCollision.collVector[i]->isTouching) {
                 grassland.changeLevelData(i, 9);
@@ -209,6 +212,11 @@ int main()
         player.checkCollision(rocklandCollision, camera);
         player.checkCollision(junglelandCollision, camera);
 
+        //Clear, move, and draw
+        window.clear();
+        window.draw(cloudsBackground);
+        window.setView(camera.getCamera());
+
         //Draw the worlds
         window.draw(farmland);
         window.draw(grassland);
@@ -249,14 +257,16 @@ int main()
         }
 
         //Draw shader testing stuff and fluffs.
-        /*
+        //*
         if (!player.isActive) {
+            shader.animate(true);
             window.draw(shader.deathShape, &shader.deathShader);
+        } else {
+            shader.animate(false);
         }
         //*/
 
         //Run the application
         window.display();
     }
-    return 0;
 }

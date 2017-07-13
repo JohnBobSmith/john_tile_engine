@@ -22,7 +22,7 @@ class Config
         const std::unordered_set<int> objectsInFarmland = {0, 3, 7, 8, 9, 10, 11, 13, 14, 15};
         const std::unordered_set<int> objectsInAnimprop = {1, 4};
         const std::unordered_set<int> objectsInRockland = {0, 3, 5, 10, 11, 14, 15};
-        const std::unordered_set<int> objectsInJungleland = {0, 3};
+        const std::unordered_set<int> objectsInJungleland = {0, 3, 4, 6 ,7 ,9, 10, 11, 12, 13, 14, 15};
 
         //Audio collision boxes
         const std::unordered_set<int> grasslandGrass = {1, 4, 5, 8, 9};

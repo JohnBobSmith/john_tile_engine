@@ -19,4 +19,6 @@ Enjoy!
 
 All sounds are creative commons 0 license unless otherwise specified.
 
+Squarefont used from http://www.dafont.com/squarefont.font as 100% free.
+
 Special thanks to anyone who has helped me with this project. You know who you are. :)

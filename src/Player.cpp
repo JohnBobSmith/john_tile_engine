@@ -43,6 +43,11 @@ Player::Player()
     spawnPoints[8].y = 5;
     spawnPoints[9].x = 867;
     spawnPoints[9].y = -441;
+
+    squarefont.loadFromFile("fonts/Square.ttf");
+    respawnText.setFont(squarefont);
+    respawnText.setCharacterSize(24);
+    respawnText.setString("Respawning...");
 }
 
 bool Player::setTexture(std::string path)

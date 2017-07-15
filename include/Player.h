@@ -11,6 +11,12 @@ class Player
         //Init the player
         Player();
 
+        //Our respawn text
+        sf::Text respawnText;
+
+        //Spawn time value (not actual seconds)
+        float spawnTime = 12.0f;
+
         //Players sprite and texture
         sf::Sprite sprite;
         sf::Texture texture;
@@ -60,6 +66,9 @@ class Player
         void respawn(Camera &camera, int randomNumber = 0);
 
     private:
+        //Our respawn text's font
+        sf::Font squarefont;
+
         //Locations where the player can respawn
         std::vector<sf::Vector2f> spawnPoints;
 

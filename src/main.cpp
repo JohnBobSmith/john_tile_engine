@@ -160,10 +160,6 @@ int main()
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && player.isActive) {
                 player.killPlayer();
             }
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && !player.isActive) {
-                int randomNumber = rand() % 10;
-                player.respawn(camera, randomNumber);
-            }
             player.handlePlayerEvents(event);
         }
 
@@ -274,8 +270,20 @@ int main()
         if (!player.isActive) {
             shader.deathShape.setPosition(player.sprite.getPosition().x - 100,
                                         player.sprite.getPosition().y - 100);
+            player.respawnText.setPosition(player.sprite.getPosition().x - 75,
+                                        player.sprite.getPosition().y - 75);
             shader.animate(true);
             window.draw(shader.deathShape, &shader.deathShader);
+            window.draw(player.respawnText);
+            //Automatically respawn
+            static float timer = player.spawnTime;
+            timer -= 0.1f;
+            if (timer < 0.0f) {
+                timer =  player.spawnTime;
+                int randomNumber = rand() % 10;
+                player.respawn(camera, randomNumber);
+            }
+            std::cout << timer << "\n";
         } else {
             shader.animate(false);
         }

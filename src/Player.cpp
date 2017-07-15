@@ -63,8 +63,6 @@ void Player::movePlayer()
     position.x = velocity.x;
     position.y = velocity.y;
     sprite.move(position);
-
-    std::cout << sprite.getPosition().x << " " << sprite.getPosition().y << "\n";
 }
 
 void Player::handlePlayerEvents(sf::Event event)

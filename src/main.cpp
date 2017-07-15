@@ -48,6 +48,8 @@ int main()
     Collision farmlandCropAndShrub{sf::Color::Red};
     Collision rocklandDirt{sf::Color::Magenta};
     Collision rocklandGrass{sf::Color::Cyan};
+    Collision junglelandGrass{sf::Color::Blue};
+    Collision junglelandShrub{sf::Color::Cyan};
 
     //Camera and player
     Camera camera;
@@ -132,6 +134,8 @@ int main()
     farmlandCropAndShrub.positionCollisionBoxes(farmland.currentLevel, config.farmlandCropAndShrub, 0, -512);
     rocklandDirt.positionCollisionBoxes(rockland.currentLevel, config.rocklandDirt, 512, 0);
     rocklandGrass.positionCollisionBoxes(rockland.currentLevel, config.rocklandGrass, 512, 0);
+    junglelandGrass.positionCollisionBoxes(jungleland.currentLevel, config.junglelandGrass, 512, -512);
+    junglelandShrub.positionCollisionBoxes(jungleland.currentLevel, config.junglelandShrub, 512, -512);
 
     //Register our sounds with the sound manager.
     //Footsteps sounds, to go into bnkFootsteps (defined in SoundManager.h).
@@ -203,6 +207,15 @@ int main()
                 int randomNumber = rand() % (9 - 6) + 6;
                 soundmngr.playFootsteps(randomNumber);
             }
+            if (player.checkAudioCollsion(junglelandGrass) && player.isWalking) {
+                int randomNumber = rand() % 3;
+                soundmngr.playFootsteps(randomNumber);
+            }
+            if (player.checkAudioCollsion(junglelandShrub) && player.isWalking) {
+                int randomNumber = rand() % (6 - 3) + 3;
+                soundmngr.playFootsteps(randomNumber);
+            }
+
         }
 
         //Regular collision checking

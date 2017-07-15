@@ -32,6 +32,8 @@ class Config
         const std::unordered_set<int> farmlandCropAndShrub{2, 4, 5, 6};
         const std::unordered_set<int> rocklandGrass{1, 2};
         const std::unordered_set<int> rocklandDirt{4, 6, 7};
+        const std::unordered_set<int> junglelandGrass{1};
+        const std::unordered_set<int> junglelandShrub{2, 5, 8};
 
     private:
         //The window name

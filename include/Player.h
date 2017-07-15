@@ -50,6 +50,15 @@ class Player
         //Play some sounds if the player collides with these tiles
         bool checkAudioCollsion(Collision &collision);
 
+        //Damage the player
+        void applyDamage(int ammount);
+
+        //End the players life prematurely.
+        void killPlayer();
+
+        //Allow the player to respawn
+        void respawn();
+
     private:
         //Keep track of how many keys are pressed.
         int keyCounter;

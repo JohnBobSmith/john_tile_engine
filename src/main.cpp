@@ -152,13 +152,11 @@ int main()
                 window.close();
                 isRunning = false;
             }
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                shader.deathShape.setPosition(player.sprite.getPosition().x - 100,
-                                              player.sprite.getPosition().y - 100);
-                player.isActive = false;
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && player.isActive) {
+                player.killPlayer();
             }
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
-                player.isActive = true;
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !player.isActive) {
+                player.respawn();
             }
             player.handlePlayerEvents(event);
         }
@@ -259,6 +257,8 @@ int main()
         //Draw shader testing stuff and fluffs.
         //*
         if (!player.isActive) {
+            shader.deathShape.setPosition(player.sprite.getPosition().x - 100,
+                                        player.sprite.getPosition().y - 100);
             shader.animate(true);
             window.draw(shader.deathShape, &shader.deathShader);
         } else {

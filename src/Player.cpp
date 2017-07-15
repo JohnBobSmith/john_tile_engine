@@ -179,3 +179,23 @@ bool Player::checkAudioCollsion(Collision &collision)
     //Did not collide
     return false;
 }
+
+void Player::applyDamage(int ammount)
+{
+    health -= ammount;
+    if (health <= 0) {
+        killPlayer();
+    }
+}
+
+void Player::killPlayer()
+{
+    health = -999;
+    isActive = false;
+}
+
+void Player::respawn()
+{
+    health = 100;
+    isActive = true;
+}

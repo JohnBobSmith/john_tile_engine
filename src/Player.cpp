@@ -44,10 +44,15 @@ Player::Player()
     spawnPoints[9].x = 867;
     spawnPoints[9].y = -441;
 
+    //Our text
     squarefont.loadFromFile("fonts/Square.ttf");
     respawnText.setFont(squarefont);
     respawnText.setCharacterSize(24);
     respawnText.setString("Respawning...");
+
+    //Our respawn sound
+    respawnSoundBuffer.loadFromFile("audio/effects/respawn.wav");
+    respawnSound.setBuffer(respawnSoundBuffer);
 }
 
 bool Player::setTexture(std::string path)
@@ -226,6 +231,8 @@ void Player::killPlayer()
 
 void Player::respawn(Camera &camera, int randomNumber)
 {
+    respawnSound.play();
+
     health = 100;
     isActive = true;
 

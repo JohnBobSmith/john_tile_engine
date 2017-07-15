@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "Collision.h"
 #include "Camera.h"
 
@@ -11,8 +12,9 @@ class Player
         //Init the player
         Player();
 
-        //Our respawn text
+        //Our respawn text and sound
         sf::Text respawnText;
+        sf::Sound respawnSound;
 
         //Spawn time value (not actual seconds)
         float spawnTime = 12.0f;
@@ -68,6 +70,9 @@ class Player
     private:
         //Our respawn text's font
         sf::Font squarefont;
+
+        //Our respawn sounds buffer
+        sf::SoundBuffer respawnSoundBuffer;
 
         //Locations where the player can respawn
         std::vector<sf::Vector2f> spawnPoints;

@@ -139,15 +139,15 @@ int main()
 
     //Register our sounds with the sound manager.
     //Footsteps sounds, to go into bnkFootsteps (defined in SoundManager.h).
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps01.wav", "footsteps01");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps02.wav", "footsteps02");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps03.wav", "footsteps03");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps04.wav", "footsteps04");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps05.wav", "footsteps05");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps06.wav", "footsteps06");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps07.wav", "footsteps07");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps08.wav", "footsteps08");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps09.wav", "footsteps09");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps01.wav", "footsteps01");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps02.wav", "footsteps02");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps03.wav", "footsteps03");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps04.wav", "footsteps04");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps05.wav", "footsteps05");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps06.wav", "footsteps06");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps07.wav", "footsteps07");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps08.wav", "footsteps08");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps09.wav", "footsteps09");
 
     //Game loop.
     while (isRunning) {
@@ -283,7 +283,6 @@ int main()
                 int randomNumber = rand() % 10;
                 player.respawn(camera, randomNumber);
             }
-            std::cout << timer << "\n";
         } else {
             shader.animate(false);
         }

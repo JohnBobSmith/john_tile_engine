@@ -57,9 +57,15 @@ class Player
         void killPlayer();
 
         //Allow the player to respawn
-        void respawn();
+        void respawn(Camera &camera, int randomNumber = 0);
 
     private:
+        //Locations where the player can respawn
+        std::vector<sf::Vector2f> spawnPoints;
+
+        //How many spawn points there are
+        int MAX_SPAWN_POINTS = 10;
+
         //Keep track of how many keys are pressed.
         int keyCounter;
 };

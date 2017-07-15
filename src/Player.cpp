@@ -18,6 +18,31 @@ Player::Player()
     size.x = 32;
     size.y = 32;
     health = 100.0f;
+
+    //Setup our spawn points.
+    for (int i = 0; i < MAX_SPAWN_POINTS; ++i) {
+        spawnPoints.push_back(sf::Vector2f(0, 0));
+    }
+    spawnPoints[0].x = 50;
+    spawnPoints[0].y = 50;
+    spawnPoints[1].x = 230;
+    spawnPoints[1].y = -460;
+    spawnPoints[2].x = 774;
+    spawnPoints[2].y = -284;
+    spawnPoints[3].x = 945;
+    spawnPoints[3].y = -50;
+    spawnPoints[4].x = 870;
+    spawnPoints[4].y = 280;
+    spawnPoints[5].x = 776;
+    spawnPoints[5].y = 320;
+    spawnPoints[6].x = 175;
+    spawnPoints[6].y = 400;
+    spawnPoints[7].x = 328;
+    spawnPoints[7].y = -99;
+    spawnPoints[8].x = 517;
+    spawnPoints[8].y = 5;
+    spawnPoints[9].x = 867;
+    spawnPoints[9].y = -441;
 }
 
 bool Player::setTexture(std::string path)
@@ -38,6 +63,8 @@ void Player::movePlayer()
     position.x = velocity.x;
     position.y = velocity.y;
     sprite.move(position);
+
+    std::cout << sprite.getPosition().x << " " << sprite.getPosition().y << "\n";
 }
 
 void Player::handlePlayerEvents(sf::Event event)
@@ -194,8 +221,11 @@ void Player::killPlayer()
     isActive = false;
 }
 
-void Player::respawn()
+void Player::respawn(Camera &camera, int randomNumber)
 {
     health = 100;
     isActive = true;
+
+    sprite.setPosition(spawnPoints[randomNumber]);
+    camera.setCamCenter(sf::Vector2f(sprite.getPosition().x, sprite.getPosition().y));
 }

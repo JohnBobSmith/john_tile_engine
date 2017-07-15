@@ -152,11 +152,13 @@ int main()
                 window.close();
                 isRunning = false;
             }
+            //Check for player.isActive to ensure we only die/spawn once.
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && player.isActive) {
                 player.killPlayer();
             }
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !player.isActive) {
-                player.respawn();
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && !player.isActive) {
+                int randomNumber = rand() % 10;
+                player.respawn(camera, randomNumber);
             }
             player.handlePlayerEvents(event);
         }

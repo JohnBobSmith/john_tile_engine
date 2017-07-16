@@ -240,19 +240,20 @@ int main()
         //Draw collision boxes
         /*
         for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
-            window.draw(*collision.collVector[i]);
-            window.draw(*grasslandCollision.collVector[i]);
-            window.draw(*grasslandGrass.collVector[i]);
-            window.draw(*grasslandShrubs.collVector[i]);
-            window.draw(*farmlandCollision.collVector[i]);
-            window.draw(*farmlandGrass.collVector[i]);
-            window.draw(*farmlandRoad.collVector[i]);
-            window.draw(*farmlandCropAndShrub.collVector[i]);
-            window.draw(*animPropsCollision.collVector[i]);
-            window.draw(*rocklandCollision.collVector[i]);
-            window.draw(*rocklandDirt.collVector[i]);
-            window.draw(*rocklandGrass.collVector[i]);
-            window.draw(*junglelandCollision.collvector[i]);
+            window.draw(grasslandCollision.collVector[i]->bbox);
+            window.draw(grasslandGrass.collVector[i]->bbox);
+            window.draw(grasslandShrubs.collVector[i]->bbox);
+            window.draw(farmlandCollision.collVector[i]->bbox);
+            window.draw(farmlandGrass.collVector[i]->bbox);
+            window.draw(farmlandRoad.collVector[i]->bbox);
+            window.draw(farmlandCropAndShrub.collVector[i]->bbox);
+            window.draw(animPropsCollision.collVector[i]->bbox);
+            window.draw(rocklandCollision.collVector[i]->bbox);
+            window.draw(rocklandDirt.collVector[i]->bbox);
+            window.draw(rocklandGrass.collVector[i]->bbox);
+            window.draw(junglelandCollision.collVector[i]->bbox);
+            window.draw(junglelandGrass.collVector[i]->bbox);
+            window.draw(junglelandShrub.collVector[i]->bbox);
         }
         //*/
 

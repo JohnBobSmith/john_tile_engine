@@ -89,25 +89,21 @@ void Player::handlePlayerEvents(sf::Event event)
             velocity.y -= maxVelocity;
             keyCounter += 1;
             isWalking = true;
-            direction = 0;
         }
         if (event.key.code == sf::Keyboard::Down) {
             velocity.y += maxVelocity;
             keyCounter += 1;
             isWalking = true;
-            direction = 1;
         }
         if (event.key.code == sf::Keyboard::Left) {
             velocity.x -= maxVelocity;
             keyCounter += 1;
             isWalking = true;
-            direction = 2;
         }
         if (event.key.code == sf::Keyboard::Right) {
             velocity.x += maxVelocity;
             keyCounter += 1;
             isWalking = true;
-            direction = 3;
         }
     }
     //Stop moving when we release the key

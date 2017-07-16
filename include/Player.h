@@ -67,7 +67,7 @@ class Player
         //End the players life prematurely.
         void killPlayer();
 
-        //Allow the player to respawn
+        //Allow the player to respawn at a random spawn point
         void respawn(Camera &camera, int randomNumber = 0);
 
     private:

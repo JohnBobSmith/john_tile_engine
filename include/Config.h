@@ -25,13 +25,13 @@ class Config
         const std::unordered_set<int> objectsInJungleland = {0, 3, 4, 6 ,7 ,9, 10, 11, 12, 13, 14, 15};
 
         //Audio collision boxes
-        const std::unordered_set<int> grasslandGrass = {1, 4, 5, 8, 9};
+        const std::unordered_set<int> grasslandGrass = {1};
         const std::unordered_set<int> grasslandShrubs = {2};
         const std::unordered_set<int> farmlandGrass{1};
         const std::unordered_set<int> farmlandRoad{12};
         const std::unordered_set<int> farmlandCropAndShrub{2, 4, 5, 6};
         const std::unordered_set<int> rocklandGrass{1, 2};
-        const std::unordered_set<int> rocklandDirt{4, 6, 7};
+        const std::unordered_set<int> rocklandDirt{4, 6, 7, 8, 9, 12, 13};
         const std::unordered_set<int> junglelandGrass{1};
         const std::unordered_set<int> junglelandShrub{2, 5, 8};
 

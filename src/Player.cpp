@@ -53,6 +53,10 @@ Player::Player()
     //Our respawn sound
     respawnSoundBuffer.loadFromFile("audio/effects/respawn.wav");
     respawnSound.setBuffer(respawnSoundBuffer);
+
+    //Our death sound
+    deathSoundBuffer.loadFromFile("audio/effects/death.wav");
+    deathSound.setBuffer(deathSoundBuffer);
 }
 
 bool Player::setTexture(std::string path)
@@ -85,21 +89,25 @@ void Player::handlePlayerEvents(sf::Event event)
             velocity.y -= maxVelocity;
             keyCounter += 1;
             isWalking = true;
+            direction = 0;
         }
         if (event.key.code == sf::Keyboard::Down) {
             velocity.y += maxVelocity;
             keyCounter += 1;
             isWalking = true;
+            direction = 1;
         }
         if (event.key.code == sf::Keyboard::Left) {
             velocity.x -= maxVelocity;
             keyCounter += 1;
             isWalking = true;
+            direction = 2;
         }
         if (event.key.code == sf::Keyboard::Right) {
             velocity.x += maxVelocity;
             keyCounter += 1;
             isWalking = true;
+            direction = 3;
         }
     }
     //Stop moving when we release the key
@@ -134,12 +142,6 @@ void Player::handlePlayerEvents(sf::Event event)
 
 void Player::animate()
 {
-    /* TODO:
-    A future version of this algorithm
-    should use SFML's clock and time features.
-    This works fine currently and I'm not going to
-    bother changing it (for now).
-    */
     //Animate the player
     static int counter = 0;
     static float timer = 5.0f;
@@ -225,6 +227,8 @@ void Player::applyDamage(int ammount)
 
 void Player::killPlayer()
 {
+    deathSound.play();
+
     health = -999;
     isActive = false;
 }

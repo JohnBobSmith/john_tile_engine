@@ -160,10 +160,10 @@ int main()
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && player.isActive) {
                 player.killPlayer();
             }
-            player.handlePlayerEvents(event);
+            player.handlePlayerEvents(event, window);
         }
 
-                /*
+        /*
         for (int i = 0; i < grasslandCollision.MAX_COLLISION_BOXES; ++i) {
             if (grasslandCollision.collVector[i]->isTouching) {
                 grassland.changeLevelData(i, 9);

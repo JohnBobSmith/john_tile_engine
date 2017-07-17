@@ -3,6 +3,7 @@
 #include "../include/Collision.h"
 #include <string>
 #include <iostream>
+#include <math.h> //atan2
 
 //Initialize our base values
 Player::Player()
@@ -79,7 +80,7 @@ void Player::movePlayer()
     sprite.move(position);
 }
 
-void Player::handlePlayerEvents(sf::Event event)
+void Player::handlePlayerEvents(sf::Event event, sf::Window &window)
 {
     //If key is pressed...
     if (event.type == sf::Event::KeyPressed) {
@@ -133,6 +134,20 @@ void Player::handlePlayerEvents(sf::Event event)
             velocity.x -= maxVelocity;
             keyCounter -= 1;
         }
+    }
+
+    if (event.type == sf::Event::MouseMoved) {
+        sprite.setOrigin(11, 27);
+        int mouseX = sf::Mouse::getPosition(window).x;
+        int mouseY = sf::Mouse::getPosition(window).y;
+        float angle = atan2(mouseY, mouseX);
+        angle = angle * (180/M_PI);
+        //*
+        if(angle < 0) {
+            angle = 360 - (-angle);
+        }
+        //*/
+        sprite.setRotation(90 + angle);
     }
 }
 

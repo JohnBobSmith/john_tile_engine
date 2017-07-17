@@ -50,7 +50,7 @@ class Player
         bool setTexture(std::string path);
 
         //Handle player input
-        void handlePlayerEvents(sf::Event event, sf::Window &window);
+        void handlePlayerEvents(sf::Event event);
 
         //Move the player
         void movePlayer();

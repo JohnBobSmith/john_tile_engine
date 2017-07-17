@@ -7,6 +7,7 @@
 #include "../include/AnimatedProps.h"
 #include "../include/SoundManager.h"
 #include "../include/Shader.h"
+#include "../include/Mouse.h"
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
@@ -20,6 +21,7 @@ int main()
     Config config;
     SoundManager soundmngr;
     Shader shader;
+    Mouse mouse;
 
     //Load our worlds
     World grassland;
@@ -160,8 +162,11 @@ int main()
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && player.isActive) {
                 player.killPlayer();
             }
-            player.handlePlayerEvents(event, window);
+            player.handlePlayerEvents(event);
+            mouse.handleMouseEvents(event);
         }
+        player.sprite.setOrigin(11, 27);
+        player.sprite.setRotation(90 + mouse.getMouseAngle());
 
         /*
         for (int i = 0; i < grasslandCollision.MAX_COLLISION_BOXES; ++i) {

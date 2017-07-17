@@ -105,8 +105,10 @@ int main()
     cloudsBackground.setPosition(-1000, -1000);
 
     //Init the player
+    if (!player.loadTexture()) {
+        return -1; //Error missing required texture.
+    }
     player.boundingBoxSprite.setPosition(64, 64);
-    player.setTexture("textures/entity/player.anim.png");
     player.body.setTextureRect(sf::IntRect(0, 0, 22, 32));
 
     //Init the camera
@@ -269,7 +271,6 @@ int main()
             player.animate();
             player.movePlayer();
             camera.moveCam(player.position.x, player.position.y);
-            player.legs.setOrigin(11, 22);
             player.legs.setPosition(player.body.getPosition().x, player.body.getPosition().y);
             player.legs.setRotation(90 + mouse.getMouseAngle());
             window.draw(player.legs);

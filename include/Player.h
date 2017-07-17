@@ -52,8 +52,11 @@ class Player
         //Animate the player
         void animate();
 
-        //Set the texture
-        bool setTexture(std::string path);
+        //Load textures, audio, and fonts
+        bool loadTexture();
+        bool loadAudio();
+        bool loadFont();
+
 
         //Handle player input
         void handlePlayerEvents(sf::Event event);

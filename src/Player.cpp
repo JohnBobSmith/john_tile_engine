@@ -58,23 +58,33 @@ Player::Player()
     deathSoundBuffer.loadFromFile("audio/effects/death.wav");
     deathSound.setBuffer(deathSoundBuffer);
 
-    boundingBoxSpriteTexture.loadFromFile("textures/entity/playerboundingbox.png");
-    boundingBoxSprite.setTexture(boundingBoxSpriteTexture);
-
-    legsTexture.loadFromFile("textures/entity/player.anim.legs.png");
-    legs.setTexture(legsTexture);
+    legs.setTextureRect(sf::IntRect(0, 0, 22, 32));
+    legs.setOrigin(11, 22);
 }
 
-bool Player::setTexture(std::string path)
+bool Player::loadTexture()
 {
     //If we cannot load the texture, error out.
-    if (!bodyTexture.loadFromFile(path.c_str())) {
-        std::cerr << "Error: Missing texture " << path.c_str();
+    if (!bodyTexture.loadFromFile("textures/entity/player.anim.png")) {
+        std::cerr << "Error: Missing required texture file...";
+        return false;
+    }
+
+    if (!boundingBoxSpriteTexture.loadFromFile("textures/entity/playerboundingbox.png")) {
+        std::cerr << "Error: Missing required texture file...";
+        return false;
+    }
+
+    if (!legsTexture.loadFromFile("textures/entity/player.anim.legs.png")) {
+        std::cerr << "Error: Missing required texture file...";
         return false;
     }
 
     //Otherwise, set the texture and return success.
     body.setTexture(bodyTexture);
+    boundingBoxSprite.setTexture(boundingBoxSpriteTexture);
+    legs.setTexture(legsTexture);
+
     return true;
 }
 

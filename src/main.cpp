@@ -270,6 +270,7 @@ int main()
             player.movePlayer();
             camera.moveCam(player.position.x, player.position.y);
             window.draw(player.sprite);
+            window.draw(player.boundingBoxSprite);
         }
 
         //Draw shader testing stuff and fluffs.

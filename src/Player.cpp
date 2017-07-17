@@ -10,13 +10,13 @@ Player::Player()
     keyCounter = 0;
     isActive = true;
     isWalking = false;
-    position.x = 64;
-    position.y = 64;
+    position.x = 32;
+    position.y = 32;
     velocity.x = 0;
     velocity.y = 0;
     maxVelocity = 1;
-    size.x = 32;
-    size.y = 32;
+    size.x = 22;
+    size.y = 22;
     health = 100.0f;
 
     //Setup our spawn points.
@@ -57,6 +57,9 @@ Player::Player()
     //Our death sound
     deathSoundBuffer.loadFromFile("audio/effects/death.wav");
     deathSound.setBuffer(deathSoundBuffer);
+
+    boundingBoxSpriteTexture.loadFromFile("textures/entity/playerboundingbox.png");
+    boundingBoxSprite.setTexture(boundingBoxSpriteTexture);
 }
 
 bool Player::setTexture(std::string path)
@@ -76,6 +79,7 @@ void Player::movePlayer()
     //Move our player
     position.x = velocity.x;
     position.y = velocity.y;
+    boundingBoxSprite.setPosition(sprite.getPosition().x - 11, sprite.getPosition().y - 11);
     sprite.move(position);
 }
 
@@ -160,8 +164,9 @@ bool Player::checkCollision(Collision &collision, Camera &camera)
 {
     //If there is a collision...
     for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
-        if (collision.checkAABBcollision(sprite.getPosition().x, sprite.getPosition().y,
-                                         size.x - 8, size.y, //Players size
+        if (collision.checkAABBcollision(boundingBoxSprite.getPosition().x,
+                                         boundingBoxSprite.getPosition().y,
+                                         size.x, size.y, //Players size
                                          collision.collVector[i]->bbox.getPosition().x,
                                          collision.collVector[i]->bbox.getPosition().y,
                                          collision.collVector[i]->bbox.getSize().x,

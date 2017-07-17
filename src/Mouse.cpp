@@ -2,12 +2,10 @@
 #include <cmath>
 #include "../include/Mouse.h"
 #include "../include/Player.h"
-#include "../include/Camera.h"
 #include "../include/Config.h"
 #include <iostream>
 
 Player player;
-Camera camera;
 Config config;
 
 float Mouse::calculateMouseAngle(float mouseX, float mouseY, float positionX, float positionY)

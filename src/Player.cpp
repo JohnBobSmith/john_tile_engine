@@ -65,12 +65,12 @@ Player::Player()
 bool Player::setTexture(std::string path)
 {
     //If we cannot load the texture, error out.
-    if (!texture.loadFromFile(path.c_str())) {
+    if (!bodyTexture.loadFromFile(path.c_str())) {
         std::cerr << "Error: Missing texture " << path.c_str();
         return false;
     }
     //Otherwise, set the texture and return success.
-    sprite.setTexture(texture);
+    body.setTexture(bodyTexture);
     return true;
 }
 
@@ -80,7 +80,7 @@ void Player::movePlayer()
     position.x = velocity.x;
     position.y = velocity.y;
     boundingBoxSprite.move(position);
-    sprite.setPosition(boundingBoxSprite.getPosition().x + 11, boundingBoxSprite.getPosition().y + 11);
+    body.setPosition(boundingBoxSprite.getPosition().x + 11, boundingBoxSprite.getPosition().y + 11);
 }
 
 void Player::handlePlayerEvents(sf::Event event)
@@ -118,7 +118,7 @@ void Player::handlePlayerEvents(sf::Event event)
             isWalking = false;
         }
         //Reset our texture rect when we stop walking
-        sprite.setTextureRect(sf::IntRect(0, 0, 22, 32));
+        body.setTextureRect(sf::IntRect(0, 0, 22, 32));
 
         //When we release a key, adjust player attributes
         if (event.key.code == sf::Keyboard::W) {
@@ -148,8 +148,8 @@ void Player::animate()
     if (isWalking) {
         timer -= 1.0f;
         if (timer == 0.0f) {
-            //Cycle through our sprite sheet
-            sprite.setTextureRect(sf::IntRect(counter, 0, 22, 32));
+            //Cycle through our body sheet
+            body.setTextureRect(sf::IntRect(counter, 0, 22, 32));
             timer = 5.0f;
         }
         counter += 22; //22 is the width of one sprite on the sheet

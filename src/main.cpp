@@ -107,7 +107,7 @@ int main()
     //Init the player
     player.boundingBoxSprite.setPosition(64, 64);
     player.setTexture("textures/entity/player.anim.png");
-    player.sprite.setTextureRect(sf::IntRect(0, 0, 22, 32));
+    player.body.setTextureRect(sf::IntRect(0, 0, 22, 32));
 
     //Init the camera
     camera.setCamCenter(player.boundingBoxSprite.getPosition());
@@ -165,8 +165,8 @@ int main()
             player.handlePlayerEvents(event);
             mouse.handleMouseEvents(event, window);
         }
-        player.sprite.setOrigin(11, 27);
-        player.sprite.setRotation(90 + mouse.getMouseAngle());
+        player.body.setOrigin(11, 27);
+        player.body.setRotation(90 + mouse.getMouseAngle());
 
         /*
         for (int i = 0; i < grasslandCollision.MAX_COLLISION_BOXES; ++i) {
@@ -269,16 +269,16 @@ int main()
             player.animate();
             player.movePlayer();
             camera.moveCam(player.position.x, player.position.y);
-            window.draw(player.sprite);
+            window.draw(player.body);
         }
 
         //Draw shader testing stuff and fluffs.
         //*
         if (!player.isActive) {
-            shader.deathShape.setPosition(player.sprite.getPosition().x - 100,
-                                        player.sprite.getPosition().y - 100);
-            player.respawnText.setPosition(player.sprite.getPosition().x - 75,
-                                        player.sprite.getPosition().y - 75);
+            shader.deathShape.setPosition(player.body.getPosition().x - 100,
+                                        player.body.getPosition().y - 100);
+            player.respawnText.setPosition(player.body.getPosition().x - 75,
+                                        player.body.getPosition().y - 75);
             shader.animate(true);
             window.draw(shader.deathShape, &shader.deathShader);
             window.draw(player.respawnText);

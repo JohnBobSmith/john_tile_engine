@@ -105,7 +105,7 @@ int main()
     cloudsBackground.setPosition(-1000, -1000);
 
     //Init the player
-    player.sprite.setPosition(32, 32);
+    player.sprite.setPosition(64, 64);
     player.setTexture("textures/entity/player.anim.png");
     player.sprite.setTextureRect(sf::IntRect(0, 0, 22, 32));
 
@@ -163,10 +163,11 @@ int main()
                 player.killPlayer();
             }
             player.handlePlayerEvents(event);
-            mouse.handleMouseEvents(event);
+            mouse.handleMouseEvents(event, window);
         }
         player.sprite.setOrigin(11, 27);
         player.sprite.setRotation(90 + mouse.getMouseAngle());
+        std::cout << player.sprite.getPosition().x << " " << player.sprite.getPosition().y << "\n";
 
         /*
         for (int i = 0; i < grasslandCollision.MAX_COLLISION_BOXES; ++i) {

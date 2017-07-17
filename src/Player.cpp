@@ -10,8 +10,8 @@ Player::Player()
     keyCounter = 0;
     isActive = true;
     isWalking = false;
-    position.x = 0;
-    position.y = 0;
+    position.x = 64;
+    position.y = 64;
     velocity.x = 0;
     velocity.y = 0;
     maxVelocity = 1;

@@ -3,8 +3,12 @@
 #include "../include/Mouse.h"
 #include "../include/Player.h"
 #include "../include/Camera.h"
+#include "../include/Config.h"
+#include <iostream>
+
 Player player;
 Camera camera;
+Config config;
 
 float Mouse::calculateMouseAngle(float mouseX, float mouseY, float positionX, float positionY)
 {
@@ -16,15 +20,14 @@ float Mouse::calculateMouseAngle(float mouseX, float mouseY, float positionX, fl
     return angle;
 }
 
-void Mouse::handleMouseEvents(sf::Event &event) {
+void Mouse::handleMouseEvents(sf::Event &event, sf::Window &window) {
     if (event.type == sf::Event::MouseMoved) {
         //Calculate the mouse position every frame
-        mouseX = event.mouseMove.x;
-        mouseY = event.mouseMove.y;
-        //Center of the screen
-        float xCenter = player.sprite.getPosition().x - camera.getCamera().getCenter().x;
-        float yCenter = player.sprite.getPosition().y - camera.getCamera().getCenter().y;
+        mouseX = sf::Mouse::getPosition(window).x;
+        mouseY = sf::Mouse::getPosition(window).y;
+
         //Set the angle relative to the player
-        mouseAngle = calculateMouseAngle(mouseX, mouseY, xCenter, yCenter);
+        mouseAngle = calculateMouseAngle(mouseX, mouseY, config.getScreenWidth() / 2,
+                                                       config.getScreenHeight() / 2);
     }
 }

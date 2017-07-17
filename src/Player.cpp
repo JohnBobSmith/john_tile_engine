@@ -60,6 +60,9 @@ Player::Player()
 
     boundingBoxSpriteTexture.loadFromFile("textures/entity/playerboundingbox.png");
     boundingBoxSprite.setTexture(boundingBoxSpriteTexture);
+
+    legsTexture.loadFromFile("textures/entity/player.anim.legs.png");
+    legs.setTexture(legsTexture);
 }
 
 bool Player::setTexture(std::string path)
@@ -69,6 +72,7 @@ bool Player::setTexture(std::string path)
         std::cerr << "Error: Missing texture " << path.c_str();
         return false;
     }
+
     //Otherwise, set the texture and return success.
     body.setTexture(bodyTexture);
     return true;
@@ -149,7 +153,7 @@ void Player::animate()
         timer -= 1.0f;
         if (timer == 0.0f) {
             //Cycle through our body sheet
-            body.setTextureRect(sf::IntRect(counter, 0, 22, 32));
+            legs.setTextureRect(sf::IntRect(counter, 0, 22, 32));
             timer = 5.0f;
         }
         counter += 22; //22 is the width of one sprite on the sheet

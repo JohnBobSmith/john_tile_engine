@@ -26,9 +26,11 @@ class Player
         //Spawn time value (not actual seconds)
         float spawnTime = 12.0f;
 
-        //Players sprite and texture
+        //Player sprites and textures
         sf::Sprite body;
+        sf::Sprite legs;
         sf::Texture bodyTexture;
+        sf::Texture legsTexture;
 
         //Players position and velocity
         sf::Vector2f position;

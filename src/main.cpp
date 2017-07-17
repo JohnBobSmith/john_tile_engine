@@ -269,6 +269,10 @@ int main()
             player.animate();
             player.movePlayer();
             camera.moveCam(player.position.x, player.position.y);
+            player.legs.setOrigin(11, 22);
+            player.legs.setPosition(player.body.getPosition().x, player.body.getPosition().y);
+            player.legs.setRotation(90 + mouse.getMouseAngle());
+            window.draw(player.legs);
             window.draw(player.body);
         }
 

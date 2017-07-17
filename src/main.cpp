@@ -105,12 +105,12 @@ int main()
     cloudsBackground.setPosition(-1000, -1000);
 
     //Init the player
-    player.sprite.setPosition(64, 64);
+    player.boundingBoxSprite.setPosition(64, 64);
     player.setTexture("textures/entity/player.anim.png");
     player.sprite.setTextureRect(sf::IntRect(0, 0, 22, 32));
 
     //Init the camera
-    camera.setCamCenter(player.sprite.getPosition());
+    camera.setCamCenter(player.boundingBoxSprite.getPosition());
 
     //Position our worlds
     rockland.setPosition(512, 0);
@@ -167,7 +167,6 @@ int main()
         }
         player.sprite.setOrigin(11, 27);
         player.sprite.setRotation(90 + mouse.getMouseAngle());
-        std::cout << player.sprite.getPosition().x << " " << player.sprite.getPosition().y << "\n";
 
         /*
         for (int i = 0; i < grasslandCollision.MAX_COLLISION_BOXES; ++i) {
@@ -260,6 +259,7 @@ int main()
             window.draw(junglelandCollision.collVector[i]->bbox);
             window.draw(junglelandGrass.collVector[i]->bbox);
             window.draw(junglelandShrub.collVector[i]->bbox);
+            window.draw(player.boundingBoxSprite);
         }
         //*/
 
@@ -270,7 +270,6 @@ int main()
             player.movePlayer();
             camera.moveCam(player.position.x, player.position.y);
             window.draw(player.sprite);
-            window.draw(player.boundingBoxSprite);
         }
 
         //Draw shader testing stuff and fluffs.

@@ -79,8 +79,8 @@ void Player::movePlayer()
     //Move our player
     position.x = velocity.x;
     position.y = velocity.y;
-    boundingBoxSprite.setPosition(sprite.getPosition().x - 11, sprite.getPosition().y - 11);
-    sprite.move(position);
+    boundingBoxSprite.move(position);
+    sprite.setPosition(boundingBoxSprite.getPosition().x + 11, boundingBoxSprite.getPosition().y + 11);
 }
 
 void Player::handlePlayerEvents(sf::Event event)
@@ -176,19 +176,20 @@ bool Player::checkCollision(Collision &collision, Camera &camera)
 
             //...Move the sprite back
             if (position.x == -1) {
-                sprite.move(1, 0);
+                boundingBoxSprite.move(1, 0);
             }
             if (position.x == 1) {
-                sprite.move(-1, 0);
+                boundingBoxSprite.move(-1, 0);
             }
             if (position.y == 1) {
-                sprite.move(0, -1);
+                boundingBoxSprite.move(0, -1);
             }
             if (position.y == -1) {
-                sprite.move(0, 1);
+                boundingBoxSprite.move(0, 1);
             }
             //Update the camera
-            camera.setCamCenter(sf::Vector2f(sprite.getPosition().x, sprite.getPosition().y));
+            camera.setCamCenter(sf::Vector2f(boundingBoxSprite.getPosition().x,
+                                           boundingBoxSprite.getPosition().y));
 
             //Collided
             return true;
@@ -204,8 +205,9 @@ bool Player::checkCollision(Collision &collision, Camera &camera)
 bool Player::checkAudioCollsion(Collision &collision)
 {
     for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
-        if (collision.checkAABBcollision(sprite.getPosition().x, sprite.getPosition().y,
-                                         size.x - 8, size.y, //Players size
+        if (collision.checkAABBcollision(boundingBoxSprite.getPosition().x,
+                                         boundingBoxSprite.getPosition().y,
+                                         size.x, size.y, //Players size
                                          collision.collVector[i]->bbox.getPosition().x,
                                          collision.collVector[i]->bbox.getPosition().y,
                                          collision.collVector[i]->bbox.getSize().x,
@@ -241,6 +243,6 @@ void Player::respawn(Camera &camera, int randomNumber)
     health = 100;
     isActive = true;
 
-    sprite.setPosition(spawnPoints[randomNumber]);
-    camera.setCamCenter(sf::Vector2f(sprite.getPosition().x, sprite.getPosition().y));
+    boundingBoxSprite.setPosition(spawnPoints[randomNumber]);
+    camera.setCamCenter(sf::Vector2f(boundingBoxSprite.getPosition().x, boundingBoxSprite.getPosition().y));
 }

@@ -25,7 +25,7 @@ void Mouse::handleMouseEvents(sf::Event &event, sf::Window &window) {
         mouseY = sf::Mouse::getPosition(window).y;
 
         //Set the angle relative to the player
-        mouseAngle = calculateMouseAngle(mouseX, mouseY, config.getScreenWidth() / 2,
-                                                       config.getScreenHeight() / 2);
+        mouseAngle = calculateMouseAngle(mouseX, mouseY, config.getScreenWidth() / 2 + player.size.x,
+                                                       config.getScreenHeight() / 2 + player.size.y);
     }
 }

@@ -88,23 +88,23 @@ void Player::handlePlayerEvents(sf::Event event)
     //If key is pressed...
     if (event.type == sf::Event::KeyPressed) {
         //...Look for the keycode, and then...
-        if (event.key.code == sf::Keyboard::Up) {
+        if (event.key.code == sf::Keyboard::W) {
             //...Do stuff
             velocity.y -= maxVelocity;
             keyCounter += 1;
             isWalking = true;
         }
-        if (event.key.code == sf::Keyboard::Down) {
+        if (event.key.code == sf::Keyboard::S) {
             velocity.y += maxVelocity;
             keyCounter += 1;
             isWalking = true;
         }
-        if (event.key.code == sf::Keyboard::Left) {
+        if (event.key.code == sf::Keyboard::A) {
             velocity.x -= maxVelocity;
             keyCounter += 1;
             isWalking = true;
         }
-        if (event.key.code == sf::Keyboard::Right) {
+        if (event.key.code == sf::Keyboard::D) {
             velocity.x += maxVelocity;
             keyCounter += 1;
             isWalking = true;
@@ -121,19 +121,19 @@ void Player::handlePlayerEvents(sf::Event event)
         sprite.setTextureRect(sf::IntRect(0, 0, 22, 32));
 
         //When we release a key, adjust player attributes
-        if (event.key.code == sf::Keyboard::Up) {
+        if (event.key.code == sf::Keyboard::W) {
             velocity.y += maxVelocity;
             keyCounter -= 1;
         }
-        if (event.key.code == sf::Keyboard::Down) {
+        if (event.key.code == sf::Keyboard::S) {
             velocity.y -= maxVelocity;
             keyCounter -= 1;
         }
-        if (event.key.code == sf::Keyboard::Left) {
+        if (event.key.code == sf::Keyboard::A) {
             velocity.x += maxVelocity;
             keyCounter -= 1;
         }
-        if (event.key.code == sf::Keyboard::Right) {
+        if (event.key.code == sf::Keyboard::D) {
             velocity.x -= maxVelocity;
             keyCounter -= 1;
         }

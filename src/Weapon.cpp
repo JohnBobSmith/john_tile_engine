@@ -1,12 +1,13 @@
 #include "Weapon.h"
 
-Weapon::Weapon()
+Weapon::Weapon(std::string path)
 {
-    weaponTexture.loadFromFile("textures/entity/player.anim.png");
+    weaponTexture.loadFromFile(path.c_str());
     weapSprite.setTexture(weaponTexture);
 
+    //Default attributes
     isEquiped = true;
-    damage = 25;
+    damage = 20;
     maxAmmo = 75;
     magazineSize = 25;
     ammoInMagazine = magazineSize;

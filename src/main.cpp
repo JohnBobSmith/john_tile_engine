@@ -9,6 +9,7 @@
 #include "../include/Shader.h"
 #include "../include/Mouse.h"
 #include "../include/Font.h"
+#include "../include/Weapon.h"
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
@@ -58,6 +59,9 @@ int main()
     //Camera and player
     Camera camera;
     Player player;
+
+    //Our weapons
+    Weapon ak47("textures/weapons/ak47.png");
 
     //Initialize SFML
     sf::Event event;
@@ -160,7 +164,7 @@ int main()
     soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps07.wav");
     soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps08.wav");
     soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps09.wav");
-    //Our spawning effects, to go in bnkSpawnEffects (defined in SoundManager.h).
+    //Our spawn/death sounds, to go in bnkSpawnEffects (defined in SoundManager.h).
     soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "audio/effects/respawn.wav");
     soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "audio/effects/death.wav");
 

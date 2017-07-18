@@ -1,13 +1,16 @@
 #ifndef WEAPON_H
 #define WEAPON_H
 
+#include "Bullet.h"
 #include <SFML/Graphics.hpp>
+#include <string>
 
 //Every weapon must have...
-class Weapon
+class Weapon : public Bullet
 {
     public:
-        Weapon();
+        //A way to load the texture
+        Weapon(std::string path);
 
         //A sprite
         sf::Sprite weapSprite;

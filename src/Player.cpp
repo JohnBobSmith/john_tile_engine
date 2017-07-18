@@ -44,12 +44,6 @@ Player::Player()
     spawnPoints[9].x = 867;
     spawnPoints[9].y = -441;
 
-    //Our text
-    squarefont.loadFromFile("fonts/Square.ttf");
-    respawnText.setFont(squarefont);
-    respawnText.setCharacterSize(24);
-    respawnText.setString("Respawning...");
-
     //Our respawn sound
     respawnSoundBuffer.loadFromFile("audio/effects/respawn.wav");
     respawnSound.setBuffer(respawnSoundBuffer);

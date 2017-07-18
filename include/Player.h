@@ -16,9 +16,6 @@ class Player
         sf::Sprite boundingBoxSprite;
         sf::Texture boundingBoxSpriteTexture;
 
-        //Our respawn text
-        sf::Text respawnText;
-
         //Our death/respawn sounds
         sf::Sound respawnSound;
         sf::Sound deathSound;
@@ -55,8 +52,6 @@ class Player
         //Load textures, audio, and fonts
         bool loadTexture();
         bool loadAudio();
-        bool loadFont();
-
 
         //Handle player input
         void handlePlayerEvents(sf::Event event);
@@ -80,8 +75,6 @@ class Player
         void respawn(Camera &camera, int randomNumber = 0);
 
     private:
-        //Our respawn text's font
-        sf::Font squarefont;
 
         //Our respawn sounds buffer
         sf::SoundBuffer respawnSoundBuffer;

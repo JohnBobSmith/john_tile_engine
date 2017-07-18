@@ -8,6 +8,7 @@
 #include "../include/SoundManager.h"
 #include "../include/Shader.h"
 #include "../include/Mouse.h"
+#include "../include/Font.h"
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
@@ -22,6 +23,7 @@ int main()
     SoundManager soundmngr;
     Shader shader;
     Mouse mouse;
+    Font font;
 
     //Load our worlds
     World grassland;
@@ -110,6 +112,11 @@ int main()
     }
     player.boundingBoxSprite.setPosition(64, 64);
     player.body.setTextureRect(sf::IntRect(0, 0, 22, 32));
+
+    //Init our fonts
+    if (!font.load()) {
+        return -1; //Error missing required font files.
+    }
 
     //Init the camera
     camera.setCamCenter(player.boundingBoxSprite.getPosition());
@@ -282,11 +289,11 @@ int main()
         if (!player.isActive) {
             shader.deathShape.setPosition(player.body.getPosition().x - 100,
                                         player.body.getPosition().y - 100);
-            player.respawnText.setPosition(player.body.getPosition().x - 75,
+            font.respawnText.setPosition(player.body.getPosition().x - 75,
                                         player.body.getPosition().y - 75);
             shader.animate(true);
             window.draw(shader.deathShape, &shader.deathShader);
-            window.draw(player.respawnText);
+            window.draw(font.respawnText);
             //Automatically respawn
             static float timer = player.spawnTime;
             timer -= 0.1f;

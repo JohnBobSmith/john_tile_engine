@@ -48,7 +48,7 @@ class Player
         //Animate the player
         void animate();
 
-        //Load textures, audio, and fonts
+        //Load textures and audio
         bool loadTexture();
         bool loadAudio();
 
@@ -87,15 +87,6 @@ class Player
 
         //Keep track of how many keys are pressed.
         int keyCounter;
-
-        //Which direction is the player facing?
-        /*
-            0 = up
-            1 = down
-            2 = left
-            3 = right
-        */
-        int direction = 0;
 };
 
 #endif // PLAYER_H

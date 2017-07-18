@@ -8,17 +8,16 @@
 class SoundManager
 {
     public:
+        //Store our sounds and sound buffers
         struct jteSound
         {
             sf::Sound snd;
             sf::SoundBuffer sndBuffer;
-            std::string name;
         };
 
         //Load a new sound from path and store it in audio bank bnk.
         //Banks are simply std::vectors of type jteSound.
-        void registerNewSound(std::vector<std::shared_ptr<jteSound>> &bnk,
-                                    std::string path, std::string sndName);
+        void registerNewSound(std::vector<std::shared_ptr<jteSound>> &bnk, std::string path,);
 
         //Footsteps bank
         std::vector<std::shared_ptr<jteSound>> bnkFootsteps;

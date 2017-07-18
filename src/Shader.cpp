@@ -21,9 +21,10 @@ void Shader::animate(bool isAnimated)
     static float counter = 0.0f;
     if (isAnimated) {
         counter += 0.1f;
+        //Animated our shape by scaling it up.
         deathShape.setScale(sf::Vector2f(counter, counter));
     } else {
-        //Reset
+        //Reset our shape's attributes.
         if (deathShape.getScale().x > 0.0f) {
             counter -= 1.0f;
             deathShape.setScale(sf::Vector2f(counter, counter));

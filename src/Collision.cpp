@@ -64,8 +64,8 @@ bool Collision::checkAABBcollision(float xA, float yA, float wA, float hA,
 }
 
 void Collision::positionCollisionBoxes(const std::vector<long int> &level,
-                            const std::unordered_set<int> &objectsToCollideWith,
-                            int offsetX, int offsetY)
+                      const std::unordered_set<int> &objectsToCollideWith,
+                                                 int offsetX, int offsetY)
 {
     //For our unordered sets
     Config config;

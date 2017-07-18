@@ -10,6 +10,7 @@ Config config;
 
 float Mouse::calculateMouseAngle(float mouseX, float mouseY, float positionX, float positionY)
 {
+    //Calcualte the mouse angle with atan2.
     float angle = std::atan2(mouseY - positionY, mouseX - positionX);
     angle = angle * 180 / M_PI;
     if (angle < 0) {

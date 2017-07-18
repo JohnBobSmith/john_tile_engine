@@ -4,7 +4,6 @@
 #include <SFML/Graphics.hpp>
 
 //Mouse functions and events
-//Grabbing mouse position and what not
 class Mouse
 {
     public:

@@ -5,7 +5,7 @@ AnimatedProps::AnimatedProps()
 {
     //If we cant find the texture, bail out
     if (!texture.loadFromFile("textures/level/animatedprops.png")) {
-        std::cerr << "Failed to load textures/level/animatedprops.png...\n";
+        std::cerr << "Failed to load required texture file...\n";
     }
     //Otherwise, set the texture.
     windmill.setTexture(texture);
@@ -15,14 +15,6 @@ AnimatedProps::AnimatedProps()
 
 void AnimatedProps::animate()
 {
-    /*
-        TODO:
-        A future version of this algorithm
-        should use SFML's clock features instead
-        of floating point numbers. This works
-        and im not interseted in changing
-        it (for now)
-    */
     //Animate the props
     static int counter = 32;
     static float timer = 20.0f;

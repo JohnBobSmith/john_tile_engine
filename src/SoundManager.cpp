@@ -1,13 +1,12 @@
 #include "SoundManager.h"
 #include <memory>
 
-void SoundManager::registerNewSound(std::vector<std::shared_ptr<jteSound>> &bnk,
-                                            std::string path, std::string sndName)
+void SoundManager::registerNewSound(std::vector<std::shared_ptr<jteSound>> &bnk, std::string path)
 {
+    //Initialize our sounds attributes.
     static int counter = 0;
     for (int i = counter; counter <i+1; counter++) {
         bnk.push_back(std::make_shared<jteSound>());
-        bnk[i]->name = sndName;
         bnk[i]->sndBuffer.loadFromFile(path);
         bnk[i]->snd.setBuffer(bnk[i]->sndBuffer);
     }

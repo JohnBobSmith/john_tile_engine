@@ -7,7 +7,6 @@
 #include <string>
 #include <memory>
 
-
 class Collision
 {
     public:
@@ -42,6 +41,7 @@ class Collision
             bool isTouching;
         };
 
+        //Store our structs in an std::vector
         std::vector<std::shared_ptr<bbox>> collVector;
 
         //Cap our collisions boxes

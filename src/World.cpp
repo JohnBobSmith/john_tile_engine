@@ -60,22 +60,22 @@ bool World::loadNewLevel(std::string levelName, std::string tileset, bool doWeCl
     privateLevelName = levelName;
     privateTileSet = tileset;
 
-    //Clear the contents of our level if required
+    //Clear the contents of our level.
     if (doWeClearLevel) {
         clearLevel();
     }
 
-    //Load new contents in its place
+    //Load new contents in its place.
     if (!processLevelData(levelName)) {
         return false; //bad level file
     }
 
-    //Apply them to the engine
+    //Apply them to the engine.
     if (!load(tileset, sf::Vector2u(32, 32), 16, 16)) {
         return false; //Error no tile image
     }
 
-    //Successfully loaded a new level
+    //Successfully loaded a new level.
     return true;
 }
 

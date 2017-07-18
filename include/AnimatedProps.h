@@ -7,13 +7,13 @@ class AnimatedProps
 {
     public:
         AnimatedProps();
-        //Do the animations
+        //Run the animations
         void animate();
-        //Required sprites. Max 4
+        //Required sprites
         sf::Sprite windmill;
 
     private:
-        //The require texture file
+        //The required texture file
         sf::Texture texture;
 };
 

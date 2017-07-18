@@ -4,9 +4,9 @@
 #include <string>
 #include <iostream>
 
-//Initialize our base values
 Player::Player()
 {
+    //Initialize our base values
     keyCounter = 0;
     isActive = true;
     isWalking = false;
@@ -18,6 +18,8 @@ Player::Player()
     size.x = 22;
     size.y = 22;
     health = 100.0f;
+    boundingBox.setSize(sf::Vector2f(size.x, size.y));
+    boundingBox.setFillColor(sf::Color::White);
 
     //Setup our spawn points.
     for (int i = 0; i < MAX_SPAWN_POINTS; ++i) {
@@ -44,14 +46,7 @@ Player::Player()
     spawnPoints[9].x = 867;
     spawnPoints[9].y = -441;
 
-    //Our respawn sound
-    respawnSoundBuffer.loadFromFile("audio/effects/respawn.wav");
-    respawnSound.setBuffer(respawnSoundBuffer);
-
-    //Our death sound
-    deathSoundBuffer.loadFromFile("audio/effects/death.wav");
-    deathSound.setBuffer(deathSoundBuffer);
-
+    //Initialize our leg sprite.
     legs.setTextureRect(sf::IntRect(0, 0, 22, 32));
     legs.setOrigin(11, 22);
 }
@@ -69,16 +64,33 @@ bool Player::loadTexture()
         return false;
     }
 
-    //Otherwise, set the texture and return success.
     body.setTexture(bodyTexture);
     legs.setTexture(legsTexture);
 
     return true;
 }
 
+bool Player::loadAudio()
+{
+    //Our respawn sound
+    if(!respawnSoundBuffer.loadFromFile("audio/effects/respawn.wav")) {
+        std::cerr << "ERROR: Missing sound file...\n";
+        return false;
+    }
+    respawnSound.setBuffer(respawnSoundBuffer);
+
+    //Our death sound
+    if(!deathSoundBuffer.loadFromFile("audio/effects/death.wav")){
+        std::cerr << "ERROR: Missing sound file...\n";
+        return false;
+    }
+    deathSound.setBuffer(deathSoundBuffer);
+
+    return true;
+}
+
 void Player::movePlayer()
 {
-    //Move our player
     position.x = velocity.x;
     position.y = velocity.y;
     boundingBox.move(position);
@@ -114,15 +126,11 @@ void Player::handlePlayerEvents(sf::Event event)
     }
     //Stop moving when we release the key
     if (event.type == sf::Event::KeyReleased) {
-        //If only one key is pressed...
         if (keyCounter == 1) {
-            //...Do stuff
             isWalking = false;
         }
         //Reset our texture rect when we stop walking
         body.setTextureRect(sf::IntRect(0, 0, 22, 32));
-
-        //When we release a key, adjust player attributes
         if (event.key.code == sf::Keyboard::W) {
             velocity.y += maxVelocity;
             keyCounter -= 1;
@@ -144,7 +152,6 @@ void Player::handlePlayerEvents(sf::Event event)
 
 void Player::animate()
 {
-    //Animate the player
     static int counter = 0;
     static float timer = 5.0f;
     if (isWalking) {
@@ -164,7 +171,7 @@ void Player::animate()
 
 bool Player::checkCollision(Collision &collision, Camera &camera)
 {
-    //If there is a collision...
+    //If there is a collision, move the player back.
     for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
         if (collision.checkAABBcollision(boundingBox.getPosition().x,
                                          boundingBox.getPosition().y,
@@ -173,10 +180,8 @@ bool Player::checkCollision(Collision &collision, Camera &camera)
                                          collision.collVector[i]->bbox.getPosition().y,
                                          collision.collVector[i]->bbox.getSize().x,
                                          collision.collVector[i]->bbox.getSize().y)) {
-            //We touched a collision box
-            collision.collVector[i]->isTouching = true;
 
-            //...Move the sprite back
+            collision.collVector[i]->isTouching = true;
             if (position.x == -1) {
                 boundingBox.move(1, 0);
             }
@@ -196,7 +201,7 @@ bool Player::checkCollision(Collision &collision, Camera &camera)
             //Collided
             return true;
         } else {
-            //Reset the collision
+            //Reset isTouching
             collision.collVector[i]->isTouching = false;
         }
     }
@@ -245,6 +250,7 @@ void Player::respawn(Camera &camera, int randomNumber)
     health = 100;
     isActive = true;
 
+    //Randomly spawn the player, then update the camera.
     boundingBox.setPosition(spawnPoints[randomNumber]);
     camera.setCamCenter(sf::Vector2f(boundingBox.getPosition().x, boundingBox.getPosition().y));
 }

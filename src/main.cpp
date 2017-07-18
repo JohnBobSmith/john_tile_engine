@@ -108,8 +108,12 @@ int main()
 
     //Init the player
     if (!player.loadTexture()) {
-        return -1; //Error missing required texture.
+        return -1; //Error missing required texture files.
     }
+    if (!player.loadAudio()) {
+        return -1; //Error missing required audio files.
+    }
+    //Setup the player's position and texture
     player.boundingBox.setPosition(64, 64);
     player.body.setTextureRect(sf::IntRect(0, 0, 22, 32));
 
@@ -167,7 +171,7 @@ int main()
                 window.close();
                 isRunning = false;
             }
-            //Check for player.isActive to ensure we only die/spawn once.
+            //Check for player.isActive to ensure we only die once.
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && player.isActive) {
                 player.killPlayer();
             }
@@ -176,16 +180,6 @@ int main()
         }
         player.body.setOrigin(11, 27);
         player.body.setRotation(90 + mouse.getMouseAngle());
-
-        /*
-        for (int i = 0; i < grasslandCollision.MAX_COLLISION_BOXES; ++i) {
-            if (grasslandCollision.collVector[i]->isTouching) {
-                grassland.changeLevelData(i, 9);
-                grasslandCollision.collVector[i]->bbox.setPosition(-9999, 9999);
-                std::cout << grasslandCollision.collVector[i]->id << "\n";
-            }
-        }
-        */
 
         //Check our audio collision
         if (player.isActive) {

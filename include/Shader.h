@@ -7,9 +7,11 @@ class Shader
 {
     public:
         Shader();
+        //Our shader and a shape to draw it on
         sf::Shader deathShader;
         sf::CircleShape deathShape;
 
+        //Animate our shader, with an on/off switch.
         void animate(bool isAnimated);
 };
 

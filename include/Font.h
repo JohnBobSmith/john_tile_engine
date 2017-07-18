@@ -6,11 +6,14 @@
 class Font
 {
     public:
+        //Our texts
         sf::Text respawnText;
 
+        //Load our fonts.
         bool load();
 
     private:
+        //Our fonts
         sf::Font squarefont;
 };
 

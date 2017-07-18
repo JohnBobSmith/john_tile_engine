@@ -1,12 +1,13 @@
 #ifndef WEAPON_H
 #define WEAPON_H
 
-#include "Bullet.h"
 #include <SFML/Graphics.hpp>
 #include <string>
+#include "Bullet.h"
+#include "Mouse.h"
 
 //Every weapon must have...
-class Weapon : public Bullet
+class Weapon
 {
     public:
         //A way to load the texture
@@ -37,13 +38,16 @@ class Weapon : public Bullet
         float rateOfFire;
 
         //Shoot
-        void fire();
+        void fire(Bullet &bullet, Mouse &mouse);
 
         //Reload
         void reload();
 
         //Animate
         void animate();
+
+        //Update the sprite
+        void update();
 
     private:
         //The weapons texture

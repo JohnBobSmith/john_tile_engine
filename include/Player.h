@@ -6,6 +6,9 @@
 #include "Collision.h"
 #include "Camera.h"
 #include "SoundManager.h"
+#include "Weapon.h"
+#include "Bullet.h"
+#include "Mouse.h"
 
 class Player
 {
@@ -49,7 +52,7 @@ class Player
         bool loadTexture();
 
         //Handle player input
-        void handlePlayerEvents(sf::Event event);
+        void handlePlayerEvents(sf::Event event, Weapon &weapon, Bullet &bullet, Mouse &mouse);
 
         //Move the player
         void movePlayer();

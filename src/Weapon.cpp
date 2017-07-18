@@ -14,10 +14,11 @@ Weapon::Weapon(std::string path)
     rateOfFire = 12;
 }
 
-void Weapon::fire()
+void Weapon::fire(Bullet &bullet, Mouse &mouse)
 {
     if (ammoInMagazine > 0) {
         //Shoot a bullet
+        bullet.shoot(mouse);
     } else {
         //play a click sound. Reload!!!
     }

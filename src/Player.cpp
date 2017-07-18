@@ -2,6 +2,9 @@
 #include "../include/Camera.h"
 #include "../include/Collision.h"
 #include "../include/SoundManager.h"
+#include "../include/Weapon.h"
+#include "../include/Mouse.h"
+#include "../include/Bullet.h"
 #include <string>
 #include <iostream>
 
@@ -82,7 +85,7 @@ void Player::movePlayer()
     body.setPosition(boundingBox.getPosition().x + 11, boundingBox.getPosition().y + 11);
 }
 
-void Player::handlePlayerEvents(sf::Event event)
+void Player::handlePlayerEvents(sf::Event event, Weapon &weapon, Bullet &bullet, Mouse &mouse)
 {
     //If key is pressed...
     if (event.type == sf::Event::KeyPressed) {
@@ -132,6 +135,10 @@ void Player::handlePlayerEvents(sf::Event event)
             velocity.x -= maxVelocity;
             keyCounter -= 1;
         }
+    }
+
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        weapon.fire(bullet, mouse);
     }
 }
 

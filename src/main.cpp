@@ -10,6 +10,7 @@
 #include "../include/Mouse.h"
 #include "../include/Font.h"
 #include "../include/Weapon.h"
+#include "../include/Bullet.h"
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
@@ -61,7 +62,8 @@ int main()
     Player player;
 
     //Our weapons
-    Weapon ak47("textures/weapons/ak47.png");
+    Bullet bullet;
+    Weapon lmg("textures/weapons/lmg.png");
 
     //Initialize SFML
     sf::Event event;
@@ -175,12 +177,8 @@ int main()
                 window.close();
                 isRunning = false;
             }
-            //Check for player.isActive to ensure we only die once.
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && player.isActive) {
-                player.killPlayer(soundmngr);
-            }
-            player.handlePlayerEvents(event);
-            mouse.handleMouseEvents(event, window);
+            player.handlePlayerEvents(event, lmg, bullet, mouse);
+            mouse.update(event, window);
         }
         player.body.setRotation(90 + mouse.getMouseAngle());
 
@@ -269,17 +267,38 @@ int main()
         }
         //*/
 
+        //Draw our bullets below everything else
+        for (int i = 0; i < bullet.getMaxbullets(); ++i) {
+            window.draw(bullet.bulletStorage[i]->bulletSprite);
+        }
+
+       for (int i = 0; i < bullet.getMaxbullets(); ++i) {
+            bullet.bulletStorage[i]->bulletSprite.setPosition(player.body.getPosition().x,
+                                                              player.body.getPosition().y - 5);
+        }
+
         //Animate and render the player,
         //above the collision boxes.
         if (player.isActive) {
             player.animate();
             player.movePlayer();
             camera.moveCam(player.position.x, player.position.y);
-            player.legs.setPosition(player.body.getPosition().x, player.body.getPosition().y);
             player.legs.setRotation(90 + mouse.getMouseAngle());
+            player.legs.setPosition(player.body.getPosition().x, player.body.getPosition().y);
             window.draw(player.legs);
+            //Put our weapons above the legs but below the player body.
+            if (lmg.isEquiped) {
+                lmg.weapSprite.setPosition(player.body.getPosition().x, player.body.getPosition().y);
+                lmg.weapSprite.setOrigin(6, 37);
+                lmg.weapSprite.setRotation(90 + mouse.getMouseAngle());
+                window.draw(lmg.weapSprite);
+            }
             window.draw(player.body);
         }
+
+        //Move our bullets, reset dead ones
+        bullet.move();
+        bullet.reset(player);
 
         //Draw shader testing stuff and fluffs.
         //*

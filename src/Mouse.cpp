@@ -19,7 +19,7 @@ float Mouse::calculateMouseAngle(float mouseX, float mouseY, float positionX, fl
     return angle;
 }
 
-void Mouse::handleMouseEvents(sf::Event &event, sf::Window &window) {
+void Mouse::update(sf::Event &event, sf::Window &window) {
     if (event.type == sf::Event::MouseMoved) {
         //Calculate the mouse position every frame
         mouseX = sf::Mouse::getPosition(window).x;

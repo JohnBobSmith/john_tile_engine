@@ -11,7 +11,7 @@ class Mouse
         float calculateMouseAngle(float mouseX, float mouseY, float positionX, float positionY);
 
         //Handle mouse events
-        void handleMouseEvents(sf::Event &event, sf::Window &window);
+        void update(sf::Event &event, sf::Window &window);
 
         //Return the mouse angle
         float getMouseAngle() { return mouseAngle; }

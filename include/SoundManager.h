@@ -17,7 +17,7 @@ class SoundManager
 
         //Load a new sound from path and store it in audio bank bnk.
         //Banks are simply std::vectors of type jteSound.
-        void registerNewSound(std::vector<std::shared_ptr<jteSound>> &bnk, std::string path,);
+        void registerNewSound(std::vector<std::shared_ptr<jteSound>> &bnk, std::string path);
 
         //Footsteps bank
         std::vector<std::shared_ptr<jteSound>> bnkFootsteps;

@@ -50,6 +50,9 @@ Player::Player()
     //Initialize our leg sprite.
     legs.setTextureRect(sf::IntRect(0, 0, 22, 32));
     legs.setOrigin(11, 22);
+
+    //Initialize our body sprite.
+    body.setOrigin(11, 27);
 }
 
 bool Player::loadTexture()

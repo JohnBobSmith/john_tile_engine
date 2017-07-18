@@ -178,7 +178,6 @@ int main()
             player.handlePlayerEvents(event);
             mouse.handleMouseEvents(event, window);
         }
-        player.body.setOrigin(11, 27);
         player.body.setRotation(90 + mouse.getMouseAngle());
 
         //Check our audio collision

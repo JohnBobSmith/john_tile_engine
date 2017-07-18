@@ -19,8 +19,10 @@ class SoundManager
         //Banks are simply std::vectors of type jteSound.
         void registerNewSound(std::vector<std::shared_ptr<jteSound>> &bnk, std::string path);
 
-        //Footsteps bank
+        //Our sound banks
         std::vector<std::shared_ptr<jteSound>> bnkFootsteps;
+        std::vector<std::shared_ptr<jteSound>> bnkSpawnEffects;
+
 
         //Play a random footstep sound
         /*
@@ -29,6 +31,10 @@ class SoundManager
             6-8 is gravel
         */
         void playFootsteps(int randomNumber);
+
+        //Play our respawn/death sounds
+        void playRespawnSound();
+        void playDeathSound();
 
     private:
         //How long to delay before playing the next footstep sound

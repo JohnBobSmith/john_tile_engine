@@ -5,6 +5,7 @@
 #include <SFML/Audio.hpp>
 #include "Collision.h"
 #include "Camera.h"
+#include "SoundManager.h"
 
 class Player
 {
@@ -14,10 +15,6 @@ class Player
 
         //RectangleShape for our bounding box
         sf::RectangleShape boundingBox;
-
-        //Our death/respawn sounds
-        sf::Sound respawnSound;
-        sf::Sound deathSound;
 
         //Spawn time value (not actual seconds)
         float spawnTime = 12.0f;
@@ -48,9 +45,8 @@ class Player
         //Animate the player
         void animate();
 
-        //Load textures and audio
+        //Load our textures
         bool loadTexture();
-        bool loadAudio();
 
         //Handle player input
         void handlePlayerEvents(sf::Event event);
@@ -65,13 +61,13 @@ class Player
         bool checkAudioCollsion(Collision &collision);
 
         //Damage the player
-        void applyDamage(int ammount);
+        void applyDamage(int ammount, SoundManager &soundmngr);
 
         //End the players life prematurely.
-        void killPlayer();
+        void killPlayer(SoundManager &soundmngr);
 
         //Allow the player to respawn at a random spawn point
-        void respawn(Camera &camera, int randomNumber = 0);
+        void respawn(Camera &camera, SoundManager &soundmngr, int randomNumber = 0);
 
     private:
 

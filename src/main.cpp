@@ -110,9 +110,6 @@ int main()
     if (!player.loadTexture()) {
         return -1; //Error missing required texture files.
     }
-    if (!player.loadAudio()) {
-        return -1; //Error missing required audio files.
-    }
     //Setup the player's position and texture
     player.boundingBox.setPosition(64, 64);
     player.body.setTextureRect(sf::IntRect(0, 0, 22, 32));
@@ -163,6 +160,9 @@ int main()
     soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps07.wav");
     soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps08.wav");
     soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps09.wav");
+    //Our spawning effects, to go in bnkSpawnEffects (defined in SoundManager.h).
+    soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "audio/effects/respawn.wav");
+    soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "audio/effects/death.wav");
 
     //Game loop.
     while (isRunning) {
@@ -173,7 +173,7 @@ int main()
             }
             //Check for player.isActive to ensure we only die once.
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && player.isActive) {
-                player.killPlayer();
+                player.killPlayer(soundmngr);
             }
             player.handlePlayerEvents(event);
             mouse.handleMouseEvents(event, window);
@@ -294,7 +294,7 @@ int main()
             if (timer < 0.0f) {
                 timer =  player.spawnTime;
                 int randomNumber = rand() % 10;
-                player.respawn(camera, randomNumber);
+                player.respawn(camera, soundmngr, randomNumber);
             }
         } else {
             shader.animate(false);

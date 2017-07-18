@@ -1,6 +1,7 @@
 #include "../include/Player.h"
 #include "../include/Camera.h"
 #include "../include/Collision.h"
+#include "../include/SoundManager.h"
 #include <string>
 #include <iostream>
 
@@ -66,25 +67,6 @@ bool Player::loadTexture()
 
     body.setTexture(bodyTexture);
     legs.setTexture(legsTexture);
-
-    return true;
-}
-
-bool Player::loadAudio()
-{
-    //Our respawn sound
-    if(!respawnSoundBuffer.loadFromFile("audio/effects/respawn.wav")) {
-        std::cerr << "ERROR: Missing sound file...\n";
-        return false;
-    }
-    respawnSound.setBuffer(respawnSoundBuffer);
-
-    //Our death sound
-    if(!deathSoundBuffer.loadFromFile("audio/effects/death.wav")){
-        std::cerr << "ERROR: Missing sound file...\n";
-        return false;
-    }
-    deathSound.setBuffer(deathSoundBuffer);
 
     return true;
 }
@@ -227,26 +209,24 @@ bool Player::checkAudioCollsion(Collision &collision)
     return false;
 }
 
-void Player::applyDamage(int ammount)
+void Player::applyDamage(int ammount, SoundManager &soundmngr)
 {
     health -= ammount;
     if (health <= 0) {
-        killPlayer();
+        killPlayer(soundmngr);
     }
 }
 
-void Player::killPlayer()
+void Player::killPlayer(SoundManager &soundmngr)
 {
-    deathSound.play();
-
+    soundmngr.playDeathSound();
     health = -999;
     isActive = false;
 }
 
-void Player::respawn(Camera &camera, int randomNumber)
+void Player::respawn(Camera &camera, SoundManager &soundmngr, int randomNumber)
 {
-    respawnSound.play();
-
+    soundmngr.playRespawnSound();
     health = 100;
     isActive = true;
 

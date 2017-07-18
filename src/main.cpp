@@ -15,9 +15,6 @@
 #include "include/Weapon.h"
 #include "include/World.h"
 
-
-
-
 int main()
 {
     //Random numbers
@@ -182,6 +179,9 @@ int main()
             }
             player.handlePlayerEvents(event);
             mouse.update(event, window);
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                bullet.shoot(mouse);
+            }
         }
         player.body.setRotation(90 + mouse.getMouseAngle());
 
@@ -276,8 +276,10 @@ int main()
         }
 
        for (int i = 0; i < bullet.getMaxbullets(); ++i) {
-            bullet.bulletStorage[i]->bulletSprite.setPosition(player.body.getPosition().x,
+            if (!bullet.bulletStorage[i]->isActive) {
+                bullet.bulletStorage[i]->bulletSprite.setPosition(player.body.getPosition().x,
                                                               player.body.getPosition().y - 5);
+            }
         }
 
         //Animate and render the player,
@@ -299,7 +301,7 @@ int main()
             window.draw(player.body);
         }
 
-        //Move our bullets, reset dead ones
+        //Move our bullets
         bullet.move();
 
         //Draw shader testing stuff and fluffs.

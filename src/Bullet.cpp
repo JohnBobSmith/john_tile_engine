@@ -16,12 +16,16 @@ Bullet::Bullet()
 void Bullet::shoot(Mouse &mouse)
 {
     static int currentBullet = 0;
-    bulletStorage[currentBullet]->isActive = true;
-    bulletStorage[currentBullet]->velocityX = maximumVelocity *
-            (std::cos(mouse.getMouseAngle() * M_PI / 180));
+    rateOfFire -= 0.1f;
+    if (rateOfFire <= 0) {
+        rateOfFire = maxRateOfFire;
+        bulletStorage[currentBullet]->isActive = true;
+        bulletStorage[currentBullet]->velocityX = maximumVelocity *
+                    (std::cos(mouse.getMouseAngle() * M_PI / 180));
 
-    bulletStorage[currentBullet]->velocityY = maximumVelocity *
-            (std::sin(mouse.getMouseAngle() * M_PI / 180));
+        bulletStorage[currentBullet]->velocityY = maximumVelocity *
+                    (std::sin(mouse.getMouseAngle() * M_PI / 180));
+    }
 
     currentBullet += 1;
     if (currentBullet >= maxBullets) {
@@ -37,18 +41,17 @@ void Bullet::move()
         bulletStorage[i]->bulletSprite.move(bulletStorage[i]->positionX,
                                             bulletStorage[i]->positionY);
 
-        if (bulletStorage[i]->positionX > 1000) {
+        if (bulletStorage[i]->positionX > 600) {
             bulletStorage[i]->isActive = false;
         }
-        if (bulletStorage[i]->positionX < -1000) {
+        if (bulletStorage[i]->positionX < -600) {
             bulletStorage[i]->isActive = false;
         }
-        if (bulletStorage[i]->positionY > 1000) {
+        if (bulletStorage[i]->positionY > 600) {
             bulletStorage[i]->isActive = false;
         }
-        if (bulletStorage[i]->positionY < -1000) {
+        if (bulletStorage[i]->positionY < -600) {
             bulletStorage[i]->isActive = false;
         }
     }
 }
-

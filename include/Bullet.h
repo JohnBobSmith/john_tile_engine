@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include "Mouse.h"
+#include "Player.h"
 
 class Bullet
 {
@@ -25,15 +26,15 @@ class Bullet
             //do we render this bullet piece?
             bool isActive = false;
 
-            //Every bullet has a velocity
-            const float bulletVelocity = 75.0f;
-
             //Every bullet does damage
             const int bulletDamage = 12;
         };
 
         //Set our textures up automatically
         Bullet();
+
+        //Our working rate of fire
+        float rateOfFire = maxRateOfFire;
 
         //Expose the maximum amount of bullets allowed
         int getMaxbullets() { return maxBullets; };
@@ -48,6 +49,9 @@ class Bullet
         std::vector<std::shared_ptr<BulletObj>> bulletStorage;
 
     private:
+        //How fast to shoot
+        const float maxRateOfFire = 0.25f;
+
         //How many bullets may be on screen at a time
         const int maxBullets = 200;
 

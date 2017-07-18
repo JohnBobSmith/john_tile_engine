@@ -110,7 +110,7 @@ int main()
     if (!player.loadTexture()) {
         return -1; //Error missing required texture.
     }
-    player.boundingBoxSprite.setPosition(64, 64);
+    player.boundingBox.setPosition(64, 64);
     player.body.setTextureRect(sf::IntRect(0, 0, 22, 32));
 
     //Init our fonts
@@ -119,7 +119,7 @@ int main()
     }
 
     //Init the camera
-    camera.setCamCenter(player.boundingBoxSprite.getPosition());
+    camera.setCamCenter(player.boundingBox.getPosition());
 
     //Position our worlds
     rockland.setPosition(512, 0);
@@ -268,7 +268,7 @@ int main()
             window.draw(junglelandCollision.collVector[i]->bbox);
             window.draw(junglelandGrass.collVector[i]->bbox);
             window.draw(junglelandShrub.collVector[i]->bbox);
-            window.draw(player.boundingBoxSprite);
+            window.draw(player.boundingBox);
         }
         //*/
 

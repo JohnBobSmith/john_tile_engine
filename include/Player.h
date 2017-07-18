@@ -12,9 +12,8 @@ class Player
         //Init the player
         Player();
 
-        //Sprite for our bounding box
-        sf::Sprite boundingBoxSprite;
-        sf::Texture boundingBoxSpriteTexture;
+        //RectangleShape for our bounding box
+        sf::RectangleShape boundingBox;
 
         //Our death/respawn sounds
         sf::Sound respawnSound;

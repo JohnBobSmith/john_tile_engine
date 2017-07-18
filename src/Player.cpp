@@ -64,11 +64,6 @@ bool Player::loadTexture()
         return false;
     }
 
-    if (!boundingBoxSpriteTexture.loadFromFile("textures/entity/playerboundingbox.png")) {
-        std::cerr << "Error: Missing required texture file...";
-        return false;
-    }
-
     if (!legsTexture.loadFromFile("textures/entity/player.anim.legs.png")) {
         std::cerr << "Error: Missing required texture file...";
         return false;
@@ -76,7 +71,6 @@ bool Player::loadTexture()
 
     //Otherwise, set the texture and return success.
     body.setTexture(bodyTexture);
-    boundingBoxSprite.setTexture(boundingBoxSpriteTexture);
     legs.setTexture(legsTexture);
 
     return true;
@@ -87,8 +81,8 @@ void Player::movePlayer()
     //Move our player
     position.x = velocity.x;
     position.y = velocity.y;
-    boundingBoxSprite.move(position);
-    body.setPosition(boundingBoxSprite.getPosition().x + 11, boundingBoxSprite.getPosition().y + 11);
+    boundingBox.move(position);
+    body.setPosition(boundingBox.getPosition().x + 11, boundingBox.getPosition().y + 11);
 }
 
 void Player::handlePlayerEvents(sf::Event event)
@@ -172,8 +166,8 @@ bool Player::checkCollision(Collision &collision, Camera &camera)
 {
     //If there is a collision...
     for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
-        if (collision.checkAABBcollision(boundingBoxSprite.getPosition().x,
-                                         boundingBoxSprite.getPosition().y,
+        if (collision.checkAABBcollision(boundingBox.getPosition().x,
+                                         boundingBox.getPosition().y,
                                          size.x, size.y, //Players size
                                          collision.collVector[i]->bbox.getPosition().x,
                                          collision.collVector[i]->bbox.getPosition().y,
@@ -184,20 +178,20 @@ bool Player::checkCollision(Collision &collision, Camera &camera)
 
             //...Move the sprite back
             if (position.x == -1) {
-                boundingBoxSprite.move(1, 0);
+                boundingBox.move(1, 0);
             }
             if (position.x == 1) {
-                boundingBoxSprite.move(-1, 0);
+                boundingBox.move(-1, 0);
             }
             if (position.y == 1) {
-                boundingBoxSprite.move(0, -1);
+                boundingBox.move(0, -1);
             }
             if (position.y == -1) {
-                boundingBoxSprite.move(0, 1);
+                boundingBox.move(0, 1);
             }
             //Update the camera
-            camera.setCamCenter(sf::Vector2f(boundingBoxSprite.getPosition().x,
-                                           boundingBoxSprite.getPosition().y));
+            camera.setCamCenter(sf::Vector2f(boundingBox.getPosition().x,
+                                           boundingBox.getPosition().y));
 
             //Collided
             return true;
@@ -213,8 +207,8 @@ bool Player::checkCollision(Collision &collision, Camera &camera)
 bool Player::checkAudioCollsion(Collision &collision)
 {
     for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
-        if (collision.checkAABBcollision(boundingBoxSprite.getPosition().x,
-                                         boundingBoxSprite.getPosition().y,
+        if (collision.checkAABBcollision(boundingBox.getPosition().x,
+                                         boundingBox.getPosition().y,
                                          size.x, size.y, //Players size
                                          collision.collVector[i]->bbox.getPosition().x,
                                          collision.collVector[i]->bbox.getPosition().y,
@@ -251,6 +245,6 @@ void Player::respawn(Camera &camera, int randomNumber)
     health = 100;
     isActive = true;
 
-    boundingBoxSprite.setPosition(spawnPoints[randomNumber]);
-    camera.setCamCenter(sf::Vector2f(boundingBoxSprite.getPosition().x, boundingBoxSprite.getPosition().y));
+    boundingBox.setPosition(spawnPoints[randomNumber]);
+    camera.setCamCenter(sf::Vector2f(boundingBox.getPosition().x, boundingBox.getPosition().y));
 }

@@ -2,8 +2,8 @@
 #define SOUNDMANAGER_H
 
 #include <SFML/Audio.hpp>
-#include <string>
 #include <memory>
+#include <string>
 
 class SoundManager
 {

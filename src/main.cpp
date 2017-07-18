@@ -1,19 +1,22 @@
 #include <SFML/Graphics.hpp>
-#include "../include/Config.h"
-#include "../include/World.h"
-#include "../include/Camera.h"
-#include "../include/Player.h"
-#include "../include/Collision.h"
-#include "../include/AnimatedProps.h"
-#include "../include/SoundManager.h"
-#include "../include/Shader.h"
-#include "../include/Mouse.h"
-#include "../include/Font.h"
-#include "../include/Weapon.h"
-#include "../include/Bullet.h"
-#include <iostream>
 #include <stdlib.h>
 #include <time.h>
+#include <iostream>
+#include "include/AnimatedProps.h"
+#include "include/Bullet.h"
+#include "include/Camera.h"
+#include "include/Collision.h"
+#include "include/Config.h"
+#include "include/Font.h"
+#include "include/Mouse.h"
+#include "include/Player.h"
+#include "include/Shader.h"
+#include "include/SoundManager.h"
+#include "include/Weapon.h"
+#include "include/World.h"
+
+
+
 
 int main()
 {
@@ -177,7 +180,7 @@ int main()
                 window.close();
                 isRunning = false;
             }
-            player.handlePlayerEvents(event, lmg, bullet, mouse);
+            player.handlePlayerEvents(event);
             mouse.update(event, window);
         }
         player.body.setRotation(90 + mouse.getMouseAngle());
@@ -298,7 +301,6 @@ int main()
 
         //Move our bullets, reset dead ones
         bullet.move();
-        bullet.reset(player);
 
         //Draw shader testing stuff and fluffs.
         //*

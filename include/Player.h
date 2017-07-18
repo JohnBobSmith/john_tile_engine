@@ -1,14 +1,11 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include "Collision.h"
+#include <SFML/Graphics.hpp>
 #include "Camera.h"
+#include "Collision.h"
 #include "SoundManager.h"
-#include "Weapon.h"
-#include "Bullet.h"
-#include "Mouse.h"
 
 class Player
 {
@@ -52,7 +49,7 @@ class Player
         bool loadTexture();
 
         //Handle player input
-        void handlePlayerEvents(sf::Event event, Weapon &weapon, Bullet &bullet, Mouse &mouse);
+        void handlePlayerEvents(sf::Event event);
 
         //Move the player
         void movePlayer();

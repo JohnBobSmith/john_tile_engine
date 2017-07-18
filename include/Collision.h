@@ -2,10 +2,10 @@
 #define COLLISION_H
 
 #include <SFML/Graphics.hpp>
+#include <memory>
+#include <string>
 #include <unordered_set>
 #include <vector>
-#include <string>
-#include <memory>
 
 class Collision
 {

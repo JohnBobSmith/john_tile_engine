@@ -1,6 +1,6 @@
 #include "Shader.h"
-#include "../include/Player.h"
 #include <iostream>
+#include "include/Player.h"
 
 Shader::Shader()
 {

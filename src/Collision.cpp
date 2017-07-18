@@ -1,6 +1,6 @@
-#include "../include/Collision.h"
-#include "../include/Config.h"
+#include "include/Collision.h"
 #include <iostream>
+#include "include/Config.h"
 
 Collision::Collision(sf::Color color)
 {

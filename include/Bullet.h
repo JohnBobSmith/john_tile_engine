@@ -1,10 +1,9 @@
 #ifndef BULLET_H
 #define BULLET_H
 
-#include "Mouse.h"
-#include "Player.h"
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include "Mouse.h"
 
 class Bullet
 {
@@ -44,9 +43,6 @@ class Bullet
 
         //Shoot a bullet
         void shoot(Mouse &mouse);
-
-        //Reset a bullet
-        void reset(Player &player);
 
         //Store our bullets in an std::Vector
         std::vector<std::shared_ptr<BulletObj>> bulletStorage;

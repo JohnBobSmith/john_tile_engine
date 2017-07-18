@@ -1,6 +1,6 @@
-#include "Bullet.h"
-#include <iostream>
+#include "include/Bullet.h"
 #include <cmath>
+#include <iostream>
 
 Bullet::Bullet()
 {
@@ -52,10 +52,3 @@ void Bullet::move()
     }
 }
 
-void Bullet::reset(Player &player)
-{
-    if (!bulletStorage[i]->isActive) {
-        bulletStorage[i]->positionX = player.body.getPosition().x;
-        bulletStorage[i]->positionY = player.body.getPosition().y;
-    }
-}

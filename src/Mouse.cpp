@@ -1,9 +1,8 @@
-#define _USE_MATH_DEFINES
+#include "include/Mouse.h"
 #include <cmath>
-#include "../include/Mouse.h"
-#include "../include/Player.h"
-#include "../include/Config.h"
 #include <iostream>
+#include "include/Config.h"
+#include "include/Player.h"
 
 Player player;
 Config config;

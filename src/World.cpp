@@ -1,6 +1,4 @@
-#include "../include/World.h"
-#include "../include/Collision.h"
-#include <iostream>
+#include "include/World.h"
 #include <fstream>
 #include <string>
 

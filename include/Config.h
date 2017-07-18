@@ -2,8 +2,8 @@
 #define CONFIG_H
 
 #include <SFML/Graphics.hpp>
-#include <unordered_set>
 #include <string>
+#include <unordered_set>
 
 class Config
 {

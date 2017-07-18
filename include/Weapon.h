@@ -3,8 +3,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
-#include "Bullet.h"
-#include "Mouse.h"
 
 //Every weapon must have...
 class Weapon
@@ -36,9 +34,6 @@ class Weapon
 
         //How fast to shoot
         float rateOfFire;
-
-        //Shoot
-        void fire(Bullet &bullet, Mouse &mouse);
 
         //Reload
         void reload();

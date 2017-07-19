@@ -53,7 +53,7 @@ class Bullet
         const float maxRateOfFire = 0.25f;
 
         //How many bullets may be on screen at a time
-        const int maxBullets = 200;
+        const int maxBullets = 2000;
 
         //The maximum velocity of a bullet
         const float maximumVelocity = 5.0f;

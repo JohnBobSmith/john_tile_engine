@@ -272,13 +272,14 @@ int main()
 
         //Draw our bullets below everything else
         for (int i = 0; i < bullet.getMaxbullets(); ++i) {
-            window.draw(bullet.bulletStorage[i]->bulletSprite);
+            if (bullet.bulletStorage[i]->isActive) {
+                window.draw(bullet.bulletStorage[i]->bulletSprite);
+            }
         }
 
-       for (int i = 0; i < bullet.getMaxbullets(); ++i) {
+        for (int i = 0; i < bullet.getMaxbullets(); ++i) {
             if (!bullet.bulletStorage[i]->isActive) {
-                bullet.bulletStorage[i]->bulletSprite.setPosition(player.body.getPosition().x,
-                                                              player.body.getPosition().y - 5);
+                bullet.bulletStorage[i]->bulletSprite.setPosition(player.body.getPosition());
             }
         }
 

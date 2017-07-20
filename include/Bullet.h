@@ -18,16 +18,16 @@ class Bullet
             sf::Texture bulletTexture;
 
             //Velocities and positions
-            float velocityX = 0;
-            float velocityY = 0;
-            float positionX = 0;
-            float positionY = 0;
+            float velocityX;
+            float velocityY;
+            float positionX;
+            float positionY;
 
             //do we render this bullet piece?
-            bool isActive = false;
+            bool isActive;
 
             //Every bullet does damage
-            const int bulletDamage = 12;
+            int bulletDamage;
         };
 
         //Set our textures up automatically

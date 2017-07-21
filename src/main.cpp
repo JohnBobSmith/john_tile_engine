@@ -183,7 +183,6 @@ int main()
                 bullet.shoot(mouse);
             }
         }
-        player.body.setRotation(90 + mouse.getMouseAngle());
 
         //Check our audio collision
         if (player.isActive) {
@@ -298,6 +297,7 @@ int main()
             player.animate();
             player.movePlayer();
             camera.moveCam(player.position.x, player.position.y);
+            player.body.setRotation(90 + mouse.getMouseAngle());
             player.legs.setRotation(90 + mouse.getMouseAngle());
             player.legs.setPosition(player.body.getPosition().x, player.body.getPosition().y);
             window.draw(player.legs);
@@ -308,13 +308,14 @@ int main()
                 lmg.weapSprite.setRotation(90 + mouse.getMouseAngle());
                 window.draw(lmg.weapSprite);
             }
+            //Draw the body.
             window.draw(player.body);
         }
 
         //Move our bullets
         bullet.move();
 
-        //Draw shader testing stuff and fluffs.
+        //Player respawn and shader work
         //*
         if (!player.isActive) {
             shader.deathShape.setPosition(player.body.getPosition().x - 100,

@@ -17,13 +17,11 @@ class Bullet
             //Every bullet must have a texture
             sf::Texture bulletTexture;
 
-            //Velocities and positions
-            float velocityX;
-            float velocityY;
+            //The bullet position
             float positionX;
             float positionY;
 
-            //do we render this bullet piece?
+            //do we render this bullet?
             bool isActive;
 
             //Every bullet does damage

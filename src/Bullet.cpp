@@ -13,8 +13,6 @@ Bullet::Bullet()
         bulletStorage[i]->isActive = false;
         bulletStorage[i]->positionX = 0;
         bulletStorage[i]->positionY = 0;
-        bulletStorage[i]->velocityX = 0;
-        bulletStorage[i]->velocityY = 0;
         bulletStorage[i]->bulletDamage = 12;
     }
 }
@@ -24,10 +22,10 @@ void Bullet::shoot(Mouse &mouse)
     static int currentBullet = 0;
 
     bulletStorage[currentBullet]->isActive = true;
-    bulletStorage[currentBullet]->velocityX = maximumVelocity *
+    bulletStorage[currentBullet]->positionX = maximumVelocity *
                 (std::cos(mouse.getMouseAngle() * M_PI / 180));
 
-    bulletStorage[currentBullet]->velocityY = maximumVelocity *
+    bulletStorage[currentBullet]->positionY = maximumVelocity *
                 (std::sin(mouse.getMouseAngle() * M_PI / 180));
 
     currentBullet += 1;
@@ -40,8 +38,6 @@ void Bullet::move()
 {
     for (int i = 0; i < maxBullets; ++i) {
         if (bulletStorage[i]->isActive) {
-            bulletStorage[i]->positionX += bulletStorage[i]->velocityX;
-            bulletStorage[i]->positionY += bulletStorage[i]->velocityY;
             bulletStorage[i]->bulletSprite.move(bulletStorage[i]->positionX,
                                                bulletStorage[i]->positionY);
         }

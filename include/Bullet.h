@@ -3,8 +3,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
-#include "Mouse.h"
-#include "Player.h"
 
 class Bullet
 {
@@ -31,9 +29,6 @@ class Bullet
         //Set our textures up automatically
         Bullet();
 
-        //Our working rate of fire
-        float rateOfFire = maxRateOfFire;
-
         //Expose the maximum amount of bullets allowed
         int getMaxbullets() { return maxBullets; };
 
@@ -41,15 +36,12 @@ class Bullet
         void move();
 
         //Shoot a bullet
-        void shoot(Mouse &mouse);
+        void shoot(float mouseAngle, float rateOfFire = 0.05f);
 
         //Store our bullets in an std::Vector
         std::vector<std::shared_ptr<BulletObj>> bulletStorage;
 
     private:
-        //How fast to shoot
-        const float maxRateOfFire = 0.25f;
-
         //How many bullets may be on screen at a time
         const int maxBullets = 2000;
 

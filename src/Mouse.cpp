@@ -4,9 +4,6 @@
 #include "include/Config.h"
 #include "include/Player.h"
 
-Player player;
-Config config;
-
 float Mouse::calculateMouseAngle(float mouseX, float mouseY, float positionX, float positionY)
 {
     //Calcualte the mouse angle with atan2.
@@ -23,9 +20,17 @@ void Mouse::update(sf::Event &event, sf::Window &window) {
         //Calculate the mouse position every frame
         mouseX = sf::Mouse::getPosition(window).x;
         mouseY = sf::Mouse::getPosition(window).y;
-
-        //Set the angle relative to the player
-        mouseAngle = calculateMouseAngle(mouseX, mouseY, config.getScreenWidth() / 2 + player.size.x,
-                                                       config.getScreenHeight() / 2 + player.size.y);
     }
+}
+
+float Mouse::getMouseAngle()
+{
+    Player player;
+    Config config;
+
+    //Set the angle relative to the player
+    mouseAngle = calculateMouseAngle(mouseX, mouseY, config.getScreenWidth() / 2 + player.size.x,
+                                                   config.getScreenHeight() / 2 + player.size.y);
+
+    return mouseAngle;
 }

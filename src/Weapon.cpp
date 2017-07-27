@@ -11,7 +11,7 @@ Weapon::Weapon(std::string path)
     maxAmmo = 75;
     magazineSize = 25;
     ammoInMagazine = magazineSize;
-    rateOfFire = 12;
+    rateOfFire = 0.25f;
 }
 
 void Weapon::reload()

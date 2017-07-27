@@ -17,29 +17,36 @@ Bullet::Bullet()
     }
 }
 
-void Bullet::shoot(Mouse &mouse)
+//*
+void Bullet::shoot(float mouseAngle, float rateOfFire)
 {
     static int currentBullet = 0;
+    static float workingRateOfFire = rateOfFire;
+    workingRateOfFire -= 0.01f;
+    if (workingRateOfFire <= 0) {
+        bulletStorage[currentBullet]->isActive = true;
+        bulletStorage[currentBullet]->positionX = maximumVelocity *
+                                (std::cos(mouseAngle * M_PI / 180));
 
-    bulletStorage[currentBullet]->isActive = true;
-    bulletStorage[currentBullet]->positionX = maximumVelocity *
-                (std::cos(mouse.getMouseAngle() * M_PI / 180));
+        bulletStorage[currentBullet]->positionY = maximumVelocity *
+                                (std::sin(mouseAngle * M_PI / 180));
 
-    bulletStorage[currentBullet]->positionY = maximumVelocity *
-                (std::sin(mouse.getMouseAngle() * M_PI / 180));
+        workingRateOfFire = rateOfFire;
+    }
 
     currentBullet += 1;
     if (currentBullet >= maxBullets) {
         currentBullet = 0;
     }
 }
+//*/
 
 void Bullet::move()
 {
     for (int i = 0; i < maxBullets; ++i) {
         if (bulletStorage[i]->isActive) {
             bulletStorage[i]->bulletSprite.move(bulletStorage[i]->positionX,
-                                               bulletStorage[i]->positionY);
+                                                bulletStorage[i]->positionY);
         }
     }
 }

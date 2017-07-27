@@ -179,9 +179,10 @@ int main()
             }
             player.handlePlayerEvents(event);
             mouse.update(event, window);
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                bullet.shoot(mouse);
-            }
+        }
+
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            bullet.shoot(mouse.getMouseAngle());
         }
 
         //Check our audio collision
@@ -272,7 +273,8 @@ int main()
         //Draw our bullets below everything else
         for (int i = 0; i < bullet.getMaxbullets(); ++i) {
             if (!bullet.bulletStorage[i]->isActive) {
-                bullet.bulletStorage[i]->bulletSprite.setPosition(player.body.getPosition());
+                bullet.bulletStorage[i]->bulletSprite.setPosition(player.body.getPosition().x,
+                                                             player.body.getPosition().y - 5);
             }
             if (bullet.bulletStorage[i]->isActive) {
                 window.draw(bullet.bulletStorage[i]->bulletSprite);

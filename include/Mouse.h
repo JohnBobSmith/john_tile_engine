@@ -14,7 +14,7 @@ class Mouse
         void update(sf::Event &event, sf::Window &window);
 
         //Return the mouse angle
-        float getMouseAngle() { return mouseAngle; }
+        float getMouseAngle();
 
         //Return the mouse positions
         float getMouseX() { return mouseX; }

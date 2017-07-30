@@ -58,12 +58,14 @@ Player::Player()
 bool Player::loadTexture()
 {
     //If we cannot load the texture, error out.
-    if (!bodyTexture.loadFromFile("textures/entity/player.anim.png")) {
+    if (!bodyTexture.loadFromFile("../textures/entity/player.anim.png")) 
+{
         std::cerr << "Error: Missing required texture file...";
         return false;
     }
 
-    if (!legsTexture.loadFromFile("textures/entity/player.anim.legs.png")) {
+    if 
+(!legsTexture.loadFromFile("../textures/entity/player.anim.legs.png")) {
         std::cerr << "Error: Missing required texture file...";
         return false;
     }

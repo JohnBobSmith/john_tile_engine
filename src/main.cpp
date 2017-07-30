@@ -278,16 +278,16 @@ int main()
             }
             if (bullet.bulletStorage[i]->isActive) {
                 window.draw(bullet.bulletStorage[i]->bulletSprite);
-                if (bullet.bulletStorage[i]->bulletSprite.getPosition().x > 500) {
+                if (bullet.bulletStorage[i]->bulletSprite.getPosition().x > 500 + player.body.getPosition().x) {
                     bullet.bulletStorage[i]->isActive = false;
                 }
-                if (bullet.bulletStorage[i]->bulletSprite.getPosition().x < -500) {
+                if (bullet.bulletStorage[i]->bulletSprite.getPosition().x < -500 - player.body.getPosition().x) {
                     bullet.bulletStorage[i]->isActive = false;
                 }
-                if (bullet.bulletStorage[i]->bulletSprite.getPosition().y > 500) {
+                if (bullet.bulletStorage[i]->bulletSprite.getPosition().y > 500 + player.body.getPosition().y) {
                     bullet.bulletStorage[i]->isActive = false;
                 }
-                if (bullet.bulletStorage[i]->bulletSprite.getPosition().y < -500) {
+                if (bullet.bulletStorage[i]->bulletSprite.getPosition().y < -500 + player.body.getPosition().y) {
                     bullet.bulletStorage[i]->isActive = false;
                 }
             }

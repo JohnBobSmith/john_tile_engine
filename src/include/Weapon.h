@@ -35,11 +35,8 @@ class Weapon
         //How fast to shoot
         float rateOfFire;
 
-        //Reload
+        //Reload our gun
         void reload();
-
-        //Animate
-        void animate();
 
         //Update the sprite
         void update();

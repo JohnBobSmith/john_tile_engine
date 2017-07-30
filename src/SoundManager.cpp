@@ -1,4 +1,4 @@
-#include "SoundManager.h"
+#include "include/SoundManager.h"
 #include <memory>
 
 void SoundManager::registerNewSound(std::vector<std::shared_ptr<jteSound>> &bnk, std::string path)

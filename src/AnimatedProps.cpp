@@ -4,7 +4,7 @@
 AnimatedProps::AnimatedProps()
 {
     //If we cant find the texture, bail out
-    if (!texture.loadFromFile("textures/level/animatedprops.png")) {
+    if (!texture.loadFromFile("../textures/level/animatedprops.png")) {
         std::cerr << "Failed to load required texture file...\n";
     }
     //Otherwise, set the texture.

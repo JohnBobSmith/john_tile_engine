@@ -13,9 +13,10 @@ A C++ compiler
 
 And currently, a Linux based OS. I will not support Windows OS at this time. 
 
-I may write a makefile to make this easier in the future, we'll see. 
+As of 2017/07/30, a Makefile has been added to src/ for your use. Note that the Makefile is
+a constant work in progress!
 
-Enjoy!
+Enjoy using JTE! :)
 
 All sounds are creative commons 0 license unless otherwise specified.
 

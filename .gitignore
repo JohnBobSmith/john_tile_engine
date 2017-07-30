@@ -39,3 +39,6 @@ obj
 
 #Ignore source audio files as they can be quite large
 audio/sources/*
+
+#Ignore the johntileengine executable
+johntileengine

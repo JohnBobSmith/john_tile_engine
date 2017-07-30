@@ -63,7 +63,7 @@ int main()
 
     //Our weapons
     Bullet bullet;
-    Weapon lmg("textures/weapons/lmg.png");
+    Weapon lmg("../textures/weapons/lmg.png");
 
     //Initialize SFML
     sf::Event event;
@@ -77,27 +77,27 @@ int main()
     bool isRunning = true;
 
     //Load our levels
-    if (!grassland.loadNewLevel("map/grassland.map", "textures/level/grassland.png")) {
+    if (!grassland.loadNewLevel("../map/grassland.map", "../textures/level/grassland.png")) {
         std::cerr << "FATAL ERROR: Missing required mapfile: grassland.map";
         return -1;
     }
 
-    if (!farmland.loadNewLevel("map/farmland.map", "textures/level/farmland.png")) {
+    if (!farmland.loadNewLevel("../map/farmland.map", "../textures/level/farmland.png")) {
         std::cerr << "FATAL ERROR: Missing required mapfile: farmland.map";
         return -1;
     }
 
-    if (!rockland.loadNewLevel("map/rockland.map", "textures/level/rockland.png")) {
+    if (!rockland.loadNewLevel("../map/rockland.map", "../textures/level/rockland.png")) {
         std::cerr << "FATAL ERROR: Missing required mapfile: rockland.map";
         return -1;
     }
 
-    if (!animPropsWorld.loadNewLevel("map/animprops.map", "textures/level/animatedprops.png")) {
+    if (!animPropsWorld.loadNewLevel("../map/animprops.map", "../textures/level/animatedprops.png")) {
         std::cerr << "FATAL ERROR: Missing required mapfile: animprops.map";
         return -1;
     }
 
-    if (!jungleland.loadNewLevel("map/jungleland.map", "textures/level/jungleland.png")) {
+    if (!jungleland.loadNewLevel("../map/jungleland.map", "../textures/level/jungleland.png")) {
         std::cerr << "FATAL ERROR: Missing required mapfile: jungleland.map";
         return -1;
     }
@@ -106,7 +106,7 @@ int main()
     sf::Sprite cloudsBackground;
     sf::Texture cloudsTexture;
     cloudsTexture.setRepeated(true);
-    cloudsTexture.loadFromFile("textures/level/clouds.png");
+    cloudsTexture.loadFromFile("../textures/level/clouds.png");
     cloudsBackground.setTexture(cloudsTexture);
     cloudsBackground.setTextureRect(sf::IntRect(0, 0, config.getScreenWidth() * 8,
                                                    config.getScreenHeight() * 8));
@@ -157,18 +157,18 @@ int main()
 
     //Register our sounds with the sound manager.
     //Footsteps sounds, to go into bnkFootsteps (defined in SoundManager.h).
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps01.wav");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps02.wav");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps03.wav");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps04.wav");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps05.wav");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps06.wav");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps07.wav");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps08.wav");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "audio/footsteps/footsteps09.wav");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps01.wav");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps02.wav");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps03.wav");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps04.wav");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps05.wav");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps06.wav");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps07.wav");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps08.wav");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps09.wav");
     //Our spawn/death sounds, to go in bnkSpawnEffects (defined in SoundManager.h).
-    soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "audio/effects/respawn.wav");
-    soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "audio/effects/death.wav");
+    soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "../audio/effects/respawn.wav");
+    soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "../audio/effects/death.wav");
 
     //Game loop.
     while (isRunning) {

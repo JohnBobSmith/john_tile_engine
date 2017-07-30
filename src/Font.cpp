@@ -3,7 +3,7 @@
 
 bool Font::load()
 {
-    if (!squarefont.loadFromFile("fonts/Square.ttf")) {
+    if (!squarefont.loadFromFile("../fonts/Square.ttf")) {
         std::cerr << "ERROR: Missing font file!\n";
         return false;
     }

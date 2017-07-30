@@ -1,4 +1,4 @@
-#include "Weapon.h"
+#include "include/Weapon.h"
 
 Weapon::Weapon(std::string path)
 {
@@ -29,10 +29,4 @@ void Weapon::reload()
             //Play a harsher click sound. No ammo!!!
         }
     }
-}
-
-void Weapon::animate()
-{
-    //TODO: Do this after we get all other
-    //weapon mechanics fully functional.
 }

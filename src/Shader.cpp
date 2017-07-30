@@ -1,4 +1,4 @@
-#include "Shader.h"
+#include "include/Shader.h"
 #include <iostream>
 #include "include/Player.h"
 
@@ -11,7 +11,7 @@ Shader::Shader()
     deathShape.setFillColor(sf::Color::Green);
     deathShape.setPosition(player.body.getPosition().x / 2, player.body.getPosition().y / 2);
 
-    if (!deathShader.loadFromFile("shaders/deathShader.frag", sf::Shader::Fragment)) {
+    if (!deathShader.loadFromFile("../shaders/deathShader.frag", sf::Shader::Fragment)) {
         std::cerr << "Error: Cannot load shader!\n";
     }
 }

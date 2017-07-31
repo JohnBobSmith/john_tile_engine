@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
+#include <cmath>
 #include "include/AnimatedProps.h"
 #include "include/Bullet.h"
 #include "include/Camera.h"
@@ -271,10 +272,13 @@ int main()
         //*/
 
         //Draw our bullets below everything else
+        float xPosition = 37 * cos(mouse.getMouseAngle() * M_PI / 180);
+        float yPosition = 37 * sin(mouse.getMouseAngle() * M_PI / 180);
         for (int i = 0; i < bullet.getMaxbullets(); ++i) {
             if (!bullet.bulletStorage[i]->isActive) {
-                bullet.bulletStorage[i]->bulletSprite.setPosition(player.body.getPosition().x,
-                                                             player.body.getPosition().y - 5);
+                bullet.bulletStorage[i]->bulletSprite.setPosition(lmg.weapSprite.getPosition().x + xPosition,
+                                                                 lmg.weapSprite.getPosition().y + yPosition);
+                                                            
             }
             if (bullet.bulletStorage[i]->isActive) {
                 window.draw(bullet.bulletStorage[i]->bulletSprite);

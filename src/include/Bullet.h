@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include "SoundManager.h"
+#include "Weapon.h"
 
 class Bullet
 {
@@ -22,9 +23,6 @@ class Bullet
 
             //do we render this bullet?
             bool isActive;
-
-            //Every bullet does damage
-            int bulletDamage;
         };
 
         //Set our textures up automatically
@@ -37,7 +35,7 @@ class Bullet
         void move();
 
         //Shoot a bullet
-        void shoot(SoundManager &soundmngr, float mouseAngle, float rateOfFire = 0.05f);
+        void shoot(SoundManager &soundmngr, Weapon &weapon, float mouseAngle, float rateOfFire = 0.05f);
 
         //Store our bullets in an std::Vector
         std::vector<std::shared_ptr<BulletObj>> bulletStorage;

@@ -17,16 +17,8 @@ Weapon::Weapon(std::string path)
 void Weapon::reload()
 {
     //Full mag
-    if (maxAmmo > magazineSize) {
+    if (maxAmmo > 0) {
         maxAmmo -= magazineSize;
         ammoInMagazine = magazineSize;
-    } else {
-        //Partial mag
-        if (maxAmmo > 0) {
-            ammoInMagazine = maxAmmo;
-            maxAmmo = 0;
-        } else {
-            //Play a harsher click sound. No ammo!!!
-        }
-    }
+    } 
 }

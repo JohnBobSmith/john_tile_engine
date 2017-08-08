@@ -185,7 +185,15 @@ int main()
         }
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            bullet.shoot(soundmngr, mouse.getMouseAngle());
+            if (lmg.ammoInMagazine > 0) {
+                bullet.shoot(soundmngr, lmg, mouse.getMouseAngle(), 0.125f);
+                std::cout << lmg.ammoInMagazine << "\n";
+                std::cout << "Max Ammo = " << lmg.maxAmmo << "\n";    
+            }
+        }
+        
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
+            lmg.reload();
         }
 
         //Check our audio collision

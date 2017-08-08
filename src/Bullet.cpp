@@ -13,17 +13,17 @@ Bullet::Bullet()
         bulletStorage[i]->isActive = false;
         bulletStorage[i]->positionX = 0;
         bulletStorage[i]->positionY = 0;
-        bulletStorage[i]->bulletDamage = 12;
     }
 }
 
 //*
-void Bullet::shoot(SoundManager &soundmngr, float mouseAngle, float rateOfFire)
+void Bullet::shoot(SoundManager &soundmngr, Weapon &weapon, float mouseAngle, float rateOfFire)
 {
     static int currentBullet = 0;
     static float workingRateOfFire = rateOfFire;
     workingRateOfFire -= 0.01f;
     if (workingRateOfFire <= 0) {
+        weapon.ammoInMagazine -= 1;
         soundmngr.playLmgFire();
         bulletStorage[currentBullet]->isActive = true;
         bulletStorage[currentBullet]->positionX = maximumVelocity *

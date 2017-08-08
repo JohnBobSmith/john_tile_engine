@@ -18,12 +18,13 @@ Bullet::Bullet()
 }
 
 //*
-void Bullet::shoot(float mouseAngle, float rateOfFire)
+void Bullet::shoot(SoundManager &soundmngr, float mouseAngle, float rateOfFire)
 {
     static int currentBullet = 0;
     static float workingRateOfFire = rateOfFire;
     workingRateOfFire -= 0.01f;
     if (workingRateOfFire <= 0) {
+        soundmngr.playLmgFire();
         bulletStorage[currentBullet]->isActive = true;
         bulletStorage[currentBullet]->positionX = maximumVelocity *
                                 (std::cos(mouseAngle * M_PI / 180));

@@ -170,6 +170,8 @@ int main()
     //Our spawn/death sounds, to go in bnkSpawnEffects (defined in SoundManager.h).
     soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "../audio/effects/respawn.wav");
     soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "../audio/effects/death.wav");
+    //Our weapon shooting sounds, to go in bnkWeaponEffects (defined in SoundManager.h).
+    soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/lmgFire.wav");
 
     //Game loop.
     while (isRunning) {
@@ -183,7 +185,7 @@ int main()
         }
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            bullet.shoot(mouse.getMouseAngle());
+            bullet.shoot(soundmngr, mouse.getMouseAngle());
         }
 
         //Check our audio collision

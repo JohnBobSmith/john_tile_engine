@@ -22,6 +22,7 @@ class SoundManager
         //Our sound banks
         std::vector<std::shared_ptr<jteSound>> bnkFootsteps;
         std::vector<std::shared_ptr<jteSound>> bnkSpawnEffects;
+        std::vector<std::shared_ptr<jteSound>> bnkWeaponEffects;
 
 
         //Play a random footstep sound
@@ -35,6 +36,9 @@ class SoundManager
         //Play our respawn/death sounds
         void playRespawnSound();
         void playDeathSound();
+        
+        //Play our shooting sounds
+        void playLmgFire();
 
     private:
         //How long to delay before playing the next footstep sound

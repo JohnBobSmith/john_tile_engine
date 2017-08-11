@@ -19,6 +19,9 @@ class Weapon
 
         //A way to know if we are using it or not
         bool isEquiped;
+        
+        //Can we reload?
+        bool canReload;
 
         //The damage that the weapon does
         float damage;

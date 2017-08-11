@@ -8,16 +8,22 @@ Weapon::Weapon(std::string path)
     //Default attributes
     isEquiped = true;
     damage = 20;
-    maxAmmo = 75;
+    maxAmmo = 150;
     magazineSize = 25;
     ammoInMagazine = magazineSize;
     rateOfFire = 0.25f;
+    canReload = false;
 }
 
 void Weapon::reload()
 {
-    //Full mag
-    if (maxAmmo > 0) {
+    if (ammoInMagazine == magazineSize) {
+        canReload = false;
+    } else {
+        canReload = true;
+    }
+    
+    if (maxAmmo > 0 && canReload) {
         maxAmmo -= magazineSize;
         ammoInMagazine = magazineSize;
     } 

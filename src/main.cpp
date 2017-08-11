@@ -186,7 +186,7 @@ int main()
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             if (lmg.ammoInMagazine > 0) {
-                bullet.shoot(soundmngr, lmg, mouse.getMouseAngle(), 0.125f);
+                bullet.shoot(soundmngr, lmg, mouse.getMouseAngle(), 0.07f);
                 std::cout << lmg.ammoInMagazine << "\n";
                 std::cout << "Max Ammo = " << lmg.maxAmmo << "\n";    
             }

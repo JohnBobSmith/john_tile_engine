@@ -18,7 +18,7 @@ class Weapon
         sf::Vector2f position;
 
         //A way to know if we are using it or not
-        bool isEquiped;
+        bool isEquipped;
         
         //Can we reload?
         bool canReload;

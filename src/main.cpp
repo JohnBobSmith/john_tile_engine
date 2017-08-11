@@ -170,8 +170,16 @@ int main()
     //Our spawn/death sounds, to go in bnkSpawnEffects (defined in SoundManager.h).
     soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "../audio/effects/deathrespawn/respawn.wav");
     soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "../audio/effects/deathrespawn/death.wav");
-    //Our weapon shooting sounds, to go in bnkWeaponEffects (defined in SoundManager.h).
+    //Our weapon shooting and handling sounds, to go in bnkWeaponEffects (defined in SoundManager.h).
     soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/weapons/lmg/lmgFire.wav");
+    soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/weapons/lmg/lmgReload.wav");
+
+    //Setup the ammo counter font
+    if (lmg.isEquipped) {
+        font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
+        font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));
+    }
+
 
     //Game loop.
     while (isRunning) {
@@ -185,7 +193,7 @@ int main()
         }
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            if (lmg.ammoInMagazine > 0) {
+            if (lmg.ammoInMagazine > 0 && lmg.isEquipped) {
                 bullet.shoot(soundmngr, lmg, mouse.getMouseAngle(), 0.07f);
                 font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
                 font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));
@@ -195,7 +203,11 @@ int main()
         }
         
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
-            lmg.reload();
+            if (lmg.maxAmmo > 0 && lmg.isEquipped) {
+                lmg.reload();
+                font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
+                font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));                
+            }
         }
 
         //Check our audio collision
@@ -324,7 +336,7 @@ int main()
             player.legs.setPosition(player.body.getPosition().x, player.body.getPosition().y);
             window.draw(player.legs);
             //Put our weapons above the legs but below the player body.
-            if (lmg.isEquiped) {
+            if (lmg.isEquipped) {
                 lmg.weapSprite.setPosition(player.body.getPosition().x, player.body.getPosition().y);
                 lmg.weapSprite.setOrigin(6, 37);
                 lmg.weapSprite.setRotation(90 + mouse.getMouseAngle());

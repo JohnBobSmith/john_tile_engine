@@ -39,10 +39,11 @@ void SoundManager::playDeathSound()
 
 void SoundManager::playLmgFire()
 {
-   bnkWeaponEffects[0]->snd.play();
+    bnkWeaponEffects[0]->snd.play();
 }
 
-
-
-
+void SoundManager::playLmgReload()
+{
+    bnkWeaponEffects[1]->snd.play();
+}
 

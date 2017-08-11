@@ -37,8 +37,9 @@ class SoundManager
         void playRespawnSound();
         void playDeathSound();
         
-        //Play our shooting sounds
+        //Play our weapon firing and handling sounds
         void playLmgFire();
+        void playLmgReload();
 
     private:
         //How long to delay before playing the next footstep sound

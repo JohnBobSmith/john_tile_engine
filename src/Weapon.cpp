@@ -6,7 +6,7 @@ Weapon::Weapon(std::string path)
     weapSprite.setTexture(weaponTexture);
 
     //Default attributes
-    isEquiped = true;
+    isEquipped = true;
     damage = 20;
     maxAmmo = 150;
     magazineSize = 25;

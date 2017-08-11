@@ -168,10 +168,10 @@ int main()
     soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps08.wav");
     soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps09.wav");
     //Our spawn/death sounds, to go in bnkSpawnEffects (defined in SoundManager.h).
-    soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "../audio/effects/respawn.wav");
-    soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "../audio/effects/death.wav");
+    soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "../audio/effects/deathrespawn/respawn.wav");
+    soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "../audio/effects/deathrespawn/death.wav");
     //Our weapon shooting sounds, to go in bnkWeaponEffects (defined in SoundManager.h).
-    soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/lmgFire.wav");
+    soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/weapons/lmg/lmgFire.wav");
 
     //Game loop.
     while (isRunning) {

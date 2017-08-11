@@ -9,7 +9,7 @@ Bullet::Bullet()
         bulletStorage.push_back(std::make_shared<BulletObj>());
         bulletStorage[i]->bulletTexture.loadFromFile("../textures/weapons/bullet.png");
         bulletStorage[i]->bulletSprite.setTexture(bulletStorage[i]->bulletTexture);
-        bulletStorage[i]->bulletSprite.setScale(0.25, 0.5);
+        //bulletStorage[i]->bulletSprite.setScale(0.25, 0.5);
         bulletStorage[i]->isActive = false;
         bulletStorage[i]->positionX = 0;
         bulletStorage[i]->positionY = 0;

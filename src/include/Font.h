@@ -8,6 +8,8 @@ class Font
     public:
         //Our texts
         sf::Text respawnText;
+        sf::Text ammoCounterText;
+        sf::Text maxAmmoCounterText;
 
         //Load our fonts.
         bool load();

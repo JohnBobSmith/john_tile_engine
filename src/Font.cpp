@@ -10,6 +10,14 @@ bool Font::load()
     respawnText.setFont(squarefont);
     respawnText.setCharacterSize(24);
     respawnText.setString("Respawning...");
+    
+    ammoCounterText.setFont(squarefont);
+    ammoCounterText.setCharacterSize(20);
+    ammoCounterText.setString("NULL"); //Error string
+    
+    maxAmmoCounterText.setFont(squarefont);
+    maxAmmoCounterText.setCharacterSize(15);
+    maxAmmoCounterText.setString("NULL"); //Error string
 
     return true;
 }

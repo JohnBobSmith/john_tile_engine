@@ -187,6 +187,8 @@ int main()
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             if (lmg.ammoInMagazine > 0) {
                 bullet.shoot(soundmngr, lmg, mouse.getMouseAngle(), 0.07f);
+                font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
+                font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));
                 std::cout << lmg.ammoInMagazine << "\n";
                 std::cout << "Max Ammo = " << lmg.maxAmmo << "\n";    
             }
@@ -259,6 +261,10 @@ int main()
         animprops.animate();
         window.draw(animPropsWorld);
         window.draw(animprops.windmill);
+        
+        //Draw our ammo counters
+        window.draw(font.ammoCounterText);
+        window.draw(font.maxAmmoCounterText);
 
         //Draw collision boxes
         /*
@@ -326,6 +332,10 @@ int main()
             }
             //Draw the body.
             window.draw(player.body);
+            
+            //Move our text to the correct possition
+            font.ammoCounterText.setPosition(player.body.getPosition().x + 25, player.body.getPosition().y + 50);
+            font.maxAmmoCounterText.setPosition(player.body.getPosition().x + 50, player.body.getPosition().y + 60);
         }
 
         //Move our bullets

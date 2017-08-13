@@ -1,5 +1,6 @@
 #include "include/SoundManager.h"
 #include <memory>
+#include <iostream>
 
 void SoundManager::registerNewSound(std::vector<std::shared_ptr<jteSound>> &bnk, std::string path)
 {
@@ -19,12 +20,13 @@ void SoundManager::registerNewSound(std::vector<std::shared_ptr<jteSound>> &bnk,
 
 void SoundManager::playFootsteps(int randomNumber)
 {
-    static int timer = footstepDelay;
-    timer -= 0.01f;
-    if (timer == 0) {
+    static sf::Time workingDelay = footstepDelay;
+    workingDelay -= sf::milliseconds(10);
+    if (workingDelay.asMilliseconds() <= 0) {
         bnkFootsteps[randomNumber]->snd.play();
-        timer = footstepDelay;
+        workingDelay = footstepDelay;
     }
+    std::cout << workingDelay.asMilliseconds() << "\n"; 
 }
 
 void SoundManager::playRespawnSound()

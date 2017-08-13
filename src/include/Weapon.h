@@ -41,7 +41,7 @@ class Weapon
         int magazineSize;
 
         //How fast to shoot
-        float rateOfFire;
+        sf::Time rateOfFire;
         
         //A way to identify our reload sound
         std::string reloadSoundString;

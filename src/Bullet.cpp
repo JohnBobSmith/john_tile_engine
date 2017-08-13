@@ -17,12 +17,12 @@ Bullet::Bullet()
 }
 
 //*
-void Bullet::shoot(SoundManager &soundmngr, Weapon &weapon, float mouseAngle, float rateOfFire)
+void Bullet::shoot(SoundManager &soundmngr, Weapon &weapon, float mouseAngle)
 {
     static int currentBullet = 0;
-    static float workingRateOfFire = rateOfFire;
-    workingRateOfFire -= 0.01f;
-    if (workingRateOfFire <= 0) {
+    static sf::Time workingRateOfFire = weapon.rateOfFire;
+    workingRateOfFire -= sf::milliseconds(10);
+    if (workingRateOfFire.asMilliseconds() <= 0) {
         weapon.ammoInMagazine -= 1;
         soundmngr.playLmgFire();
         bulletStorage[currentBullet]->isActive = true;
@@ -32,7 +32,7 @@ void Bullet::shoot(SoundManager &soundmngr, Weapon &weapon, float mouseAngle, fl
         bulletStorage[currentBullet]->positionY = maximumVelocity *
                                 (std::sin(mouseAngle * M_PI / 180));
 
-        workingRateOfFire = rateOfFire;
+        workingRateOfFire = weapon.rateOfFire;
     }
 
     currentBullet += 1;

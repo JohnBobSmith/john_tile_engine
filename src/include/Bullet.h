@@ -35,7 +35,7 @@ class Bullet
         void move();
 
         //Shoot a bullet
-        void shoot(SoundManager &soundmngr, Weapon &weapon, float mouseAngle, float rateOfFire = 0.05f);
+        void shoot(SoundManager &soundmngr, Weapon &weapon, float mouseAngle);
 
         //Store our bullets in an std::Vector
         std::vector<std::shared_ptr<BulletObj>> bulletStorage;

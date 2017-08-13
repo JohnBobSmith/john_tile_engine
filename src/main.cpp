@@ -193,7 +193,7 @@ int main()
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             if (lmg.ammoInMagazine > 0 && lmg.isEquipped && lmg.canShoot) {
-                bullet.shoot(soundmngr, lmg, mouse.getMouseAngle(), 0.07f);
+                bullet.shoot(soundmngr, lmg, mouse.getMouseAngle());
                 font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
                 font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));   
             }

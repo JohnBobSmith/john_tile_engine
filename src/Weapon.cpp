@@ -7,17 +7,18 @@ Weapon::Weapon(std::string path)
 
     //Default attributes
     isEquipped = true;
+    isReloading = false; 
+    canReload = false;
+    canShoot = true;   
     damage = 20;
     maxAmmo = 150;
     magazineSize = 25;
     ammoInMagazine = magazineSize;
-    rateOfFire = 0.25f;
-    canReload = false;
-    canShoot = true;
+    rateOfFire = sf::milliseconds(100);
     reloadTime = sf::milliseconds(750);
     baseReloadTime = reloadTime;
     reloadSoundString = "lmg";
-    isReloading = false;
+
 }
 
 void Weapon::reload(SoundManager &soundmngr)

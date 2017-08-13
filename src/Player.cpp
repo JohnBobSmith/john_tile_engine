@@ -16,8 +16,8 @@ Player::Player()
     velocity.x = 0;
     velocity.y = 0;
     maxVelocity = 1;
-    size.x = 22;
-    size.y = 22;
+    size.x = 19;
+    size.y = 19;
     health = 100.0f;
     boundingBox.setSize(sf::Vector2f(size.x, size.y));
     boundingBox.setFillColor(sf::Color::White);
@@ -49,10 +49,10 @@ Player::Player()
 
     //Initialize our leg sprite.
     legs.setTextureRect(sf::IntRect(0, 0, 22, 32));
-    legs.setOrigin(11, 22);
+    legs.setOrigin(12, 22);
 
     //Initialize our body sprite.
-    body.setOrigin(11, 27);
+    body.setOrigin(12, 22);
 }
 
 bool Player::loadTexture()

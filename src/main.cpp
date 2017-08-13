@@ -64,7 +64,9 @@ int main()
 
     //Our weapons
     Bullet bullet;
-    Weapon lmg("../textures/weapons/lmg.png");
+    sf::Time lmgRof = sf::milliseconds(100);
+    sf::Time lmgReloadTime = sf::milliseconds(750);
+    Weapon lmg("../textures/weapons/lmg.png", 20, 150, 50, lmgRof, lmgReloadTime, "lmg");
 
     //Initialize SFML
     sf::Event event;

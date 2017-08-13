@@ -1,6 +1,7 @@
 #include "include/Weapon.h"
 
-Weapon::Weapon(std::string path)
+Weapon::Weapon(std::string path, float dmg, int ammoMax, int magSize, 
+                    sf::Time RoF, sf::Time reload, std::string name)
 {
     weaponTexture.loadFromFile(path.c_str());
     weapSprite.setTexture(weaponTexture);
@@ -9,15 +10,16 @@ Weapon::Weapon(std::string path)
     isEquipped = true;
     isReloading = false; 
     canReload = false;
-    canShoot = true;   
-    damage = 20;
-    maxAmmo = 150;
-    magazineSize = 25;
+    canShoot = true;  
+     
+    damage = dmg;
+    maxAmmo = ammoMax;
+    magazineSize = magSize;
     ammoInMagazine = magazineSize;
-    rateOfFire = sf::milliseconds(100);
-    reloadTime = sf::milliseconds(750);
+    rateOfFire = RoF;
+    reloadTime = reload;
     baseReloadTime = reloadTime;
-    reloadSoundString = "lmg";
+    reloadSoundString = name;
 
 }
 
@@ -45,8 +47,8 @@ void Weapon::update()
         canShoot = false;
         reloadTime -= sf::milliseconds(10);
         if (reloadTime.asMilliseconds() == 0) {
-            isReloading = false;
             canShoot = true;
+            isReloading = false;
             reloadTime = baseReloadTime;
         }
     } 

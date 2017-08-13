@@ -9,8 +9,9 @@
 class Weapon
 {
     public:
-        //A way to load the texture
-        Weapon(std::string path);
+        //A way to load the texture and set default attributes
+        Weapon(std::string path, float dmg, int ammoMax, int magSize, 
+                    sf::Time RoF, sf::Time reload, std::string name);
 
         //A sprite
         sf::Sprite weapSprite;

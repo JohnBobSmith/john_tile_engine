@@ -180,7 +180,6 @@ int main()
         font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));
     }
 
-
     //Game loop.
     while (isRunning) {
         while (window.pollEvent(event)) {
@@ -193,7 +192,7 @@ int main()
         }
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            if (lmg.ammoInMagazine > 0 && lmg.isEquipped) {
+            if (lmg.ammoInMagazine > 0 && lmg.isEquipped && lmg.canShoot) {
                 bullet.shoot(soundmngr, lmg, mouse.getMouseAngle(), 0.07f);
                 font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
                 font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));
@@ -204,7 +203,7 @@ int main()
         
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
             if (lmg.maxAmmo > 0 && lmg.isEquipped) {
-                lmg.reload();
+                lmg.reload(soundmngr);
                 font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
                 font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));                
             }
@@ -352,6 +351,9 @@ int main()
 
         //Move our bullets
         bullet.move();
+        
+        //Update weapon parameters
+        lmg.update();
 
         //Player respawn and shader work
         //*

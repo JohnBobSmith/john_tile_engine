@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
+#include "SoundManager.h"
 
 //Every weapon must have...
 class Weapon
@@ -22,7 +23,11 @@ class Weapon
         
         //Can we reload?
         bool canReload;
-
+        
+        //Can we shoot (used to prevent reloading 
+        //and shooting at the same time)
+        bool canShoot;
+        
         //The damage that the weapon does
         float damage;
 
@@ -37,9 +42,15 @@ class Weapon
 
         //How fast to shoot
         float rateOfFire;
+        
+        //A way to identify our reload sound
+        std::string reloadSoundString;
+        
+        //How long our reload should last
+        sf::Time reloadTime;
 
         //Reload our gun
-        void reload();
+        void reload(SoundManager &soundmngr);
 
         //Update the sprite
         void update();
@@ -47,6 +58,13 @@ class Weapon
     private:
         //The weapons texture
         sf::Texture weaponTexture;
+        
+        //Are we in the act of reloading?
+        //To prevent shooting/reloading at the same time
+        bool isReloading;
+        
+        //Our base reload time, used to reset reloadTime;
+        sf::Time baseReloadTime;
 };
 
 #endif // WEAPON_H

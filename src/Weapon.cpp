@@ -1,5 +1,4 @@
 #include "include/Weapon.h"
-#include <iostream>
 
 Weapon::Weapon(std::string path)
 {
@@ -44,19 +43,11 @@ void Weapon::update()
     if (isReloading) {
         canShoot = false;
         reloadTime -= sf::milliseconds(10);
-        std::cout << reloadTime.asMilliseconds() << "\n";
         if (reloadTime.asMilliseconds() == 0) {
             isReloading = false;
             canShoot = true;
             reloadTime = baseReloadTime;
-            std::cout << "STOPPED\n";
         }
     } 
 }
-
-
-
-
-
-
 

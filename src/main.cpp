@@ -195,9 +195,7 @@ int main()
             if (lmg.ammoInMagazine > 0 && lmg.isEquipped && lmg.canShoot) {
                 bullet.shoot(soundmngr, lmg, mouse.getMouseAngle(), 0.07f);
                 font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
-                font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));
-                std::cout << lmg.ammoInMagazine << "\n";
-                std::cout << "Max Ammo = " << lmg.maxAmmo << "\n";    
+                font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));   
             }
         }
         

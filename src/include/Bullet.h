@@ -5,6 +5,7 @@
 #include <memory>
 #include "SoundManager.h"
 #include "Weapon.h"
+#include "Collision.h"
 
 class Bullet
 {
@@ -23,26 +24,32 @@ class Bullet
 
             //do we render this bullet?
             bool isActive;
+            
+            //Collision box to simplify collision checking
+            sf::RectangleShape bbox;
         };
 
         //Set our textures up automatically
         Bullet();
 
         //Expose the maximum amount of bullets allowed
-        int getMaxbullets() { return maxBullets; };
+        int getMaxBullets() { return maxBullets; };
 
         //Move our bullets towards the mouse
         void move();
 
         //Shoot a bullet
         void shoot(SoundManager &soundmngr, Weapon &weapon, float mouseAngle);
+        
+        //Check collision
+        bool checkBulletCollision(Collision &collision);
 
-        //Store our bullets in an std::Vector
+        //Store our bullets in an std::vector
         std::vector<std::shared_ptr<BulletObj>> bulletStorage;
 
     private:
         //How many bullets may be on screen at a time
-        const int maxBullets = 2000;
+        const int maxBullets = 256;
 
         //The maximum velocity of a bullet
         const float maximumVelocity = 5.0f;

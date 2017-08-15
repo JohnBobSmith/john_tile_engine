@@ -278,7 +278,7 @@ int main()
         window.draw(font.maxAmmoCounterText);
 
         //Draw collision boxes
-        /*
+        //*
         for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
             window.draw(grasslandCollision.collVector[i]->bbox);
             window.draw(grasslandGrass.collVector[i]->bbox);
@@ -297,11 +297,17 @@ int main()
             window.draw(player.boundingBox);
         }
         //*/
+        //Draw the bullet collision boxes
+        //*
+        for (int i = 0; i < bullet.getMaxBullets(); ++i) {
+            window.draw(bullet.bulletStorage[i]->bbox);
+        }        
+        //*/
 
         //Draw our bullets below everything else
         float xPosition = 37 * cos(mouse.getMouseAngle() * M_PI / 180);
         float yPosition = 37 * sin(mouse.getMouseAngle() * M_PI / 180);
-        for (int i = 0; i < bullet.getMaxbullets(); ++i) {
+        for (int i = 0; i < bullet.getMaxBullets(); ++i) {
             if (!bullet.bulletStorage[i]->isActive) {
                 bullet.bulletStorage[i]->bulletSprite.setPosition(lmg.weapSprite.getPosition().x + xPosition,
                                                                  lmg.weapSprite.getPosition().y + yPosition);
@@ -351,6 +357,13 @@ int main()
 
         //Move our bullets
         bullet.move();
+        
+        //Bullet collision checking
+        if (bullet.checkBulletCollision(farmlandCollision)) {
+            static int number = 0;
+            std::cout << "YES" + std::to_string(number) << "\n";
+            number += 1;
+        }
         
         //Update weapon parameters
         lmg.update();

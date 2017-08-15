@@ -13,6 +13,8 @@ Bullet::Bullet()
         bulletStorage[i]->isActive = false;
         bulletStorage[i]->positionX = 0;
         bulletStorage[i]->positionY = 0;
+        bulletStorage[i]->bbox.setSize(sf::Vector2f(5, 5));
+        bulletStorage[i]->bbox.setFillColor(sf::Color::Black);
     }
 }
 
@@ -31,7 +33,6 @@ void Bullet::shoot(SoundManager &soundmngr, Weapon &weapon, float mouseAngle)
 
         bulletStorage[currentBullet]->positionY = maximumVelocity *
                                 (std::sin(mouseAngle * M_PI / 180));
-
         workingRateOfFire = weapon.rateOfFire;
     }
 
@@ -50,4 +51,33 @@ void Bullet::move()
                                                 bulletStorage[i]->positionY);
         }
     }
+    for (int i = 0; i < maxBullets; ++i) {
+        bulletStorage[i]->bbox.setPosition(bulletStorage[i]->bulletSprite.getPosition());
+    }
 }
+
+bool Bullet::checkBulletCollision(Collision &collision)
+{
+    for (int i = 0; i < maxBullets; ++i) {
+        if (collision.checkAABBcollision(bulletStorage[i]->bbox.getPosition().x,
+                                         bulletStorage[i]->bbox.getPosition().y,
+                                         5, 5,
+                                         collision.collVector[i]->bbox.getPosition().x,
+                                         collision.collVector[i]->bbox.getPosition().y,
+                                         collision.collVector[i]->bbox.getSize().x,
+                                         collision.collVector[i]->bbox.getSize().y)) {
+            std::cout << bulletStorage[i]->bbox.getPosition().y << std::endl;
+            return true;
+        }
+    }
+    return false;
+}
+        
+        
+        
+        
+        
+        
+        
+        
+        

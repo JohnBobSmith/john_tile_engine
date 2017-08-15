@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -Wall
+CFLAGS = -Wall -g
 DEPS = AnimatedProps.h Bullet.h Camera.h Collision.h Config.h \
 	Font.h Mouse.h Player.h Shader.h SoundManager.h Weapon.h World.h
 OBJ = AnimatedProps.o Bullet.o Camera.o Collision.o Config.o \

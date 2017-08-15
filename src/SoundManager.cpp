@@ -26,7 +26,6 @@ void SoundManager::playFootsteps(int randomNumber)
         bnkFootsteps[randomNumber]->snd.play();
         workingDelay = footstepDelay;
     }
-    std::cout << workingDelay.asMilliseconds() << "\n"; 
 }
 
 void SoundManager::playRespawnSound()

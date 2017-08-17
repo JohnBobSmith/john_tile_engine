@@ -278,7 +278,7 @@ int main()
         window.draw(font.maxAmmoCounterText);
 
         //Draw collision boxes
-        //*
+        /*
         for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
             window.draw(grasslandCollision.collVector[i]->bbox);
             window.draw(grasslandGrass.collVector[i]->bbox);
@@ -298,7 +298,7 @@ int main()
         }
         //*/
         //Draw the bullet collision boxes
-        //*
+        /*
         for (int i = 0; i < bullet.getMaxBullets(); ++i) {
             window.draw(bullet.bulletStorage[i]->bbox);
         }        
@@ -359,11 +359,11 @@ int main()
         bullet.move();
         
         //Bullet collision checking
-        if (bullet.checkBulletCollision(farmlandCollision)) {
-            static int number = 0;
-            std::cout << "YES" + std::to_string(number) << "\n";
-            number += 1;
-        }
+        bullet.checkBulletCollision(farmlandCollision);
+        bullet.checkBulletCollision(grasslandCollision);
+        bullet.checkBulletCollision(rocklandCollision);
+        bullet.checkBulletCollision(junglelandCollision);
+        bullet.checkBulletCollision(animPropsCollision);
         
         //Update weapon parameters
         lmg.update();

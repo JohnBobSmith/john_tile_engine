@@ -6,14 +6,12 @@ Collision::Collision(sf::Color color)
 {
     //Populate our collision vector
     for (int i = 0; i < MAX_COLLISION_BOXES; ++i) {
-        static int idCounter = 0;
         collVector.push_back(std::make_shared<bbox>());
         collVector[i]->bbox.setSize(sf::Vector2f(32, 32));
         collVector[i]->bbox.setFillColor(color);
         collVector[i]->bbox.setPosition(-999, 0);
         collVector[i]->isTouching = false;
-        collVector[i]->id = idCounter;
-        idCounter += 1;
+        collVector[i]->isActive = false;
     }
 }
 
@@ -84,6 +82,7 @@ void Collision::positionCollisionBoxes(const std::vector<long int> &level,
         }
         //The world objects we should collide with per map basis.
         if (objectsToCollideWith.count(level[i])) {
+            collVector[i]->isActive = true;
             collVector[i]->bbox.setPosition(x, y - 32);
         }
     }
@@ -94,6 +93,7 @@ void Collision::resetCollision()
     //Reset our collision vector by moving
     //everything off screen.
     for (int i = 0; i < MAX_COLLISION_BOXES; ++i) {
+        collVector[i]->isActive = false;
         collVector[i]->bbox.setPosition(-999, 0);
     }
 }

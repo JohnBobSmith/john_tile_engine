@@ -42,7 +42,7 @@ class Bullet
         void shoot(SoundManager &soundmngr, Weapon &weapon, float mouseAngle);
         
         //Check collision
-        bool checkBulletCollision(Collision &collision);
+        void checkBulletCollision(Collision &collision);
 
         //Store our bullets in an std::vector
         std::vector<std::shared_ptr<BulletObj>> bulletStorage;

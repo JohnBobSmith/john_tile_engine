@@ -1,5 +1,6 @@
 #include "include/Collision.h"
 #include <iostream>
+#include <cmath>
 #include "include/Config.h"
 
 Collision::Collision(sf::Color color)
@@ -56,9 +57,21 @@ bool Collision::checkAABBcollision(float xA, float yA, float wA, float hA,
     if(leftA >= rightB){
         return false;
     }
-
-    //Not sure why this is required... RIP
+    
     return true;
+}
+
+bool Collision::checkCircleCollision(sf::CircleShape circle, sf::Vector2f rectPosition, float width, float height)
+{ 
+    float Radius1 = (circle.getRadius() + circle.getRadius()) / 4;
+    float Radius2 = (width + height) / 4;
+    float xd = rectPosition.x - circle.getPosition().x;// - rectPosition.x;
+    float yd = rectPosition.y - circle.getPosition().y;// - rectPosition.y;
+    
+    std::cout << std::sqrt(xd * xd + yd * yd) << "\n";
+    std::cout << Radius1 + Radius2 << "\n";
+    
+    return std::sqrt(xd * xd + yd * yd) <= Radius1 + Radius2;
 }
 
 void Collision::positionCollisionBoxes(const std::vector<long int> &level,

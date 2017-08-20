@@ -250,6 +250,21 @@ int main()
 
         }
 
+
+
+        //COLLISION TESTING (EXTRA WHITESPCACE DELIBERATE)
+        sf::CircleShape circle(50);
+        circle.setPosition(100, -100);
+        circle.setFillColor(sf::Color::Blue);
+        
+        if (collision.checkCircleCollision(circle, player.boundingBox.getPosition(), 5, 5))  {
+            static int counter = 0;
+            //std::cout << "YESSSSSSSS\n" + std::to_string(counter);
+            counter += 1; 
+        }
+    
+        
+
         //Regular collision checking
         player.checkCollision(farmlandCollision, camera);
         player.checkCollision(animPropsCollision, camera);
@@ -294,7 +309,6 @@ int main()
             window.draw(junglelandCollision.collVector[i]->bbox);
             window.draw(junglelandGrass.collVector[i]->bbox);
             window.draw(junglelandShrub.collVector[i]->bbox);
-            window.draw(player.boundingBox);
         }
         //*/
         //Draw the bullet collision boxes
@@ -302,6 +316,10 @@ int main()
         for (int i = 0; i < bullet.getMaxBullets(); ++i) {
             window.draw(bullet.bulletStorage[i]->bbox);
         }        
+        //*/
+        //*
+        //Draw player collision box
+        window.draw(player.boundingBox);
         //*/
 
         //Draw our bullets below everything else
@@ -390,6 +408,11 @@ int main()
             shader.animate(false);
         }
         //*/
+
+       
+        //COLLISION TEST EXTRA WHITESPCACE DELIBERATE
+        window.draw(circle);
+       
 
         //Run the application
         window.display();

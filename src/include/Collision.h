@@ -25,7 +25,7 @@ class Collision
         bool checkAABBcollision(float xA, float yA, float wA, float hA,
                                 float xB, float yB, float wB, float hB);
 
-        bool checkCircleCollision(sf::CircleShape circle, sf::Vector2f rectPosition, float width, float height);
+        bool checkCircleToRectCollision(sf::CircleShape circle, float rectX, float rectY, float width, float height);
 
         //Place the collision boxes at certain points in the level.
         void positionCollisionBoxes(const std::vector<long int> &level,

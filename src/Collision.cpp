@@ -61,17 +61,35 @@ bool Collision::checkAABBcollision(float xA, float yA, float wA, float hA,
     return true;
 }
 
-bool Collision::checkCircleCollision(sf::CircleShape circle, sf::Vector2f rectPosition, float width, float height)
-{ 
-    float Radius1 = (circle.getRadius() + circle.getRadius()) / 4;
-    float Radius2 = (width + height) / 4;
-    float xd = rectPosition.x - circle.getPosition().x;// - rectPosition.x;
-    float yd = rectPosition.y - circle.getPosition().y;// - rectPosition.y;
+bool Collision::checkCircleToRectCollision(sf::CircleShape circle, float rectX, float rectY, float width, float height)
+{   
+    sf::Vector2f circleDistance;
     
-    std::cout << std::sqrt(xd * xd + yd * yd) << "\n";
-    std::cout << Radius1 + Radius2 << "\n";
+    circleDistance.x = std::abs((circle.getPosition().x - rectX) + circle.getRadius());
+    circleDistance.y = std::abs((circle.getPosition().y - rectY) + circle.getRadius());
     
-    return std::sqrt(xd * xd + yd * yd) <= Radius1 + Radius2;
+    if (circleDistance.x > (width / 2 + circle.getRadius())) {
+        return false;    
+    }  
+    
+    if (circleDistance.y > (height / 2 + circle.getRadius())) {
+        return false;
+    }
+    
+    if (circleDistance.x <= (width / 2)) {
+        return true;
+    }
+    
+    if (circleDistance.y <= (height / 2)) {
+        return true;
+    }
+    
+    float cornerDistance = ((circleDistance.x - width / 2) * (circleDistance.x - width / 2)) +
+                          ((circleDistance.y - height / 2) * (circleDistance.y - height / 2));
+                              
+    std::cout << circleDistance.x << " " << circleDistance.y << "\n";
+                              
+    return cornerDistance <= (circle.getRadius() * circle.getRadius());
 }
 
 void Collision::positionCollisionBoxes(const std::vector<long int> &level,

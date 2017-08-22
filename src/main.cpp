@@ -257,9 +257,15 @@ int main()
         circle.setPosition(100, -100);
         circle.setFillColor(sf::Color::Blue);
         
-        if (collision.checkCircleCollision(circle, player.boundingBox.getPosition(), 5, 5))  {
+        sf::CircleShape circleTwo(40);
+        circleTwo.setPosition(120, -80);
+        circleTwo.setFillColor(sf::Color::Red);
+        
+        if (collision.checkCircleToRectCollision(circle, player.boundingBox.getPosition().x,
+                                                player.boundingBox.getPosition().y, 5, 5)) {
+            //Spam our debug message
             static int counter = 0;
-            //std::cout << "YESSSSSSSS\n" + std::to_string(counter);
+            std::cout << "YESSSSSSSS\n";// + std::to_string(counter);
             counter += 1; 
         }
     
@@ -412,7 +418,7 @@ int main()
        
         //COLLISION TEST EXTRA WHITESPCACE DELIBERATE
         window.draw(circle);
-       
+        //window.draw(circleTwo);    
 
         //Run the application
         window.display();

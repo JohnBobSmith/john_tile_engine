@@ -87,8 +87,6 @@ bool Collision::checkCircleToRectCollision(sf::CircleShape circle, float rectX, 
     float cornerDistance = ((circleDistance.x - width / 2) * (circleDistance.x - width / 2)) +
                           ((circleDistance.y - height / 2) * (circleDistance.y - height / 2));
                               
-    std::cout << circleDistance.x << " " << circleDistance.y << "\n";
-                              
     return cornerDistance <= (circle.getRadius() * circle.getRadius());
 }
 

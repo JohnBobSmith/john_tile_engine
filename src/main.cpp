@@ -250,26 +250,19 @@ int main()
 
         }
 
-
-
-        //COLLISION TESTING (EXTRA WHITESPCACE DELIBERATE)
+        //COLLISION TESTING 
         sf::CircleShape circle(50);
         circle.setPosition(100, -100);
-        circle.setFillColor(sf::Color::Blue);
-        
-        sf::CircleShape circleTwo(40);
-        circleTwo.setPosition(120, -80);
-        circleTwo.setFillColor(sf::Color::Red);
+        circle.setFillColor(sf::Color::Transparent);
+        circle.setOutlineThickness(-2);
+        circle.setOutlineColor(sf::Color::Blue);
         
         if (collision.checkCircleToRectCollision(circle, player.boundingBox.getPosition().x,
-                                                player.boundingBox.getPosition().y, 5, 5)) {
-            //Spam our debug message
-            static int counter = 0;
-            std::cout << "YESSSSSSSS\n";// + std::to_string(counter);
-            counter += 1; 
-        }
-    
-        
+                                                         player.boundingBox.getPosition().y, 
+                                                         player.size.x, player.size.y)) {
+
+            circle.setOutlineColor(sf::Color::Red); 
+        }    
 
         //Regular collision checking
         player.checkCollision(farmlandCollision, camera);
@@ -323,7 +316,7 @@ int main()
             window.draw(bullet.bulletStorage[i]->bbox);
         }        
         //*/
-        //*
+        /*
         //Draw player collision box
         window.draw(player.boundingBox);
         //*/
@@ -415,10 +408,8 @@ int main()
         }
         //*/
 
-       
-        //COLLISION TEST EXTRA WHITESPCACE DELIBERATE
-        window.draw(circle);
-        //window.draw(circleTwo);    
+        //COLLISION TESTING
+        window.draw(circle);   
 
         //Run the application
         window.display();

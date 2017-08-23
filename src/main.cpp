@@ -208,6 +208,10 @@ int main()
                 font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));                
             }
         }
+        
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+            player.killPlayer(soundmngr);
+        }
 
         //Check our audio collision
         if (player.isActive) {
@@ -396,13 +400,8 @@ int main()
             window.draw(shader.deathShape, &shader.deathShader);
             window.draw(font.respawnText);
             //Automatically respawn
-            static float timer = player.spawnTime;
-            timer -= 0.1f;
-            if (timer < 0.0f) {
-                timer =  player.spawnTime;
-                int randomNumber = rand() % 10;
-                player.respawn(camera, soundmngr, randomNumber);
-            }
+            int randomNumber = rand() % 10;
+            player.respawn(camera, soundmngr, randomNumber);
         } else {
             shader.animate(false);
         }

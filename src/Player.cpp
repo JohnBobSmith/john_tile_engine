@@ -21,6 +21,7 @@ Player::Player()
     health = 100.0f;
     boundingBox.setSize(sf::Vector2f(size.x, size.y));
     boundingBox.setFillColor(sf::Color::White);
+    spawnTime = respawnTime;
 
     //Setup our spawn points.
     for (int i = 0; i < MAX_SPAWN_POINTS; ++i) {
@@ -231,11 +232,15 @@ void Player::killPlayer(SoundManager &soundmngr)
 
 void Player::respawn(Camera &camera, SoundManager &soundmngr, int randomNumber)
 {
-    soundmngr.playRespawnSound();
-    health = 100;
-    isActive = true;
+    spawnTime -= sf::milliseconds(10);
+    if (spawnTime.asMilliseconds() <= 0) {
+        spawnTime = respawnTime;
+        soundmngr.playRespawnSound();
+        health = 100;
+        isActive = true;
 
-    //Randomly spawn the player, then update the camera.
-    boundingBox.setPosition(spawnPoints[randomNumber]);
-    camera.setCamCenter(sf::Vector2f(boundingBox.getPosition().x, boundingBox.getPosition().y));
+        //Randomly spawn the player, then update the camera.
+        boundingBox.setPosition(spawnPoints[randomNumber]);
+        camera.setCamCenter(sf::Vector2f(boundingBox.getPosition().x, boundingBox.getPosition().y));
+    }
 }

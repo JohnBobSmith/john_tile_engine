@@ -16,8 +16,8 @@ class Player
         //RectangleShape for our bounding box
         sf::RectangleShape boundingBox;
 
-        //Spawn time value (not actual seconds)
-        float spawnTime = 12.0f;
+        //Our respawn time
+        sf::Time spawnTime;
 
         //Player sprites and textures
         sf::Sprite body;
@@ -83,6 +83,10 @@ class Player
 
         //Keep track of how many keys are pressed.
         int keyCounter;
+        
+        //Our fixed respawn time that doesnt change
+        const sf::Time respawnTime = sf::milliseconds(1200);
+        
 };
 
 #endif // PLAYER_H

@@ -46,15 +46,22 @@ void Weapon::update(Player &player)
 {
     if (isReloading) {
         canShoot = false;
+        reloadTime -= sf::milliseconds(10);
+        if (reloadTime.asMilliseconds() <= 0) {
+            canShoot = true;
+            isReloading = false;
+            reloadTime = baseReloadTime;
+        }
         //Reload animation
+        //*
         static int counter = 0;
-        static float timer = 5.0f;
+        static sf::Time timer = sf::milliseconds(50);
         if (!canShoot) {
-            timer -= 1.0f;
-            if (timer <= 0.0f) {
+            timer -= sf::milliseconds(10);
+            if (timer.asMilliseconds() <= 0.0f) {
                 //Cycle through our body sheet
                 player.body.setTextureRect(sf::IntRect(counter, 32, 22, 32));
-                timer = 5.0f;
+                timer = sf::milliseconds(50);
             }
             counter += 22; //22 is the width of one sprite on the sheet
             //If we reached the end of the sheet, reset.
@@ -62,13 +69,20 @@ void Weapon::update(Player &player)
                 counter = 0;
             }
         }
-        //Perform the actual reload
-        reloadTime -= sf::milliseconds(10);
-        if (reloadTime.asMilliseconds() == 0) {
-            canShoot = true;
-            isReloading = false;
-            reloadTime = baseReloadTime;
-        }
+        //*/
     } 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 

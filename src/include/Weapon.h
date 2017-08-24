@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "SoundManager.h"
+#include "Player.h"
 
 //Every weapon must have...
 class Weapon
@@ -54,7 +55,7 @@ class Weapon
         void reload(SoundManager &soundmngr);
 
         //Update the sprite
-        void update();
+        void update(Player &player);
 
     private:
         //The weapons texture

@@ -64,6 +64,8 @@ int main()
 
     //Our weapons
     Bullet bullet;
+    
+    //LMG
     sf::Time lmgRof = sf::milliseconds(100);
     sf::Time lmgReloadTime = sf::milliseconds(750);
     Weapon lmg("../textures/weapons/lmg.png", 20, 150, 50, lmgRof, lmgReloadTime, "lmg");
@@ -387,7 +389,7 @@ int main()
         bullet.checkBulletCollision(animPropsCollision);
         
         //Update weapon parameters
-        lmg.update();
+        lmg.update(player);
 
         //Player respawn and shader work
         //*

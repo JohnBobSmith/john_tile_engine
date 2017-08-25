@@ -389,7 +389,7 @@ int main()
         bullet.checkBulletCollision(animPropsCollision);
         
         //Update weapon parameters
-        lmg.update(player);
+        lmg.update();
 
         //Player respawn and shader work
         //*

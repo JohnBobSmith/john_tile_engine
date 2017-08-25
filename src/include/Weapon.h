@@ -55,7 +55,7 @@ class Weapon
         void reload(SoundManager &soundmngr);
 
         //Update the sprite
-        void update(Player &player);
+        void update();
 
     private:
         //The weapons texture

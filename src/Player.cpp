@@ -141,13 +141,13 @@ void Player::handlePlayerEvents(sf::Event event)
 void Player::animate()
 {
     static int counter = 0;
-    static float timer = 5.0f;
+    static sf::Time timer = sf::milliseconds(50);
     if (isWalking) {
-        timer -= 1.0f;
-        if (timer == 0.0f) {
+        timer -= sf::milliseconds(10);
+        if (timer.asMilliseconds() <= 0) {
             //Cycle through our body sheet
             legs.setTextureRect(sf::IntRect(counter, 0, 22, 32));
-            timer = 5.0f;
+            timer = sf::milliseconds(50);
         }
         counter += 22; //22 is the width of one sprite on the sheet
         //If we reached the end of the sheet, reset.

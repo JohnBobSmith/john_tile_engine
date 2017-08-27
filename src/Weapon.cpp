@@ -26,10 +26,12 @@ Weapon::Weapon(std::string path, float dmg, int ammoMax, int magSize,
 
 void Weapon::reload(SoundManager &soundmngr)
 {
-    isReloading = true;
+    
     if (ammoInMagazine == magazineSize) {
         canReload = false;
+        isReloading = false;
     } else {
+        isReloading = true;
         canReload = true;
     }
     
@@ -44,6 +46,7 @@ void Weapon::reload(SoundManager &soundmngr)
 
 void Weapon::update()
 {
+    //Perform the reload
     if (isReloading) {
         canShoot = false;
         reloadTime -= sf::milliseconds(10);
@@ -54,17 +57,4 @@ void Weapon::update()
         }
     } 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 

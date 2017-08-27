@@ -87,65 +87,89 @@ void Player::movePlayer()
 
 void Player::handlePlayerEvents(sf::Event event)
 {
-    //If key is pressed...
-    if (event.type == sf::Event::KeyPressed) {
-        //...Look for the keycode, and then...
-        if (event.key.code == sf::Keyboard::W) {
-            //...Do stuff
-            velocity.y -= maxVelocity;
-            keyCounter += 1;
-            isWalking = true;
-        }
-        if (event.key.code == sf::Keyboard::S) {
-            velocity.y += maxVelocity;
-            keyCounter += 1;
-            isWalking = true;
-        }
-        if (event.key.code == sf::Keyboard::A) {
-            velocity.x -= maxVelocity;
-            keyCounter += 1;
-            isWalking = true;
-        }
-        if (event.key.code == sf::Keyboard::D) {
-            velocity.x += maxVelocity;
-            keyCounter += 1;
-            isWalking = true;
-        }
-    }
-    //Stop moving when we release the key
-    if (event.type == sf::Event::KeyReleased) {
-        if (keyCounter == 1) {
-            isWalking = false;
-        }
-        //Reset our texture rect when we stop walking
-        body.setTextureRect(sf::IntRect(0, 0, 22, 32));
-        if (event.key.code == sf::Keyboard::W) {
-            velocity.y += maxVelocity;
-            keyCounter -= 1;
-        }
-        if (event.key.code == sf::Keyboard::S) {
-            velocity.y -= maxVelocity;
-            keyCounter -= 1;
-        }
-        if (event.key.code == sf::Keyboard::A) {
-            velocity.x += maxVelocity;
-            keyCounter -= 1;
-        }
-        if (event.key.code == sf::Keyboard::D) {
-            velocity.x -= maxVelocity;
-            keyCounter -= 1;
-        }
+    //Switch our event type, which should be key pressed/released.
+    switch(event.type)
+    {
+        case sf::Event::KeyPressed:
+            //Then determine which key we pressed.
+            switch(event.key.code) 
+            {
+            //Do something with that information, repeat.
+            case sf::Keyboard::W:
+                velocity.y -= maxVelocity;
+                keyCounter += 1;
+                isWalking = true;    
+                break;
+            case sf::Keyboard::S:
+                velocity.y += maxVelocity;
+                keyCounter += 1;
+                isWalking = true;
+                break;
+            case sf::Keyboard::A:
+                velocity.x -= maxVelocity;
+                keyCounter += 1;
+                isWalking = true;
+                break;
+            case sf::Keyboard::D:
+                velocity.x += maxVelocity;
+                keyCounter += 1;
+                isWalking = true;
+                break;
+            default:
+                break;
+            }
+        break; //case sf::Event::KeyPressed:
+        
+        case sf::Event::KeyReleased:
+            switch (event.key.code)
+            {
+            case sf::Keyboard::W:
+                velocity.y += maxVelocity;
+                keyCounter -= 1;
+                if (keyCounter <= 0) {
+                    isWalking = false;
+                }
+                break;
+            case sf::Keyboard::S:
+                velocity.y -= maxVelocity;
+                keyCounter -= 1;
+                if (keyCounter <= 0) {
+                    isWalking = false;
+                }
+                break;
+            case sf::Keyboard::A:
+                velocity.x += maxVelocity;
+                keyCounter -= 1;
+                if (keyCounter <= 0) {
+                    isWalking = false;
+                }
+                break;
+            case sf::Keyboard::D:
+                velocity.x -= maxVelocity;
+                keyCounter -= 1;
+                if (keyCounter <= 0) {
+                    isWalking = false;
+                }
+                break;
+            default:
+                break;
+            }
+        break; //case sf::Event::KeyReleased:
+        
+        default:
+            //Do not handle other kinds of events
+            break;
     }
 }
 
-void Player::animate()
+void Player::animateLegs()
 {
     static int counter = 0;
     static sf::Time timer = sf::milliseconds(50);
     if (isWalking) {
         timer -= sf::milliseconds(10);
         if (timer.asMilliseconds() <= 0) {
-            //Cycle through our body sheet
+            //Cycle through our sprite sheet
             legs.setTextureRect(sf::IntRect(counter, 0, 22, 32));
             timer = sf::milliseconds(50);
         }
@@ -155,6 +179,25 @@ void Player::animate()
             counter = 0;
         }
     }
+}
+
+void Player::animateReload()
+{
+    static int counter = 0;
+    static sf::Time timer = sf::milliseconds(50);
+    if (isWalking) {
+        timer -= sf::milliseconds(10);
+        if (timer.asMilliseconds() <= 0) {
+            //Cycle through our sprite sheet
+            body.setTextureRect(sf::IntRect(counter, 32, 22, 32));
+            timer = sf::milliseconds(50);
+        }
+        counter += 22; //22 is the width of one sprite on the sheet
+        //If we reached the end of the sheet, reset.
+        if (counter == 88) {
+            counter = 0;
+        }
+    }    
 }
 
 bool Player::checkCollision(Collision &collision, Camera &camera)

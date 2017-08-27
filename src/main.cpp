@@ -203,13 +203,14 @@ int main()
             }
         }
         
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
-            if (lmg.maxAmmo > 0 && lmg.isEquipped) {
-                lmg.reload(soundmngr);
-                font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
-                font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));                
-            }
-        }
+        //if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
+            //if (lmg.maxAmmo > 0 && lmg.isEquipped && lmg.canReload) {
+                //player.animateReload();
+                //lmg.reload(soundmngr);
+                //font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
+                //font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));                
+            //}
+        //}
         
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
             player.killPlayer(soundmngr);
@@ -356,7 +357,7 @@ int main()
         //Animate and render the player,
         //above the collision boxes.
         if (player.isActive) {
-            player.animate();
+            player.animateLegs();
             player.movePlayer();
             camera.moveCam(player.position.x, player.position.y);
             player.body.setRotation(90 + mouse.getMouseAngle());

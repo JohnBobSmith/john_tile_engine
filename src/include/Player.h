@@ -43,7 +43,8 @@ class Player
         bool isWalking;
 
         //Animate the player
-        void animate();
+        void animateLegs();
+        void animateReload();
 
         //Load our textures
         bool loadTexture();
@@ -80,9 +81,9 @@ class Player
 
         //How many spawn points there are
         int MAX_SPAWN_POINTS = 10;
-
-        //Keep track of how many keys are pressed.
-        int keyCounter;
+        
+        //How many keys are presed
+        int keyCounter = 0;
         
         //Our fixed respawn time that doesnt change
         const sf::Time respawnTime = sf::milliseconds(1200);

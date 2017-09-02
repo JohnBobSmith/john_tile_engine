@@ -65,8 +65,8 @@ bool Collision::checkCircleToRectCollision(sf::CircleShape circle, float rectX, 
 {   
     sf::Vector2f circleDistance;
     
-    circleDistance.x = std::abs((circle.getPosition().x - rectX) + circle.getRadius());
-    circleDistance.y = std::abs((circle.getPosition().y - rectY) + circle.getRadius());
+    circleDistance.x = std::abs((circle.getPosition().x - rectX) + circle.getRadius() * 0.75);
+    circleDistance.y = std::abs((circle.getPosition().y - rectY) + circle.getRadius() * 0.75);
     
     if (circleDistance.x > (width / 2 + circle.getRadius())) {
         return false;    

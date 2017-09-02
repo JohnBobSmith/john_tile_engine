@@ -203,14 +203,16 @@ int main()
             }
         }
         
-        //if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
-            //if (lmg.maxAmmo > 0 && lmg.isEquipped && lmg.canReload) {
-                //player.animateReload();
-                //lmg.reload(soundmngr);
-                //font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
-                //font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));                
-            //}
-        //}
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
+            if (lmg.maxAmmo > 0 && lmg.isEquipped) {
+                lmg.reload(soundmngr);
+                font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
+                font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));                
+            }
+        }
+        
+        //Allow for the reload animation to play independent of key press
+        //player.animateReload();
         
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
             player.killPlayer(soundmngr);

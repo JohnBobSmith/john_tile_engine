@@ -116,6 +116,7 @@ void Player::handlePlayerEvents(sf::Event event)
                 isWalking = true;
                 break;
             default:
+                //Do not handle other kinds of events.
                 break;
             }
         break; //case sf::Event::KeyPressed:
@@ -152,12 +153,13 @@ void Player::handlePlayerEvents(sf::Event event)
                 }
                 break;
             default:
+                //Do not handle other kinds of events.
                 break;
             }
         break; //case sf::Event::KeyReleased:
         
         default:
-            //Do not handle other kinds of events
+            //Do not handle other kinds of events.
             break;
     }
 }
@@ -167,7 +169,6 @@ void Player::animateLegs()
     static int counter = 0;
     static sf::Time timer = sf::milliseconds(50);
     if (isWalking) {
-        timer -= sf::milliseconds(10);
         if (timer.asMilliseconds() <= 0) {
             //Cycle through our sprite sheet
             legs.setTextureRect(sf::IntRect(counter, 0, 22, 32));
@@ -185,19 +186,17 @@ void Player::animateReload()
 {
     static int counter = 0;
     static sf::Time timer = sf::milliseconds(50);
-    if (isWalking) {
-        timer -= sf::milliseconds(10);
-        if (timer.asMilliseconds() <= 0) {
-            //Cycle through our sprite sheet
-            body.setTextureRect(sf::IntRect(counter, 32, 22, 32));
-            timer = sf::milliseconds(50);
-        }
-        counter += 22; //22 is the width of one sprite on the sheet
-        //If we reached the end of the sheet, reset.
-        if (counter == 88) {
-            counter = 0;
-        }
-    }    
+    timer -= sf::milliseconds(10);
+    if (timer.asMilliseconds() <= 0) {
+        //Cycle through our sprite sheet
+        body.setTextureRect(sf::IntRect(counter, 32, 22, 32));
+        timer = sf::milliseconds(50);
+    }
+    counter += 22; //22 is the width of one sprite on the sheet
+    //If we reached the end of the sheet, reset.
+    if (counter == 88) {
+        counter = 0;
+    }  
 }
 
 bool Player::checkCollision(Collision &collision, Camera &camera)

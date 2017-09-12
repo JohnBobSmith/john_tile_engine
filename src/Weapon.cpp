@@ -26,7 +26,6 @@ Weapon::Weapon(std::string path, float dmg, int ammoMax, int magSize,
 
 void Weapon::reload(SoundManager &soundmngr)
 {
-    
     if (ammoInMagazine == magazineSize) {
         canReload = false;
         isReloading = false;

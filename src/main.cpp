@@ -211,9 +211,6 @@ int main()
             }
         }
         
-        //Allow for the reload animation to play independent of key press
-        //player.animateReload();
-        
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
             player.killPlayer(soundmngr);
         }

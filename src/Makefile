@@ -13,5 +13,7 @@ LD = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 johntileengine: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) $(LD)
 
+.PHONY: clean
+
 clean:
 	rm -f *.o johntileengine

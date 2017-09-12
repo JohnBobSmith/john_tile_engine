@@ -42,6 +42,9 @@ class Player
 
         //Do we animate the player?
         bool isWalking;
+        
+        //Do we play the reload animation?
+        bool isReload;
 
         //Animate the player
         void animateLegs();

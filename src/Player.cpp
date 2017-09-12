@@ -11,6 +11,7 @@ Player::Player()
     keyCounter = 0;
     isActive = true;
     isWalking = false;
+    isReload = false;
     position.x = 32;
     position.y = 32;
     velocity.x = 0;

@@ -60,9 +60,6 @@ class Weapon
         //The weapons texture
         sf::Texture weaponTexture;
         
-        //Our base reload time, used to reset reloadTime;
-        sf::Time baseReloadTime;
-        
         //Are we in the act of reloading? 
         //Used to for our reload time mechanic.
         bool isReloading;

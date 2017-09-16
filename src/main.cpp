@@ -196,7 +196,7 @@ int main()
         }
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            if (lmg.ammoInMagazine > 0 && lmg.isEquipped && lmg.canShoot) {
+            if (lmg.isEquipped && lmg.canFire) {
                 bullet.shoot(soundmngr, lmg, mouse.getMouseAngle());
                 font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
                 font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));   
@@ -204,7 +204,7 @@ int main()
         }
         
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
-            if (lmg.maxAmmo > 0 && lmg.isEquipped) {
+            if (lmg.isEquipped && lmg.maxAmmo > 0) {
                 lmg.reload(soundmngr);
                 font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
                 font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));                

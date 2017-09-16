@@ -9,10 +9,8 @@ Weapon::Weapon(std::string path, float dmg, int ammoMax, int magSize,
 
     //Default attributes
     isEquipped = true;
-    isReloading = false; 
-    canReload = false;
-    canShoot = true;  
-     
+    canFire = true;
+    canReload = false; //Starts with a full mag
     damage = dmg;
     maxAmmo = ammoMax;
     magazineSize = magSize;
@@ -25,15 +23,7 @@ Weapon::Weapon(std::string path, float dmg, int ammoMax, int magSize,
 }
 
 void Weapon::reload(SoundManager &soundmngr)
-{
-    if (ammoInMagazine == magazineSize) {
-        canReload = false;
-        isReloading = false;
-    } else {
-        isReloading = true;
-        canReload = true;
-    }
-    
+{   
     if (maxAmmo > 0 && canReload) {
         maxAmmo -= magazineSize;
         ammoInMagazine = magazineSize;
@@ -45,15 +35,19 @@ void Weapon::reload(SoundManager &soundmngr)
 
 void Weapon::update()
 {
-    //Perform the reload
-    if (isReloading) {
-        canShoot = false;
-        reloadTime -= sf::milliseconds(10);
-        if (reloadTime.asMilliseconds() <= 0) {
-            canShoot = true;
-            isReloading = false;
-            reloadTime = baseReloadTime;
-        }
-    } 
+    //Do not fire bullets with no ammo
+    //in the magazine.
+    if (ammoInMagazine <= 0) {
+        canFire = false;
+    } else {
+        canFire = true;
+    }
+    //If we have fired at least one bullet, 
+    //allow for a reload to occur.
+    if (ammoInMagazine < magazineSize) {
+        canReload = true;
+    } else {
+        canReload = false;
+    }
 }
 

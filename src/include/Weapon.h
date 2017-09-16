@@ -23,12 +23,11 @@ class Weapon
         //A way to know if we are using it or not
         bool isEquipped;
         
-        //Can we reload?
-        bool canReload;
+        //A way to know if we can fire the weapon or not
+        bool canFire;
         
-        //Can we shoot (used to prevent reloading 
-        //and shooting at the same time)
-        bool canShoot;
+        //A way to know if we can reload the weapon or not
+        bool canReload;
         
         //The damage that the weapon does
         float damage;
@@ -60,10 +59,6 @@ class Weapon
     private:
         //The weapons texture
         sf::Texture weaponTexture;
-        
-        //Are we in the act of reloading?
-        //To prevent shooting/reloading at the same time
-        bool isReloading;
         
         //Our base reload time, used to reset reloadTime;
         sf::Time baseReloadTime;

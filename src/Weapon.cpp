@@ -11,23 +11,23 @@ Weapon::Weapon(std::string path, float dmg, int ammoMax, int magSize,
     isEquipped = true;
     canFire = true;
     canReload = false; //Starts with a full mag
+    isReloading = false;
     damage = dmg;
     maxAmmo = ammoMax;
     magazineSize = magSize;
     ammoInMagazine = magazineSize;
     rateOfFire = RoF;
     reloadTime = reload;
-    baseReloadTime = reloadTime;
-    reloadSoundString = name;
-
+    weaponName = name;
 }
 
 void Weapon::reload(SoundManager &soundmngr)
 {   
     if (maxAmmo > 0 && canReload) {
+        isReloading = true;
         maxAmmo -= magazineSize;
         ammoInMagazine = magazineSize;
-        if (reloadSoundString == "lmg") {
+        if (weaponName == "lmg") {
             soundmngr.playLmgReload();
         }
     } 
@@ -40,14 +40,34 @@ void Weapon::update()
     if (ammoInMagazine <= 0) {
         canFire = false;
     } else {
-        canFire = true;
+        if (isReloading) {
+            canFire = false;
+        } else {
+            canFire = true;
+        }
     }
     //If we have fired at least one bullet, 
     //allow for a reload to occur.
     if (ammoInMagazine < magazineSize) {
         canReload = true;
-    } else {
+    } else { //Full magazine
         canReload = false;
     }
+    
+    if (isReloading) {
+        static sf::Time workingTime = reloadTime;
+        workingTime -= sf::milliseconds(10);
+        if (workingTime.asMilliseconds() <= 0) {
+            workingTime = reloadTime;
+            isReloading = false;   
+        }
+    }
 }
+
+
+
+
+
+
+
 

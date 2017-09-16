@@ -44,8 +44,8 @@ class Weapon
         //How fast to shoot
         sf::Time rateOfFire;
         
-        //A way to identify our reload sound
-        std::string reloadSoundString;
+        //A way to identify our weapon
+        std::string weaponName;
         
         //How long our reload should last
         sf::Time reloadTime;
@@ -62,6 +62,10 @@ class Weapon
         
         //Our base reload time, used to reset reloadTime;
         sf::Time baseReloadTime;
+        
+        //Are we in the act of reloading? 
+        //Used to for our reload time mechanic.
+        bool isReloading;
 };
 
 #endif // WEAPON_H

@@ -26,7 +26,9 @@ void Bullet::shoot(SoundManager &soundmngr, Weapon &weapon, float mouseAngle)
     workingRateOfFire -= sf::milliseconds(10);
     if (workingRateOfFire.asMilliseconds() <= 0) {
         weapon.ammoInMagazine -= 1;
-        soundmngr.playLmgFire();
+        if (weapon.weaponName == "lmg") {        
+            soundmngr.playLmgFire();
+        }
         //Shoot a bullet towards the mouse.
         bulletStorage[currentBullet]->isActive = true;
         bulletStorage[currentBullet]->positionX = maximumVelocity *

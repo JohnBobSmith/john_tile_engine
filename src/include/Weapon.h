@@ -29,6 +29,10 @@ class Weapon
         //A way to know if we can reload the weapon or not
         bool canReload;
         
+        //Are we in the act of reloading? 
+        //Used to for our reload time mechanic.
+        bool isReloading;
+        
         //The damage that the weapon does
         float damage;
 
@@ -54,15 +58,14 @@ class Weapon
         void reload(SoundManager &soundmngr);
 
         //Update the sprite
-        void update();
+        void update(Player &player);
 
     private:
         //The weapons texture
         sf::Texture weaponTexture;
         
-        //Are we in the act of reloading? 
-        //Used to for our reload time mechanic.
-        bool isReloading;
+        //Our base reload time used to reset reloadTime
+        sf::Time baseReloadTime;
 };
 
 #endif // WEAPON_H

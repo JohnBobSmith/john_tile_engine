@@ -44,7 +44,7 @@ class Player
         bool isWalking;
         
         //Do we play the reload animation?
-        bool isReload;
+        bool isReloading;
 
         //Animate the player
         void animateLegs();
@@ -73,9 +73,11 @@ class Player
 
         //Allow the player to respawn at a random spawn point
         void respawn(Camera &camera, SoundManager &soundmngr, int randomNumber = 0);
+        
+        //Update play attributes
+        void update();
 
     private:
-
         //Our respawn sounds buffer
         sf::SoundBuffer respawnSoundBuffer;
         sf::SoundBuffer deathSoundBuffer;

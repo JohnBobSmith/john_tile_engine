@@ -207,7 +207,7 @@ int main()
             if (lmg.isEquipped && lmg.maxAmmo > 0) {
                 lmg.reload(soundmngr);
                 font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
-                font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));                
+                font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));             
             }
         }
         
@@ -389,7 +389,10 @@ int main()
         bullet.checkBulletCollision(animPropsCollision);
         
         //Update weapon parameters
-        lmg.update();
+        lmg.update(player);
+
+        //Update misc. player functions
+        player.update();
 
         //Player respawn and shader work
         //*

@@ -19,6 +19,7 @@ Weapon::Weapon(std::string path, float dmg, int ammoMax, int magSize,
     rateOfFire = RoF;
     reloadTime = reload;
     weaponName = name;
+    baseReloadTime = reload;
 }
 
 void Weapon::reload(SoundManager &soundmngr)
@@ -33,7 +34,7 @@ void Weapon::reload(SoundManager &soundmngr)
     } 
 }
 
-void Weapon::update()
+void Weapon::update(Player &player)
 {
     //Do not fire bullets with no ammo
     //in the magazine.
@@ -55,10 +56,11 @@ void Weapon::update()
     }
     
     if (isReloading) {
-        static sf::Time workingTime = reloadTime;
-        workingTime -= sf::milliseconds(10);
-        if (workingTime.asMilliseconds() <= 0) {
-            workingTime = reloadTime;
+        player.isReloading = true;
+        reloadTime -= sf::milliseconds(10);
+        if (reloadTime.asMilliseconds() <= 0) {
+            reloadTime = baseReloadTime;
+            player.isReloading = false;
             isReloading = false;   
         }
     }

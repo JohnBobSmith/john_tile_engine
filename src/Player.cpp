@@ -11,7 +11,7 @@ Player::Player()
     keyCounter = 0;
     isActive = true;
     isWalking = false;
-    isReload = false;
+    isReloading = false;
     position.x = 32;
     position.y = 32;
     velocity.x = 0;
@@ -61,13 +61,12 @@ bool Player::loadTexture()
 {
     //If we cannot load the texture, error out.
     if (!bodyTexture.loadFromFile("../textures/entity/player.anim.png")) 
-{
+    {
         std::cerr << "Error: Missing required texture file...";
         return false;
     }
 
-    if 
-(!legsTexture.loadFromFile("../textures/entity/player.anim.legs.png")) {
+    if (!legsTexture.loadFromFile("../textures/entity/player.anim.legs.png")) {
         std::cerr << "Error: Missing required texture file...";
         return false;
     }
@@ -169,6 +168,7 @@ void Player::animateLegs()
 {
     static int counter = 0;
     static sf::Time timer = sf::milliseconds(50);
+    timer -= sf::milliseconds(10);
     if (isWalking) {
         if (timer.asMilliseconds() <= 0) {
             //Cycle through our sprite sheet
@@ -287,3 +287,16 @@ void Player::respawn(Camera &camera, SoundManager &soundmngr, int randomNumber)
         camera.setCamCenter(sf::Vector2f(boundingBox.getPosition().x, boundingBox.getPosition().y));
     }
 }
+
+void Player::update()
+{   
+    //Animate the player's reload
+    if (isReloading) {
+        animateReload();
+    } else {
+        //Crude but effective
+        //Manually reset the animation to the starting position.
+        body.setTextureRect(sf::IntRect(66, 32, 22, 32));
+    }
+}
+

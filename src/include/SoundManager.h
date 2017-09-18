@@ -38,6 +38,7 @@ class SoundManager
         void playDeathSound();
         
         //Play our weapon firing and handling sounds
+        void playOutOfAmmo();
         void playLmgFire();
         void playLmgReload();
 

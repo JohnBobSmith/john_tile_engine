@@ -38,13 +38,18 @@ void SoundManager::playDeathSound()
     bnkSpawnEffects[1]->snd.play();
 }
 
-void SoundManager::playLmgFire()
+void SoundManager::playOutOfAmmo()
 {
     bnkWeaponEffects[0]->snd.play();
 }
 
-void SoundManager::playLmgReload()
+void SoundManager::playLmgFire()
 {
     bnkWeaponEffects[1]->snd.play();
+}
+
+void SoundManager::playLmgReload()
+{
+    bnkWeaponEffects[2]->snd.play();
 }
 

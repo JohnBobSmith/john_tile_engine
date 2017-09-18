@@ -15,6 +15,7 @@
 #include "include/SoundManager.h"
 #include "include/Weapon.h"
 #include "include/World.h"
+#include "include/ResuplySystem.h"
 
 int main()
 {
@@ -64,6 +65,9 @@ int main()
 
     //Our weapons
     Bullet bullet;
+    
+    //Our resuply system
+    ResuplySystem resuplysystem;
     
     //LMG
     sf::Time lmgRof = sf::milliseconds(100);
@@ -175,6 +179,7 @@ int main()
     soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "../audio/effects/deathrespawn/respawn.wav");
     soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "../audio/effects/deathrespawn/death.wav");
     //Our weapon shooting and handling sounds, to go in bnkWeaponEffects (defined in SoundManager.h).
+    soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/weapons/outOfAmmo.wav");
     soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/weapons/lmg/lmgFire.wav");
     soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/weapons/lmg/lmgReload.wav");
 
@@ -196,11 +201,15 @@ int main()
         }
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            if (lmg.ammoInMagazine <= 0) {
+                soundmngr.playOutOfAmmo();
+            }
             if (lmg.isEquipped && lmg.canFire) {
                 bullet.shoot(soundmngr, lmg, mouse.getMouseAngle());
                 font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
                 font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));   
             }
+
         }
         
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
@@ -276,6 +285,16 @@ int main()
         player.checkCollision(grasslandCollision, camera);
         player.checkCollision(rocklandCollision, camera);
         player.checkCollision(junglelandCollision, camera);
+        
+        //TEST COLLISIONS
+        if (resuplysystem.checkCollision(collision, player)) {
+            resuplysystem.bbox.setOutlineColor(sf::Color::White);
+            resuplysystem.resuply(lmg);
+            font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
+            font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo)); 
+        } else {
+            resuplysystem.bbox.setOutlineColor(sf::Color::Black);
+        }
 
         //Clear, move, and draw
         window.clear();
@@ -413,7 +432,8 @@ int main()
         //*/
 
         //COLLISION TESTING
-        window.draw(circle);   
+        window.draw(circle); 
+        window.draw(resuplysystem.bbox);  
 
         //Run the application
         window.display();

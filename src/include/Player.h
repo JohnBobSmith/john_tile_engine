@@ -7,7 +7,6 @@
 #include "Collision.h"
 #include "SoundManager.h"
 
-
 class Player
 {
     public:
@@ -93,7 +92,6 @@ class Player
         
         //Our fixed respawn time that doesnt change
         const sf::Time respawnTime = sf::milliseconds(1200);
-        
 };
 
 #endif // PLAYER_H

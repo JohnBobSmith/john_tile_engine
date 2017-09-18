@@ -31,7 +31,7 @@ void Weapon::reload(SoundManager &soundmngr)
         if (weaponName == "lmg") {
             soundmngr.playLmgReload();
         }
-    } 
+    }
 }
 
 void Weapon::update(Player &player)
@@ -55,6 +55,7 @@ void Weapon::update(Player &player)
         canReload = false;
     }
     
+    //Perform the reload
     if (isReloading) {
         player.isReloading = true;
         reloadTime -= sf::milliseconds(10);

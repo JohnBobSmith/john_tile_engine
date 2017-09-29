@@ -2,8 +2,8 @@
 
 ResuplySystem::ResuplySystem()
 {
-    amountOfAmmo = 25;
-    maxAmmoSupply = 100;
+    amountOfAmmo = 1;
+    maxAmmoSupply = 150;
     bbox.setOutlineColor(sf::Color::Black);
     bbox.setOutlineThickness(5);
     bbox.setFillColor(sf::Color::Transparent);
@@ -26,9 +26,14 @@ bool ResuplySystem::checkCollision(Collision &collision, Player &player)
 
 void ResuplySystem::resuply(Weapon &weapon)
 {
-    if (weapon.maxAmmo < 150 && maxAmmoSupply > 0) {
-        weapon.maxAmmo += amountOfAmmo;
-        maxAmmoSupply -= amountOfAmmo;
-    }
+	static sf::Time timer = sf::milliseconds(100);
+	timer -= sf::milliseconds(10);
+	if (timer.asMilliseconds() <= 0) {
+		if (weapon.maxAmmo < 150 && maxAmmoSupply > 0) {
+		    weapon.maxAmmo += amountOfAmmo;
+		    maxAmmoSupply -= amountOfAmmo;
+		}
+		timer = sf::milliseconds(100);
+	}
 }
 

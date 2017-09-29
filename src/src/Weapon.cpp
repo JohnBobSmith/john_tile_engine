@@ -26,8 +26,13 @@ void Weapon::reload(SoundManager &soundmngr)
 {   
     if (maxAmmo > 0 && canReload) {
         isReloading = true;
-        maxAmmo -= magazineSize;
-        ammoInMagazine = magazineSize;
+        if (maxAmmo <= magazineSize) {
+        	ammoInMagazine = maxAmmo;
+        	maxAmmo = 0;
+        } else {
+			maxAmmo -= magazineSize;
+			ammoInMagazine = magazineSize;
+        }
         if (weaponName == "lmg") {
             soundmngr.playLmgReload();
         }
@@ -54,6 +59,8 @@ void Weapon::update(Player &player)
     } else { //Full magazine
         canReload = false;
     }
+    //WHAT ABOUT PARTIAL MAGS?!?! 
+    //Fill that in here.
     
     //Perform the reload
     if (isReloading) {
@@ -66,11 +73,4 @@ void Weapon::update(Player &player)
         }
     }
 }
-
-
-
-
-
-
-
 

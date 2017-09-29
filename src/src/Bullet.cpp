@@ -1,4 +1,4 @@
-#include "include/Bullet.h"
+#include "../include/Bullet.h"
 #include <cmath>
 #include <iostream>
 

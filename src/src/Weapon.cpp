@@ -1,5 +1,5 @@
-#include "include/Weapon.h"
-#include "include/Player.h"
+#include "../include/Weapon.h"
+#include "../include/Player.h"
 
 Weapon::Weapon(std::string path, float dmg, int ammoMax, int magSize, 
                     sf::Time RoF, sf::Time reload, std::string name)

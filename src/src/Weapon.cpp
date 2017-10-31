@@ -59,11 +59,10 @@ void Weapon::update(Player &player)
     } else { //Full magazine
         canReload = false;
     }
-    //WHAT ABOUT PARTIAL MAGS?!?! 
-    //Fill that in here.
     
     //Perform the reload
     if (isReloading) {
+    	canReload = false;
         player.isReloading = true;
         reloadTime -= sf::milliseconds(10);
         if (reloadTime.asMilliseconds() <= 0) {

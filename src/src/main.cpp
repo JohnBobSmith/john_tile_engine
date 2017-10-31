@@ -17,6 +17,7 @@
 #include "../include/World.h"
 #include "../include/ResuplySystem.h"
 #include "../include/Ai.h"
+#include "../include/HealthBar.h"
 
 int main()
 {
@@ -29,6 +30,7 @@ int main()
     Shader shader;
     Mouse mouse;
     Font font;
+    HealthBar hpbar;
 
     //Load our worlds
     World grassland;
@@ -73,7 +75,7 @@ int main()
     //LMG
     sf::Time lmgRof = sf::milliseconds(100);
     sf::Time lmgReloadTime = sf::milliseconds(750);
-    Weapon lmg("../textures/weapons/lmg.png", 20, 150, 50, lmgRof, lmgReloadTime, "lmg");
+    Weapon lmg("../textures/weapons/lmg.png", 20, 150, 30, lmgRof, lmgReloadTime, "lmg");
 
     //Initialize SFML
     sf::Event event;
@@ -224,6 +226,10 @@ int main()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
             player.killPlayer(soundmngr);
         }
+        
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
+        	player.health -= 0.1f;
+        }
 
         //Check our audio collision
         if (player.isActive) {
@@ -289,12 +295,12 @@ int main()
         
         //TEST COLLISIONS
         if (resuplysystem.checkCollision(collision, player)) {
-            resuplysystem.bbox.setOutlineColor(sf::Color::White);
+            resuplysystem.ammoBox.setOutlineColor(sf::Color::White);
             resuplysystem.resuply(lmg);
             font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
             font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo)); 
         } else {
-            resuplysystem.bbox.setOutlineColor(sf::Color::Black);
+            resuplysystem.ammoBox.setOutlineColor(sf::Color::Black);
         }
 
         //Clear, move, and draw
@@ -413,6 +419,8 @@ int main()
 
         //Update misc. player functions
         player.update();
+        
+        hpbar.update(player);
 
         //Player respawn and shader work
         //*
@@ -434,7 +442,8 @@ int main()
 
         //COLLISION TESTING
         window.draw(circle); 
-        window.draw(resuplysystem.bbox);  
+        window.draw(resuplysystem.ammoBox);  
+        window.draw(hpbar.healthBar);
 
         //Run the application
         window.display();

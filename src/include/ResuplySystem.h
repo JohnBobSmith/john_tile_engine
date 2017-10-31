@@ -12,7 +12,8 @@ class ResuplySystem
         ResuplySystem();
         
         //We need the bounding box
-        sf::RectangleShape bbox;
+        sf::RectangleShape ammoBox;
+        sf::RectangleShape healthBox;
         
         //A way to check for collisions
         bool checkCollision(Collision &collison, Player &player);    
@@ -22,6 +23,12 @@ class ResuplySystem
         
         //How much ammo the supply system has
         int maxAmmoSupply;
+        
+        //How much health resupply
+        int ammountOfHealth;
+        
+        //How much health the supply system has
+        int maxHealthSupply;
         
         //Perform the resuply.
         void resuply(Weapon &weapon);

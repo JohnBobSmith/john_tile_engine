@@ -3,7 +3,7 @@ CXXFLAGS = -Wall -g
 PROG  = johntileengine
 OBJS = AnimatedProps.o Bullet.o Camera.o Collision.o Config.o \
 	Font.o main.o Mouse.o Player.o Shader.o SoundManager.o \
-	Weapon.o World.o ResuplySystem.o Ai.o
+	Weapon.o World.o ResuplySystem.o Ai.o HealthBar.o
 LD = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 VPATH = src
 

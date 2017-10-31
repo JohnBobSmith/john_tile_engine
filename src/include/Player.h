@@ -77,10 +77,6 @@ class Player
         void update();
 
     private:
-        //Our respawn sounds buffer
-        sf::SoundBuffer respawnSoundBuffer;
-        sf::SoundBuffer deathSoundBuffer;
-
         //Locations where the player can respawn
         std::vector<sf::Vector2f> spawnPoints;
 

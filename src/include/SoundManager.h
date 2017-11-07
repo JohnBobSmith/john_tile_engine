@@ -44,7 +44,6 @@ class SoundManager
 
     private:
         //How long to delay before playing the next footstep sound
-        //float footstepDelay = 35.0f;
         sf::Time footstepDelay = sf::milliseconds(350);
 };
 

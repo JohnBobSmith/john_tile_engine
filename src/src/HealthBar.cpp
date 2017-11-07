@@ -9,6 +9,7 @@ HealthBar::HealthBar()
 
 void HealthBar::update(Player &player) 
 {
+	//Set the color acording to HP remaining
 	sf::Color hpBarColor(player.health * 1.5, 0, 0);
 	healthBar.setPosition(player.body.getPosition().x - 85,
           	           	  player.body.getPosition().y + 50);

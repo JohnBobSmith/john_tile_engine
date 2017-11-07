@@ -8,9 +8,11 @@ class HealthBar
 {
 	public:
 		HealthBar();
-	
+		
+		//Our health bar shape	
 		sf::RectangleShape healthBar;
-	
+		
+		//Update everything
 		void update(Player &player);
 };
 

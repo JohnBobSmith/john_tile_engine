@@ -12,6 +12,7 @@ Player::Player()
     isActive = true;
     isWalking = false;
     isReloading = false;
+    isPlayingRespawnSound = false;
     position.x = 32;
     position.y = 32;
     velocity.x = 0;
@@ -267,7 +268,10 @@ void Player::applyDamage(int ammount, SoundManager &soundmngr)
 
 void Player::killPlayer(SoundManager &soundmngr)
 {
-    soundmngr.playDeathSound();
+    if (!isPlayingRespawnSound) {
+        soundmngr.playDeathSound();
+        isPlayingRespawnSound = true;
+    }
     health = -999;
     isActive = false;
 }
@@ -280,6 +284,7 @@ void Player::respawn(Camera &camera, SoundManager &soundmngr, int randomNumber)
         soundmngr.playRespawnSound();
         health = 100;
         isActive = true;
+        isPlayingRespawnSound = false;
 
         //Randomly spawn the player, then update the camera.
         boundingBox.setPosition(spawnPoints[randomNumber]);

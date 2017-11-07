@@ -45,6 +45,9 @@ class Player
         //Do we play the reload animation?
         bool isReloading;
 
+		//Are we playing the respawn sound
+        bool isPlayingRespawnSound;
+
         //Animate the player
         void animateLegs();
         void animateReload();

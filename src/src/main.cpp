@@ -228,7 +228,12 @@ int main()
         }
         
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
-        	player.health -= 0.1f;
+        	player.health -= 10.0f;
+        }
+        
+        //Kill the player if we have < 0 health
+        if (player.health <= 0) {
+        	player.killPlayer(soundmngr);
         }
 
         //Check our audio collision

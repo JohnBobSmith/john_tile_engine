@@ -10,6 +10,7 @@ class Font
         sf::Text respawnText;
         sf::Text ammoCounterText;
         sf::Text maxAmmoCounterText;
+        sf::Text hpBarText;
 
         //Load our fonts.
         bool load();

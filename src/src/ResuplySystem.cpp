@@ -27,9 +27,10 @@ bool ResuplySystem::checkCollision(Collision &collision, Player &player)
 void ResuplySystem::resuply(Weapon &weapon)
 {
 	static sf::Time timer = sf::milliseconds(100);
+	static int weaponMaxAmmo = weapon.maxAmmo;
 	timer -= sf::milliseconds(10);
 	if (timer.asMilliseconds() <= 0) {
-		if (maxAmmoSupply > 0) {
+		if (maxAmmoSupply > 0 && weapon.maxAmmo < weaponMaxAmmo) {
 		    weapon.maxAmmo += amountOfAmmo;
 		    maxAmmoSupply -= amountOfAmmo;
 		}

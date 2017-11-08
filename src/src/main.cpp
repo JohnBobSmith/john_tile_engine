@@ -275,9 +275,33 @@ int main()
                 soundmngr.playFootsteps(randomNumber);
             }
 
-        }
+        }    
 
-        //COLLISION TESTING 
+        //Regular collision checking
+        player.checkCollision(farmlandCollision, camera);
+        player.checkCollision(animPropsCollision, camera);
+        player.checkCollision(grasslandCollision, camera);
+        player.checkCollision(rocklandCollision, camera);
+        player.checkCollision(junglelandCollision, camera);
+        
+	    //Bullet collision checking
+        bullet.checkBulletCollision(farmlandCollision);
+        bullet.checkBulletCollision(grasslandCollision);
+        bullet.checkBulletCollision(rocklandCollision);
+        bullet.checkBulletCollision(junglelandCollision);
+        bullet.checkBulletCollision(animPropsCollision);
+        
+        //COLLISION TESTING - RESUPLY SYSTEM
+        if (resuplysystem.checkCollision(collision, player)) {
+            resuplysystem.ammoBox.setOutlineColor(sf::Color::White);
+            resuplysystem.resuply(lmg);
+            font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
+            font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo)); 
+        } else {
+            resuplysystem.ammoBox.setOutlineColor(sf::Color::Black);
+        }
+        
+        //COLLISION TESTING - CIRCLE COLLISION DETECTION
         sf::CircleShape circle(50);
         circle.setPosition(100, -100);
         circle.setFillColor(sf::Color::Transparent);
@@ -289,23 +313,6 @@ int main()
                                                          player.size.x, player.size.y)) {
 
             circle.setOutlineColor(sf::Color::Red); 
-        }    
-
-        //Regular collision checking
-        player.checkCollision(farmlandCollision, camera);
-        player.checkCollision(animPropsCollision, camera);
-        player.checkCollision(grasslandCollision, camera);
-        player.checkCollision(rocklandCollision, camera);
-        player.checkCollision(junglelandCollision, camera);
-        
-        //TEST COLLISIONS
-        if (resuplysystem.checkCollision(collision, player)) {
-            resuplysystem.ammoBox.setOutlineColor(sf::Color::White);
-            resuplysystem.resuply(lmg);
-            font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
-            font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo)); 
-        } else {
-            resuplysystem.ammoBox.setOutlineColor(sf::Color::Black);
         }
 
         //Clear, move, and draw
@@ -323,10 +330,6 @@ int main()
         animprops.animate();
         window.draw(animPropsWorld);
         window.draw(animprops.windmill);
-        
-        //Draw our ammo counters
-        window.draw(font.ammoCounterText);
-        window.draw(font.maxAmmoCounterText);
 
         //Draw collision boxes
         /*
@@ -407,17 +410,19 @@ int main()
             //Move our text to the correct possition
             font.ammoCounterText.setPosition(player.body.getPosition().x + 25, player.body.getPosition().y + 50);
             font.maxAmmoCounterText.setPosition(player.body.getPosition().x + 50, player.body.getPosition().y + 60);
+        	font.hpBarText.setPosition(player.body.getPosition().x - 108, player.body.getPosition().y + 50);
+			
+			//Draw our HUD elements
+			window.draw(font.ammoCounterText);
+			window.draw(font.maxAmmoCounterText); 
+			window.draw(hpbar.healthBar);
+			window.draw(font.hpBarText);
         }
+        
+        /**UPDATE EVERYTHING HERE**/
 
         //Move our bullets
         bullet.move();
-        
-        //Bullet collision checking
-        bullet.checkBulletCollision(farmlandCollision);
-        bullet.checkBulletCollision(grasslandCollision);
-        bullet.checkBulletCollision(rocklandCollision);
-        bullet.checkBulletCollision(junglelandCollision);
-        bullet.checkBulletCollision(animPropsCollision);
         
         //Update weapon parameters
         lmg.update(player);
@@ -425,6 +430,7 @@ int main()
         //Update misc. player functions
         player.update();
         
+        //Update the status of our health bar
         hpbar.update(player);
 
         //Player respawn and shader work
@@ -445,11 +451,10 @@ int main()
         }
         //*/
 
-        //COLLISION TESTING
+        //DRAW OUR COLLISION TESTS
         window.draw(circle); 
-        window.draw(resuplysystem.ammoBox);  
-        window.draw(hpbar.healthBar);
-
+        window.draw(resuplysystem.ammoBox); 
+        
         //Run the application
         window.display();
     }

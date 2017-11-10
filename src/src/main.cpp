@@ -292,13 +292,20 @@ int main()
         bullet.checkBulletCollision(animPropsCollision);
         
         //COLLISION TESTING - RESUPLY SYSTEM
-        if (resuplysystem.checkCollision(collision, player)) {
+        if (resuplysystem.checkAmmoBoxCollision(collision, player)) {
             resuplysystem.ammoBox.setOutlineColor(sf::Color::White);
-            resuplysystem.resuply(lmg);
+            resuplysystem.resuplyAmmo(lmg);
             font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
             font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo)); 
         } else {
             resuplysystem.ammoBox.setOutlineColor(sf::Color::Black);
+        }
+        
+        if (resuplysystem.checkHealthBoxCollision(collision, player)) {
+            resuplysystem.healthBox.setOutlineColor(sf::Color::White);
+            resuplysystem.resuplyHealth(player);        
+        } else {
+        	resuplysystem.healthBox.setOutlineColor(sf::Color::Black);
         }
         
         //COLLISION TESTING - CIRCLE COLLISION DETECTION
@@ -454,6 +461,7 @@ int main()
         //DRAW OUR COLLISION TESTS
         window.draw(circle); 
         window.draw(resuplysystem.ammoBox); 
+        window.draw(resuplysystem.healthBox);
         
         //Run the application
         window.display();

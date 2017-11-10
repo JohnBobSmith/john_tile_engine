@@ -16,7 +16,8 @@ class ResuplySystem
         sf::RectangleShape healthBox;
         
         //A way to check for collisions
-        bool checkCollision(Collision &collison, Player &player);    
+        bool checkAmmoBoxCollision(Collision &collison, Player &player);    
+        bool checkHealthBoxCollision(Collision &collision, Player &player);
         
         //How much ammo to resupply
         int amountOfAmmo;
@@ -25,13 +26,14 @@ class ResuplySystem
         int maxAmmoSupply;
         
         //How much health resupply
-        int ammountOfHealth;
+        int amountOfHealth;
         
         //How much health the supply system has
         int maxHealthSupply;
         
         //Perform the resuply.
-        void resuply(Weapon &weapon);
+        void resuplyAmmo(Weapon &weapon);
+        void resuplyHealth(Player &player);
 };
 
 #endif //RESUPPLYSYSTEM_H

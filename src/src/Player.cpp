@@ -21,6 +21,7 @@ Player::Player()
     size.x = 19;
     size.y = 19;
     health = 100.0f;
+    startingHealth = health;
     boundingBox.setSize(sf::Vector2f(size.x, size.y));
     boundingBox.setFillColor(sf::Color::White);
     spawnTime = respawnTime;

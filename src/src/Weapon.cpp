@@ -14,6 +14,7 @@ Weapon::Weapon(std::string path, float dmg, int ammoMax, int magSize,
     isReloading = false;
     damage = dmg;
     maxAmmo = ammoMax;
+    startingAmmo = maxAmmo;
     magazineSize = magSize;
     ammoInMagazine = magazineSize;
     rateOfFire = RoF;

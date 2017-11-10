@@ -5,8 +5,8 @@ ResuplySystem::ResuplySystem()
 {
     amountOfAmmo = 1;
     amountOfHealth = 1;
-    maxAmmoSupply = 150;
-    maxHealthSupply = 200;
+    maxAmmoSupply = 9999;
+    maxHealthSupply = 9999;
     ammoBox.setOutlineColor(sf::Color::Black);
     ammoBox.setOutlineThickness(5);
     ammoBox.setFillColor(sf::Color::Transparent);
@@ -48,25 +48,23 @@ bool ResuplySystem::checkHealthBoxCollision(Collision &collision, Player &player
 void ResuplySystem::resuplyAmmo(Weapon &weapon)
 {
 	static sf::Time timer = sf::milliseconds(100);
-	static int weaponMaxAmmo = weapon.maxAmmo;
 	timer -= sf::milliseconds(10);
 	if (timer.asMilliseconds() <= 0) {
-		if (maxAmmoSupply > 0 && weapon.maxAmmo < weaponMaxAmmo) {
+		if (maxAmmoSupply > 0 && weapon.maxAmmo < weapon.startingAmmo) {
 		    weapon.maxAmmo += amountOfAmmo;
 		    maxAmmoSupply -= amountOfAmmo;
 		}
 		timer = sf::milliseconds(100);
 	}
-	std::cout << weapon.maxAmmo << " " << weaponMaxAmmo << "\n";
+	std::cout << weapon.maxAmmo << " " << weapon.startingAmmo << "\n";
 }
 
 void ResuplySystem::resuplyHealth(Player &player)
 {
 	static sf::Time timer = sf::milliseconds(100);
-	static float playerMaxHealth = player.health;
 	timer -= sf::milliseconds(10);
 	if (timer.asMilliseconds() <= 0) {
-		if (maxHealthSupply > 0 && player.health < playerMaxHealth) {
+		if (maxHealthSupply > 0 && player.health < player.startingHealth) {
 		    player.health += amountOfHealth;
 		    maxHealthSupply -= amountOfHealth;
 		}

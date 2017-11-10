@@ -39,8 +39,10 @@ class Weapon
         //The maximum ammo
         int maxAmmo;
         
-        //***THIS LINE BREAKS ammoInMagazine***//
-        int ammoCap;
+		//How much ammo we start with. 
+		//This is a fixed value, used to
+		//resuply and respawn as well.
+		int startingAmmo;
 
         //Ammo in the magazine
         int ammoInMagazine;

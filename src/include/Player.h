@@ -35,6 +35,9 @@ class Player
 
         //Players health
         float health;
+        
+        //The starting health
+        float startingHealth;
 
         //Do we render the player?
         bool isActive;

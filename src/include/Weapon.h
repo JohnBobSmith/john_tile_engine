@@ -38,6 +38,9 @@ class Weapon
 
         //The maximum ammo
         int maxAmmo;
+        
+        //***THIS LINE BREAKS ammoInMagazine***//
+        int ammoCap;
 
         //Ammo in the magazine
         int ammoInMagazine;

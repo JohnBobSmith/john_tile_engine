@@ -1,4 +1,5 @@
 #include "../include/ResuplySystem.h"
+#include <iostream>
 
 ResuplySystem::ResuplySystem()
 {
@@ -56,6 +57,7 @@ void ResuplySystem::resuplyAmmo(Weapon &weapon)
 		}
 		timer = sf::milliseconds(100);
 	}
+	std::cout << weapon.maxAmmo << " " << weaponMaxAmmo << "\n";
 }
 
 void ResuplySystem::resuplyHealth(Player &player)

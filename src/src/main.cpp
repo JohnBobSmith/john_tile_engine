@@ -216,7 +216,7 @@ int main()
         }
         
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
-            if (lmg.isEquipped && lmg.maxAmmo > 0) {
+            if (lmg.isEquipped /*&& lmg.maxAmmo > 0*/) {
                 lmg.reload(soundmngr);
                 font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
                 font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));             

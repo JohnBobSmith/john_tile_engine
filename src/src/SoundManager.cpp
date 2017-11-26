@@ -2,7 +2,7 @@
 #include <memory>
 #include <iostream>
 
-void SoundManager::registerNewSound(std::vector<std::shared_ptr<jteSound>> &bnk, std::string path)
+void SoundManager::registerNewSound(std::vector<std::shared_ptr<jteSound>> &bnk, std::string path, std::string name)
 {
     //Initialize our sounds attributes.
     static int counter = 0;
@@ -15,6 +15,7 @@ void SoundManager::registerNewSound(std::vector<std::shared_ptr<jteSound>> &bnk,
         bnk.push_back(std::make_shared<jteSound>());
         bnk[i]->sndBuffer.loadFromFile(path);
         bnk[i]->snd.setBuffer(bnk[i]->sndBuffer);
+        bnk[i]->id = name;
     }
 }
 
@@ -28,28 +29,13 @@ void SoundManager::playFootsteps(int randomNumber)
     }
 }
 
-void SoundManager::playRespawnSound()
+void SoundManager::playSoundByID(std::vector<std::shared_ptr<jteSound>> &bnk, std::string name)
 {
-    bnkSpawnEffects[0]->snd.play();
+	for (int i = 0; i < bnk.size(); ++i) {
+		if (bnk[i]->id == name) {
+			bnk[i]->snd.play();
+		}
+	}
 }
 
-void SoundManager::playDeathSound()
-{
-    bnkSpawnEffects[1]->snd.play();
-}
-
-void SoundManager::playOutOfAmmo()
-{
-    bnkWeaponEffects[0]->snd.play();
-}
-
-void SoundManager::playLmgFire()
-{
-    bnkWeaponEffects[1]->snd.play();
-}
-
-void SoundManager::playLmgReload()
-{
-    bnkWeaponEffects[2]->snd.play();
-}
 

@@ -13,17 +13,17 @@ class SoundManager
         {
             sf::Sound snd;
             sf::SoundBuffer sndBuffer;
+            std::string id;
         };
 
         //Load a new sound from path and store it in audio bank bnk.
         //Banks are simply std::vectors of type jteSound.
-        void registerNewSound(std::vector<std::shared_ptr<jteSound>> &bnk, std::string path);
+        void registerNewSound(std::vector<std::shared_ptr<jteSound>> &bnk, std::string path, std::string name);
 
         //Our sound banks
         std::vector<std::shared_ptr<jteSound>> bnkFootsteps;
         std::vector<std::shared_ptr<jteSound>> bnkSpawnEffects;
         std::vector<std::shared_ptr<jteSound>> bnkWeaponEffects;
-
 
         //Play a random footstep sound
         /*
@@ -32,15 +32,9 @@ class SoundManager
             6-8 is gravel
         */
         void playFootsteps(int randomNumber);
-
-        //Play our respawn/death sounds
-        void playRespawnSound();
-        void playDeathSound();
         
-        //Play our weapon firing and handling sounds
-        void playOutOfAmmo();
-        void playLmgFire();
-        void playLmgReload();
+        //Play a sound by its string id
+        void playSoundByID(std::vector<std::shared_ptr<jteSound>> &bnk, std::string name);
 
     private:
         //How long to delay before playing the next footstep sound

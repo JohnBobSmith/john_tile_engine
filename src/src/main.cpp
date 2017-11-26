@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include <stdlib.h>
-#include <time.h>
 #include <iostream>
 #include <cmath>
 #include "../include/AnimatedProps.h"
@@ -77,14 +76,6 @@ int main()
     sf::Time lmgReloadTime = sf::milliseconds(750);
     Weapon lmg("../textures/weapons/lmg.png", 20, 150, 30, lmgRof, lmgReloadTime, "lmg");
 
-    //Initialize SFML
-    sf::Event event;
-    sf::RenderWindow window(sf::VideoMode(config.getScreenWidth(),\
-                                        config.getScreenHeight()),\
-                                        config.getAppName());
-    window.setFramerateLimit(60);
-    window.setKeyRepeatEnabled(false);
-
     //Are we running the game?
     bool isRunning = true;
 
@@ -128,6 +119,7 @@ int main()
     if (!player.loadTexture()) {
         return -1; //Error missing required texture files.
     }
+    
     //Setup the player's position and texture
     player.boundingBox.setPosition(64, 64);
     player.body.setTextureRect(sf::IntRect(0, 0, 22, 32));
@@ -168,29 +160,37 @@ int main()
     junglelandShrub.positionCollisionBoxes(jungleland.currentLevel, config.junglelandShrub, 512, -512);
 
     //Register our sounds with the sound manager.
-    //Footsteps sounds, to go into bnkFootsteps (defined in SoundManager.h).
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps01.wav");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps02.wav");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps03.wav");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps04.wav");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps05.wav");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps06.wav");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps07.wav");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps08.wav");
-    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps09.wav");
-    //Our spawn/death sounds, to go in bnkSpawnEffects (defined in SoundManager.h).
-    soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "../audio/effects/deathrespawn/respawn.wav");
-    soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "../audio/effects/deathrespawn/death.wav");
-    //Our weapon shooting and handling sounds, to go in bnkWeaponEffects (defined in SoundManager.h).
-    soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/weapons/outOfAmmo.wav");
-    soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/weapons/lmg/lmgFire.wav");
-    soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/weapons/lmg/lmgReload.wav");
+    //Footsteps sounds
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps01.wav", "footstep01");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps02.wav", "footstep02");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps03.wav", "footstep03");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps04.wav", "footstep04");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps05.wav", "footstep05");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps06.wav", "footstep06");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps07.wav", "footstep07");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps08.wav", "footstep08");
+    soundmngr.registerNewSound(soundmngr.bnkFootsteps, "../audio/footsteps/footsteps09.wav", "footstep09");
+    //Our spawn/death sounds
+    soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "../audio/effects/deathrespawn/respawn.wav", "respawn");
+    soundmngr.registerNewSound(soundmngr.bnkSpawnEffects, "../audio/effects/deathrespawn/death.wav", "death");
+    //Our weapon shooting and handling sounds
+    soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/weapons/outOfAmmo.wav", "outOfAmmo");
+    soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/weapons/lmg/lmgFire.wav", "lmgFire");
+    soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/weapons/lmg/lmgReload.wav", "lmgReload");
 
     //Setup the ammo counter font
     if (lmg.isEquipped) {
         font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
         font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));
     }
+    
+    //Initialize SFML
+    sf::Event event;
+    sf::RenderWindow window(sf::VideoMode(config.getScreenWidth(),\
+                                        config.getScreenHeight()),\
+                                        config.getAppName());
+    window.setFramerateLimit(60);
+    window.setKeyRepeatEnabled(false);
 
     //Game loop.
     while (isRunning) {
@@ -205,7 +205,7 @@ int main()
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
             if (lmg.ammoInMagazine <= 0) {
-                soundmngr.playOutOfAmmo();
+                soundmngr.playSoundByID(soundmngr.bnkWeaponEffects, "outOfAmmo");
             }
             if (lmg.isEquipped && lmg.canFire) {
                 bullet.shoot(soundmngr, lmg, mouse.getMouseAngle());

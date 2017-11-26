@@ -4,7 +4,7 @@
 ResuplySystem::ResuplySystem()
 {
     amountOfAmmo = 1;
-    amountOfHealth = 1;
+    amountOfHealth = 2;
     maxAmmoSupply = 9999;
     maxHealthSupply = 9999;
     ammoBox.setOutlineColor(sf::Color::Black);
@@ -56,7 +56,6 @@ void ResuplySystem::resuplyAmmo(Weapon &weapon)
 		}
 		timer = sf::milliseconds(100);
 	}
-	std::cout << weapon.maxAmmo << " " << weapon.startingAmmo << "\n";
 }
 
 void ResuplySystem::resuplyHealth(Player &player)

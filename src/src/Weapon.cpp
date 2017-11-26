@@ -35,7 +35,7 @@ void Weapon::reload(SoundManager &soundmngr)
 			ammoInMagazine = magazineSize;
         }
         if (weaponName == "lmg") {
-            soundmngr.playLmgReload();
+            soundmngr.playSoundByID(soundmngr.bnkWeaponEffects, "lmgReload");
         }
     }
 }

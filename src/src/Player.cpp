@@ -270,7 +270,7 @@ void Player::applyDamage(int ammount, SoundManager &soundmngr)
 void Player::killPlayer(SoundManager &soundmngr)
 {
     if (!isPlayingRespawnSound) {
-        soundmngr.playDeathSound();
+        soundmngr.playSoundByID(soundmngr.bnkSpawnEffects, "death");
         isPlayingRespawnSound = true;
     }
     health = -999;
@@ -282,7 +282,7 @@ void Player::respawn(Camera &camera, SoundManager &soundmngr, int randomNumber)
     spawnTime -= sf::milliseconds(10);
     if (spawnTime.asMilliseconds() <= 0) {
         spawnTime = respawnTime;
-        soundmngr.playRespawnSound();
+        soundmngr.playSoundByID(soundmngr.bnkSpawnEffects, "respawn");
         health = 100;
         isActive = true;
         isPlayingRespawnSound = false;

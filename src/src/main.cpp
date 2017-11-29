@@ -207,6 +207,7 @@ int main()
             if (lmg.ammoInMagazine <= 0) {
                 soundmngr.playSoundByID(soundmngr.bnkWeaponEffects, "outOfAmmo");
             }
+            
             if (lmg.isEquipped && lmg.canFire) {
                 bullet.shoot(soundmngr, lmg, mouse.getMouseAngle());
                 font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
@@ -394,8 +395,7 @@ int main()
             }
         }
 
-        //Animate and render the player,
-        //above the collision boxes.
+        //Animate and render the player when the player is alive (active)
         if (player.isActive) {
             player.animateLegs();
             player.movePlayer();
@@ -404,6 +404,7 @@ int main()
             player.legs.setRotation(90 + mouse.getMouseAngle());
             player.legs.setPosition(player.body.getPosition().x, player.body.getPosition().y);
             window.draw(player.legs);
+            
             //Put our weapons above the legs but below the player body.
             if (lmg.isEquipped) {
                 lmg.weapSprite.setPosition(player.body.getPosition().x, player.body.getPosition().y);
@@ -411,6 +412,7 @@ int main()
                 lmg.weapSprite.setRotation(90 + mouse.getMouseAngle());
                 window.draw(lmg.weapSprite);
             }
+            
             //Draw the body.
             window.draw(player.body);
             

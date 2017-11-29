@@ -42,3 +42,7 @@ audio/sources/*
 
 #Ignore the johntileengine executable
 johntileengine
+
+#Ignore our boilerplate generator
+addboilerplate.sh
+boilerplate

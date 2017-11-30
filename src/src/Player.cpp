@@ -62,12 +62,12 @@ Player::Player()
 bool Player::loadTexture()
 {
     //If we cannot load the texture, error out.
-    if (!bodyTexture.loadFromFile("../textures/entity/player.anim.png")) {
+    if (!bodyTexture.loadFromFile("../textures/entity/player.anim_pistol.png")) {
         std::cerr << "Error: Missing required texture file...";
         return false;
     }
 
-    if (!legsTexture.loadFromFile("../textures/entity/player.anim.legs.png")) {
+    if (!legsTexture.loadFromFile("../textures/entity/player.anim_legs.png")) {
         std::cerr << "Error: Missing required texture file...";
         return false;
     }
@@ -196,7 +196,7 @@ void Player::animateReload()
     }
     counter += 22; //22 is the width of one sprite on the sheet
     //If we reached the end of the sheet, reset.
-    if (counter == 88) {
+    if (counter == 66) {
         counter = 0;
     }  
 }
@@ -302,6 +302,11 @@ void Player::update()
         //Crude but effective
         //Manually reset the animation to the starting position.
         body.setTextureRect(sf::IntRect(66, 32, 22, 32));
+    }
+    
+    //If not walking, reset the animation
+    if (!isWalking) {
+    	legs.setTextureRect(sf::IntRect(0, 32, 22, 32));
     }
 }
 

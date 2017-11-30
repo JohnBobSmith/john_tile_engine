@@ -75,6 +75,11 @@ int main()
     sf::Time lmgRof = sf::milliseconds(100);
     sf::Time lmgReloadTime = sf::milliseconds(750);
     Weapon lmg("../textures/weapons/lmg.png", 20, 150, 30, lmgRof, lmgReloadTime, "lmg");
+    
+    //Pistol
+    sf::Time pistolRoF = sf::milliseconds(100);
+    sf::Time pistolReloadTime = sf::milliseconds(500);
+    Weapon pistol("../textures/weapons/pistol.png", 20, 15, 30, pistolRoF, pistolReloadTime, "pistol");
 
     //Are we running the game?
     bool isRunning = true;
@@ -217,7 +222,7 @@ int main()
         }
         
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
-            if (lmg.isEquipped /*&& lmg.maxAmmo > 0*/) {
+            if (lmg.isEquipped) {
                 lmg.reload(soundmngr);
                 font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
                 font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));             
@@ -410,7 +415,14 @@ int main()
                 lmg.weapSprite.setPosition(player.body.getPosition().x, player.body.getPosition().y);
                 lmg.weapSprite.setOrigin(6, 37);
                 lmg.weapSprite.setRotation(90 + mouse.getMouseAngle());
-                window.draw(lmg.weapSprite);
+                //window.draw(lmg.weapSprite);
+            }
+            
+            if (pistol.isEquipped) {
+                pistol.weapSprite.setPosition(player.body.getPosition().x, player.body.getPosition().y);
+                pistol.weapSprite.setOrigin(6, 37);
+                pistol.weapSprite.setRotation(90 + mouse.getMouseAngle());
+            	window.draw(pistol.weapSprite);
             }
             
             //Draw the body.
@@ -435,6 +447,7 @@ int main()
         
         //Update weapon parameters
         lmg.update(player);
+        pistol.update(player);
 
         //Update misc. player functions
         player.update();

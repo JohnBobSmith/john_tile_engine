@@ -182,12 +182,6 @@ int main()
     soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/weapons/outOfAmmo.wav", "outOfAmmo");
     soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/weapons/lmg/lmgFire.wav", "lmgFire");
     soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/weapons/lmg/lmgReload.wav", "lmgReload");
-
-    //Setup the ammo counter font
-    if (lmg.isEquipped) {
-        font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
-        font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));
-    }
     
     //Initialize SFML
     sf::Event event;
@@ -214,18 +208,14 @@ int main()
             }
             
             if (lmg.isEquipped && lmg.canFire) {
-                bullet.shoot(soundmngr, lmg, mouse.getMouseAngle());
-                font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
-                font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));   
+                bullet.shoot(soundmngr, lmg, mouse.getMouseAngle());  
             }
 
         }
         
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
             if (lmg.isEquipped) {
-                lmg.reload(soundmngr);
-                font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
-                font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo));             
+                lmg.reload(soundmngr);            
             }
         }
         
@@ -300,9 +290,12 @@ int main()
         //COLLISION TESTING - RESUPLY SYSTEM
         if (resuplysystem.checkAmmoBoxCollision(collision, player)) {
             resuplysystem.ammoBox.setOutlineColor(sf::Color::White);
-            resuplysystem.resuplyAmmo(lmg);
-            font.ammoCounterText.setString(std::to_string(lmg.ammoInMagazine));
-            font.maxAmmoCounterText.setString("/" + std::to_string(lmg.maxAmmo)); 
+            if (lmg.isEquipped) {
+            	resuplysystem.resuplyAmmo(lmg);
+			}
+			if (pistol.isEquipped) {
+				//resuplysystem.resuplyAmmo(pistol);
+			}
         } else {
             resuplysystem.ammoBox.setOutlineColor(sf::Color::Black);
         }
@@ -454,7 +447,15 @@ int main()
         
         //Update the status of our health bar
         hpbar.update(player);
-
+	
+		//Update the font stuff
+		if (lmg.isEquipped) {
+			font.update(lmg);
+        }
+        
+        if (pistol.isEquipped) {
+        	//font.update(pistol);
+        }
         //Player respawn and shader work
         //*
         if (!player.isActive) {

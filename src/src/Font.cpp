@@ -33,3 +33,10 @@ bool Font::load()
 	
     return true;
 }
+
+void Font::update(Weapon &weapon)
+{
+	ammoCounterText.setString(std::to_string(weapon.ammoInMagazine));
+	maxAmmoCounterText.setString("/" + std::to_string(weapon.maxAmmo)); 
+}
+

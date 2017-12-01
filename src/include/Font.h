@@ -2,6 +2,7 @@
 #define FONT_H
 
 #include <SFML/Graphics.hpp>
+#include "Weapon.h"
 
 class Font
 {
@@ -14,6 +15,9 @@ class Font
 
         //Load our fonts.
         bool load();
+        
+       	//Update everything
+       	void update(Weapon &weapon);
 
     private:
         //Our fonts

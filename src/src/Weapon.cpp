@@ -37,6 +37,9 @@ void Weapon::reload(SoundManager &soundmngr)
         if (weaponName == "lmg") {
             soundmngr.playSoundByID(soundmngr.bnkWeaponEffects, "lmgReload");
         }
+        if (weaponName == "pistol") {
+        	soundmngr.playSoundByID(soundmngr.bnkWeaponEffects, "lmgReload");
+        }
     }
 }
 

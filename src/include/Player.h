@@ -3,6 +3,7 @@
 
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <string>
 #include "Camera.h"
 #include "Collision.h"
 #include "SoundManager.h"
@@ -56,7 +57,7 @@ class Player
         void animateReload();
 
         //Load our textures
-        bool loadTexture();
+        bool loadTexture(std::string bodyPath);
 
         //Handle player input
         void handlePlayerEvents(sf::Event event);

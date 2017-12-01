@@ -72,14 +72,18 @@ int main()
     ResuplySystem resuplysystem;
     
     //LMG
-    sf::Time lmgRof = sf::milliseconds(100);
+    sf::Time lmgRof = sf::milliseconds(200);
     sf::Time lmgReloadTime = sf::milliseconds(750);
-    Weapon lmg("../textures/weapons/lmg.png", 20, 150, 30, lmgRof, lmgReloadTime, "lmg");
+    Weapon lmg("../textures/weapons/lmg.png", 33, 150, 30, lmgRof, lmgReloadTime, "lmg");
     
     //Pistol
-    sf::Time pistolRoF = sf::milliseconds(100);
+    sf::Time pistolRoF = sf::milliseconds(75);
     sf::Time pistolReloadTime = sf::milliseconds(500);
-    Weapon pistol("../textures/weapons/pistol.png", 20, 15, 30, pistolRoF, pistolReloadTime, "pistol");
+    Weapon pistol("../textures/weapons/pistol.png", 15, 75, 15, pistolRoF, pistolReloadTime, "pistol");
+
+	//Equip only one starting weapon
+	lmg.isEquipped = true;
+	pistol.isEquipped = false;
 
     //Are we running the game?
     bool isRunning = true;
@@ -121,7 +125,7 @@ int main()
     cloudsBackground.setPosition(-1000, -1000);
 
     //Init the player
-    if (!player.loadTexture()) {
+    if (!player.loadTexture("../textures/entity/player.anim_lmg.png")) {
         return -1; //Error missing required texture files.
     }
     
@@ -203,12 +207,20 @@ int main()
         }
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            if (lmg.ammoInMagazine <= 0) {
+            if (lmg.isEquipped && lmg.ammoInMagazine <= 0) {
                 soundmngr.playSoundByID(soundmngr.bnkWeaponEffects, "outOfAmmo");
+            }
+            
+            if (lmg.isEquipped && pistol.ammoInMagazine <= 0) {
+            	soundmngr.playSoundByID(soundmngr.bnkWeaponEffects, "outOfAmmo");
             }
             
             if (lmg.isEquipped && lmg.canFire) {
                 bullet.shoot(soundmngr, lmg, mouse.getMouseAngle());  
+            }
+            
+            if (pistol.isEquipped && pistol.canFire) {
+            	bullet.shoot(soundmngr, pistol, mouse.getMouseAngle());
             }
 
         }
@@ -216,6 +228,10 @@ int main()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
             if (lmg.isEquipped) {
                 lmg.reload(soundmngr);            
+            }
+            
+            if (pistol.isEquipped) {
+            	pistol.reload(soundmngr);
             }
         }
         
@@ -225,6 +241,18 @@ int main()
         
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
         	player.health -= 10.0f;
+        }
+        
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
+        	player.loadTexture("../textures/entity/player.anim_pistol.png");
+        	pistol.isEquipped = true;
+        	lmg.isEquipped = false;
+        }
+        
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
+        	player.loadTexture("../textures/entity/player.anim_lmg.png");
+        	lmg.isEquipped = true;
+        	pistol.isEquipped = false;
         }
         
         //Kill the player if we have < 0 health
@@ -294,7 +322,7 @@ int main()
             	resuplysystem.resuplyAmmo(lmg);
 			}
 			if (pistol.isEquipped) {
-				//resuplysystem.resuplyAmmo(pistol);
+				resuplysystem.resuplyAmmo(pistol);
 			}
         } else {
             resuplysystem.ammoBox.setOutlineColor(sf::Color::Black);
@@ -372,9 +400,14 @@ int main()
         float yPosition = 37 * sin(mouse.getMouseAngle() * M_PI / 180);
         for (int i = 0; i < bullet.getMaxBullets(); ++i) {
             if (!bullet.bulletStorage[i]->isActive) {
-                bullet.bulletStorage[i]->bulletSprite.setPosition(lmg.weapSprite.getPosition().x + xPosition,
-                                                                 lmg.weapSprite.getPosition().y + yPosition);
-                                                            
+            	if (lmg.isEquipped) {
+	                bullet.bulletStorage[i]->bulletSprite.setPosition(lmg.weapSprite.getPosition().x + xPosition,
+	                                                                 lmg.weapSprite.getPosition().y + yPosition);
+        		}
+        		if (pistol.isEquipped) {
+        			bullet.bulletStorage[i]->bulletSprite.setPosition(pistol.weapSprite.getPosition().x + xPosition,
+        															pistol.weapSprite.getPosition().y + yPosition);
+        		}
             }
             if (bullet.bulletStorage[i]->isActive) {
                 window.draw(bullet.bulletStorage[i]->bulletSprite);
@@ -408,7 +441,7 @@ int main()
                 lmg.weapSprite.setPosition(player.body.getPosition().x, player.body.getPosition().y);
                 lmg.weapSprite.setOrigin(6, 37);
                 lmg.weapSprite.setRotation(90 + mouse.getMouseAngle());
-                //window.draw(lmg.weapSprite);
+                window.draw(lmg.weapSprite);
             }
             
             if (pistol.isEquipped) {
@@ -454,8 +487,9 @@ int main()
         }
         
         if (pistol.isEquipped) {
-        	//font.update(pistol);
+        	font.update(pistol);
         }
+        
         //Player respawn and shader work
         //*
         if (!player.isActive) {

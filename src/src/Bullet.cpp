@@ -26,9 +26,11 @@ void Bullet::shoot(SoundManager &soundmngr, Weapon &weapon, float mouseAngle)
     workingRateOfFire -= sf::milliseconds(10);
     if (workingRateOfFire.asMilliseconds() <= 0) {
         weapon.ammoInMagazine -= 1;
-        //std::cout << weapon.ammoInMagazine << "\n";
         if (weapon.weaponName == "lmg") {        
             soundmngr.playSoundByID(soundmngr.bnkWeaponEffects, "lmgFire");
+        }
+        if (weapon.weaponName == "pistol") {
+        	soundmngr.playSoundByID(soundmngr.bnkWeaponEffects, "lmgFire");
         }
         //Shoot a bullet towards the mouse.
         bulletStorage[currentBullet]->isActive = true;

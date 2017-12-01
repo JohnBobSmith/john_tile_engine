@@ -59,10 +59,10 @@ Player::Player()
     body.setOrigin(12, 22);
 }
 
-bool Player::loadTexture()
+bool Player::loadTexture(std::string bodyPath)
 {
     //If we cannot load the texture, error out.
-    if (!bodyTexture.loadFromFile("../textures/entity/player.anim_pistol.png")) {
+    if (!bodyTexture.loadFromFile(bodyPath.c_str())) {
         std::cerr << "Error: Missing required texture file...";
         return false;
     }

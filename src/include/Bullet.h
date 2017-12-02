@@ -39,7 +39,7 @@ class Bullet
         void move();
 
         //Shoot a bullet
-        void shoot(SoundManager &soundmngr, Weapon &weapon, float mouseAngle);
+        void shoot(SoundManager &soundmngr, Weapon &weapon, float mouseAngle, float spread);
         
         //Check collision
         void checkBulletCollision(Collision &collision);

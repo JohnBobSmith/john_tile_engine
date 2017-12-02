@@ -83,8 +83,7 @@ int main()
 
 	//Equip only one starting weapon
 	lmg.isEquipped = true;
-	pistol.isEquipped = false;
-
+	
     //Are we running the game?
     bool isRunning = true;
 
@@ -211,16 +210,16 @@ int main()
                 soundmngr.playSoundByID(soundmngr.bnkWeaponEffects, "outOfAmmo");
             }
             
-            if (lmg.isEquipped && pistol.ammoInMagazine <= 0) {
+            if (pistol.isEquipped && pistol.ammoInMagazine <= 0) {
             	soundmngr.playSoundByID(soundmngr.bnkWeaponEffects, "outOfAmmo");
             }
             
             if (lmg.isEquipped && lmg.canFire) {
-                bullet.shoot(soundmngr, lmg, mouse.getMouseAngle());  
+                bullet.shoot(soundmngr, lmg, mouse.getMouseAngle(), ((float)rand())/RAND_MAX * 0.5 - 0.25);  
             }
             
             if (pistol.isEquipped && pistol.canFire) {
-            	bullet.shoot(soundmngr, pistol, mouse.getMouseAngle());
+            	bullet.shoot(soundmngr, pistol, mouse.getMouseAngle(), ((float)rand())/RAND_MAX * 0.7 - 0.35);
             }
 
         }

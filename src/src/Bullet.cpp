@@ -18,7 +18,7 @@ Bullet::Bullet()
 }
 
 //*
-void Bullet::shoot(SoundManager &soundmngr, Weapon &weapon, float mouseAngle)
+void Bullet::shoot(SoundManager &soundmngr, Weapon &weapon, float mouseAngle, float spread)
 {
     static int currentBullet = 0;
     //Initialize the rate of fire to each weapons rate of fire.
@@ -35,10 +35,10 @@ void Bullet::shoot(SoundManager &soundmngr, Weapon &weapon, float mouseAngle)
         //Shoot a bullet towards the mouse.
         bulletStorage[currentBullet]->isActive = true;
         bulletStorage[currentBullet]->positionX = maximumVelocity *
-                                (std::cos(mouseAngle * M_PI / 180));
+                                (std::cos(mouseAngle * M_PI / 180 + spread));
 
         bulletStorage[currentBullet]->positionY = maximumVelocity *
-                                (std::sin(mouseAngle * M_PI / 180));
+                                (std::sin(mouseAngle * M_PI / 180 + spread));
         //Reset rate of fire
         workingRateOfFire = weapon.rateOfFire;
     }

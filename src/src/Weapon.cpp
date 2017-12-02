@@ -8,7 +8,7 @@ Weapon::Weapon(std::string path, float dmg, int ammoMax, int magSize,
     weapSprite.setTexture(weaponTexture);
 
     //Default attributes
-    isEquipped = true;
+    isEquipped = false;
     canFire = true;
     canReload = false; //Starts with a full mag
     isReloading = false;

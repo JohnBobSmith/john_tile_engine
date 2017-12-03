@@ -16,12 +16,15 @@ class Pickup
 		bool isPickedUp;
 	
 		bool load(sf::Vector2i objSize, std::string path);
-		
 		bool checkPickupCollision(Collision &collision, int xPos, int yPos, int width, int height);
-
 		void equip();
 		void drop();	
-		void update();	
+		void update();
+		bool spawn(int pointNumber);
+			
+		std::vector<sf::Vector2f> spawnPoints;
+		
+		int MAX_SPAWN_POINTS = 10;
 };
 
 #endif //PICKUP_H

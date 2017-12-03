@@ -74,7 +74,7 @@ int main()
     
     //Our pickups
     Pickup lmgPickup(sf::Vector2i(20, 20), "../textures/weapons/lmg.png");
-    lmgPickup.pickupSprite.setPosition(100, 50);
+    lmgPickup.spawn(0);
     
     //LMG
     sf::Time lmgRof = sf::milliseconds(200);
@@ -475,7 +475,7 @@ int main()
         
 		if (!lmgPickup.isPickedUp) { 
 			if (lmgPickup.checkPickupCollision(collision,player.body.getPosition().x, player.body.getPosition().y,
-																					 player.size.x, player.size.y)) {
+																				    player.size.x, player.size.y)) {
 				lmg.isEquipped = true;
 				pistol.isEquipped = false;					
 			}

@@ -17,6 +17,7 @@
 #include "../include/ResuplySystem.h"
 #include "../include/Ai.h"
 #include "../include/HealthBar.h"
+#include "../include/Pickup.h"
 
 int main()
 {
@@ -70,6 +71,10 @@ int main()
     
     //Our resuply system
     ResuplySystem resuplysystem;
+    
+    //Our pickups
+    Pickup lmgPickup(sf::Vector2i(20, 20), "../textures/weapons/lmg.png");
+    lmgPickup.pickupSprite.setPosition(100, 50);
     
     //LMG
     sf::Time lmgRof = sf::milliseconds(200);
@@ -252,6 +257,7 @@ int main()
         	player.loadTexture("../textures/entity/player.anim_lmg.png");
         	lmg.isEquipped = true;
         	pistol.isEquipped = false;
+        	lmgPickup.drop();
         }
         
         //Kill the player if we have < 0 health
@@ -466,7 +472,18 @@ int main()
         }
         
         /**UPDATE EVERYTHING HERE**/
-
+        
+		if (!lmgPickup.isPickedUp) { 
+			if (lmgPickup.checkPickupCollision(collision,player.body.getPosition().x, player.body.getPosition().y,
+																					 player.size.x, player.size.y)) {
+				lmg.isEquipped = true;
+				pistol.isEquipped = false;					
+			}
+			window.draw(lmgPickup.pickupSprite);
+		}
+		
+		lmgPickup.update();
+		
         //Move our bullets
         bullet.move();
         

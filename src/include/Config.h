@@ -34,6 +34,9 @@ class Config
         const std::unordered_set<int> rocklandDirt{4, 6, 7, 8, 9, 12, 13};
         const std::unordered_set<int> junglelandGrass{1};
         const std::unordered_set<int> junglelandShrub{2, 5, 8};
+        
+        //Bullet collision
+        const std::unordered_set<int> grasslandBulletCollision{0, 3, 4, 5, 8, 9, 12};
 
     private:
         //The window name

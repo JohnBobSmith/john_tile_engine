@@ -81,7 +81,8 @@ void Bullet::checkBulletCollision(Collision &collision)
                                                  collision.collVector[j]->bbox.getPosition().x,
                                                  collision.collVector[j]->bbox.getPosition().y,
                                                  collision.collVector[j]->bbox.getSize().x,
-                                                 collision.collVector[j]->bbox.getSize().y)) {
+                                                 collision.collVector[j]->bbox.getSize().y) &&
+                                                 collision.collVector[j]->affectsProjectiles) {
                                                  
                 //And kill any bullet that collides.
                 bulletStorage[i]->isActive = false;

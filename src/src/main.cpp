@@ -47,20 +47,23 @@ int main()
     Collision grasslandCollision(sf::Color::Black);
     Collision farmlandCollision(sf::Color::Black);
     Collision animPropsCollision(sf::Color::Black);
-    Collision rocklandCollision{sf::Color::Black};
-    Collision junglelandCollision{sf::Color::Black};
+    Collision rocklandCollision(sf::Color::Black);
+    Collision junglelandCollision(sf::Color::Black);
     Collision collision; //Bounds checking
 
     //Audio collision boxes
     Collision grasslandGrass(sf::Color::Green);
     Collision grasslandShrubs(sf::Color::Blue);
-    Collision farmlandGrass{sf::Color::White};
-    Collision farmlandRoad{sf::Color::Yellow};
-    Collision farmlandCropAndShrub{sf::Color::Red};
-    Collision rocklandDirt{sf::Color::Magenta};
-    Collision rocklandGrass{sf::Color::Cyan};
-    Collision junglelandGrass{sf::Color::Blue};
-    Collision junglelandShrub{sf::Color::Cyan};
+    Collision farmlandGrass(sf::Color::White);
+    Collision farmlandRoad(sf::Color::Yellow);
+    Collision farmlandCropAndShrub(sf::Color::Red);
+    Collision rocklandDirt(sf::Color::Magenta);
+    Collision rocklandGrass(sf::Color::Cyan);
+    Collision junglelandGrass(sf::Color::Blue);
+    Collision junglelandShrub(sf::Color::Cyan);
+
+	//Bullet collision
+	Collision grasslandBullet(sf::Color::Cyan);
 
     //Camera and player
     Camera camera;
@@ -74,7 +77,7 @@ int main()
     
     //Our pickups
     Pickup lmgPickup(sf::Vector2i(20, 20), "../textures/weapons/lmg.png");
-    lmgPickup.spawn(0);
+    lmgPickup.spawn(9);
     
     //LMG
     sf::Time lmgRof = sf::milliseconds(200);
@@ -171,6 +174,9 @@ int main()
     rocklandGrass.positionCollisionBoxes(rockland.currentLevel, config.rocklandGrass, 512, 0);
     junglelandGrass.positionCollisionBoxes(jungleland.currentLevel, config.junglelandGrass, 512, -512);
     junglelandShrub.positionCollisionBoxes(jungleland.currentLevel, config.junglelandShrub, 512, -512);
+
+	//Bullet collision boxes
+	grasslandBullet.positionCollisionBoxes(grassland.currentLevel, config.grasslandBulletCollision, 0, 0);
 
     //Register our sounds with the sound manager.
     //Footsteps sounds
@@ -315,7 +321,7 @@ int main()
         
 	    //Bullet collision checking
         bullet.checkBulletCollision(farmlandCollision);
-        bullet.checkBulletCollision(grasslandCollision);
+        bullet.checkBulletCollision(grasslandBullet);
         bullet.checkBulletCollision(rocklandCollision);
         bullet.checkBulletCollision(junglelandCollision);
         bullet.checkBulletCollision(animPropsCollision);

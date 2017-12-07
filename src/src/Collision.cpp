@@ -13,6 +13,7 @@ Collision::Collision(sf::Color color)
         collVector[i]->bbox.setPosition(-999, 0);
         collVector[i]->isTouching = false;
         collVector[i]->isActive = false;
+        collVector[i]->affectsProjectiles = true;
     }
 }
 

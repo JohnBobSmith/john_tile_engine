@@ -41,6 +41,7 @@ class Collision
             sf::RectangleShape bbox;
             bool isActive;
             bool isTouching;
+            bool affectsProjectiles;
         };
 
         //Store our structs in an std::vector

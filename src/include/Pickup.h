@@ -24,7 +24,7 @@ class Pickup
 			
 		std::vector<sf::Vector2f> spawnPoints;
 		
-		int MAX_SPAWN_POINTS = 10;
+		const int MAX_SPAWN_POINTS = 10;
 };
 
 #endif //PICKUP_H

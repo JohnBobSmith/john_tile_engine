@@ -75,6 +75,7 @@ bool Pickup::spawn(int pointNumber)
     for (int i = 0; i < MAX_SPAWN_POINTS; ++i) {
         spawnPoints.push_back(sf::Vector2f(0, 0));
     }
+    
     spawnPoints[0].x = 75;
     spawnPoints[0].y = -300;
     spawnPoints[1].x = 240;

@@ -18,6 +18,7 @@
 #include "../include/Ai.h"
 #include "../include/HealthBar.h"
 #include "../include/Pickup.h"
+#include "../include/Ai.h"
 
 int main()
 {
@@ -31,6 +32,7 @@ int main()
     Mouse mouse;
     Font font;
     HealthBar hpbar;
+    Ai ai("../textures/entity/ai.png");
 
     //Load our worlds
     World grassland;
@@ -328,7 +330,7 @@ int main()
         
         //COLLISION TESTING - RESUPLY SYSTEM
         if (resuplysystem.checkAmmoBoxCollision(collision, player)) {
-            resuplysystem.ammoBox.setOutlineColor(sf::Color::White);
+            resuplysystem.ammoBox.setOutlineColor(sf::Color::Green);
             if (lmg.isEquipped) {
             	resuplysystem.resuplyAmmo(lmg);
 			}
@@ -340,7 +342,7 @@ int main()
         }
         
         if (resuplysystem.checkHealthBoxCollision(collision, player)) {
-            resuplysystem.healthBox.setOutlineColor(sf::Color::White);
+            resuplysystem.healthBox.setOutlineColor(sf::Color::Green);
             resuplysystem.resuplyHealth(player);        
         } else {
         	resuplysystem.healthBox.setOutlineColor(sf::Color::Black);
@@ -534,6 +536,10 @@ int main()
         window.draw(circle); 
         window.draw(resuplysystem.ammoBox); 
         window.draw(resuplysystem.healthBox);
+        
+        //Draw our AI
+        ai.aiSprite.setPosition(100, 100);
+        window.draw(ai.aiSprite);
         
         //Run the application
         window.display();

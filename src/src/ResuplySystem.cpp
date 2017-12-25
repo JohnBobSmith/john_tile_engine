@@ -7,13 +7,13 @@ ResuplySystem::ResuplySystem()
     amountOfHealth = 2;
     maxAmmoSupply = 9999;
     maxHealthSupply = 9999;
-    ammoBox.setOutlineColor(sf::Color::Black);
-    ammoBox.setOutlineThickness(5);
+    ammoBox.setOutlineColor(sf::Color::Green);
+    ammoBox.setOutlineThickness(1);
     ammoBox.setFillColor(sf::Color::Transparent);
     ammoBox.setSize(sf::Vector2f(160, 128));
     ammoBox.setPosition(224, -224);
-    healthBox.setOutlineColor(sf::Color::Black);
-    healthBox.setOutlineThickness(5);
+    healthBox.setOutlineColor(sf::Color::Green);
+    healthBox.setOutlineThickness(1);
     healthBox.setFillColor(sf::Color::Transparent);
     healthBox.setSize(sf::Vector2f(96, 96));
     healthBox.setPosition(256, -128);

@@ -2,10 +2,12 @@
 #define AI_H
 
 #include <SFML/Graphics.hpp>
+#include <string>
 
 class Ai
 {
     public:
+    	Ai(std::string path);
         sf::Sprite aiSprite;
     
     private:

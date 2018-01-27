@@ -8,8 +8,13 @@ class Ai
 {
     public:
     	Ai(std::string path);
+    	
         sf::Sprite aiSprite;
-    
+    	
+    	sf::CircleShape aiVision;
+    	
+    	void update();
+    	
     private:
         sf::Texture aiSpriteTexture;
 };

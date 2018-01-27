@@ -1,8 +1,8 @@
-#include "../include/Mouse.h"
+#include "include/Mouse.h"
 #include <cmath>
 #include <iostream>
-#include "../include/Config.h"
-#include "../include/Player.h"
+#include "include/Config.h"
+#include "include/Player.h"
 
 float Mouse::calculateMouseAngle(float mouseX, float mouseY, float positionX, float positionY)
 {

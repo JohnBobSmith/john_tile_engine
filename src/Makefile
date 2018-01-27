@@ -1,20 +1,21 @@
 CXX = g++
 CXXFLAGS = -Wall -g
 PROG  = johntileengine
-OBJS = AnimatedProps.o Bullet.o Camera.o Collision.o Config.o \
-	Font.o main.o Mouse.o Player.o Shader.o SoundManager.o \
-	Weapon.o World.o ResuplySystem.o Ai.o HealthBar.o \
-	Pickup.o
+ODIR  = obj
+SRC = $(wildcard *.cpp)
+OBJS = $(addprefix $(ODIR)/,$(SRC:.cpp=.o))
 LD = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
-VPATH = src
 
 all: $(PROG)
 
-%.o: %.cpp
-	$(CXX) -c -o $@ $<
+$(ODIR)/%.o: %.cpp
+	mkdir -p $(ODIR)
+	$(CXX) -c -o $@ $^
 
 $(PROG): $(OBJS)
 	$(CXX) -o $(PROG) $^ $(CXXFLAGS) $(LD)
 
 clean:
-	rm -f *.o $(PROG)
+	rm -f $(ODIR)/*.o johntileengine
+	
+.PHONY: clean

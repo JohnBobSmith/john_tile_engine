@@ -51,6 +51,7 @@ int main()
     Collision animPropsCollision(sf::Color::Black);
     Collision rocklandCollision(sf::Color::Black);
     Collision junglelandCollision(sf::Color::Black);
+    Collision poisonObjectsInRockland(sf::Color::Black);
     Collision collision; //Bounds checking
 
     //Audio collision boxes
@@ -165,6 +166,7 @@ int main()
     animPropsCollision.positionCollisionBoxes(animPropsWorld.currentLevel, config.objectsInAnimprop, 0, -512);
     rocklandCollision.positionCollisionBoxes(rockland.currentLevel, config.objectsInRockland, 512, 0);
     junglelandCollision.positionCollisionBoxes(jungleland.currentLevel, config.objectsInJungleland, 512, -512);
+    poisonObjectsInRockland.positionCollisionBoxes(rockland.currentLevel, config.poisonObjectsInRockland, 512, 0);
 
     //Audio collision boxes
     grasslandGrass.positionCollisionBoxes(grassland.currentLevel, config.grasslandGrass, 0, 0);
@@ -320,6 +322,9 @@ int main()
         player.checkCollision(grasslandCollision, camera);
         player.checkCollision(rocklandCollision, camera);
         player.checkCollision(junglelandCollision, camera);
+        
+        //Damage collison checking
+        player.checkDamageCollision(poisonObjectsInRockland, 1);
         
 	    //Bullet collision checking
         bullet.checkBulletCollision(farmlandCollision);
@@ -492,10 +497,11 @@ int main()
 			window.draw(lmgPickup.pickupSprite);
 		}
 		
+		//Our pickup
 		lmgPickup.update();
 		
         //Move our bullets
-        bullet.move();
+        bullet.moveBullet();
         
         //Update weapon parameters
         lmg.update(player);
@@ -529,6 +535,8 @@ int main()
             //Automatically respawn
             int randomNumber = rand() % 10;
             player.respawn(camera, soundmngr, randomNumber);
+            pistol.resetWeapParams();
+            lmg.resetWeapParams();
         } else {
             shader.animate(false);
         }
@@ -541,6 +549,7 @@ int main()
         
         //Draw our AI
         ai.aiSprite.setPosition(100, -100);
+        ai.trackTarget(player);
         ai.update();
         window.draw(ai.aiSprite);
         window.draw(ai.aiVision);

@@ -5,8 +5,8 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "Camera.h"
-#include "Collision.h"
 #include "SoundManager.h"
+#include "Collision.h"
 
 class Player
 {
@@ -67,12 +67,12 @@ class Player
 
         //Check for collisions against the player and X object.
         bool checkCollision(Collision &collision, Camera &camera);
+        
+        //Damage the player if they are touching these collision boxes
+        bool checkDamageCollision(Collision &collision, float damageAmount);
 
         //Play some sounds if the player collides with these tiles
         bool checkAudioCollsion(Collision &collision);
-
-        //Damage the player
-        void applyDamage(int ammount, SoundManager &soundmngr);
 
         //End the players life prematurely.
         void killPlayer(SoundManager &soundmngr);

@@ -1,7 +1,4 @@
 #include "include/Collision.h"
-#include <iostream>
-#include <cmath>
-#include "include/Config.h"
 
 Collision::Collision(sf::Color color)
 {

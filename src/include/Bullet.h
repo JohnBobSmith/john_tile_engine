@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include <cmath>
 #include "SoundManager.h"
 #include "Weapon.h"
 #include "Collision.h"
@@ -36,7 +37,7 @@ class Bullet
         int getMaxBullets() { return maxBullets; };
 
         //Move our bullets towards the mouse
-        void move();
+        void moveBullet();
 
         //Shoot a bullet
         void shoot(SoundManager &soundmngr, Weapon &weapon, float mouseAngle, float spread);

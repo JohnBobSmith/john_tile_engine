@@ -1,5 +1,4 @@
 #include "include/Pickup.h"
-#include <iostream>
 
 Pickup::Pickup(sf::Vector2i objSize, std::string path)
 {

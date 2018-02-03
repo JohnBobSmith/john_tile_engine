@@ -3,8 +3,12 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <iostream>
+#include <cmath>
+#include "Player.h"
+#include "Bullet.h"
 
-class Ai
+class Ai : public Bullet
 {
     public:
     	Ai(std::string path);
@@ -12,6 +16,8 @@ class Ai
         sf::Sprite aiSprite;
     	
     	sf::CircleShape aiVision;
+    	
+		void trackTarget(Player &player);
     	
     	void update();
     	

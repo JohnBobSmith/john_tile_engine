@@ -1,9 +1,5 @@
 #include "include/Player.h"
 #include <iostream>
-#include <string>
-#include "include/Camera.h"
-#include "include/Collision.h"
-#include "include/SoundManager.h"
 
 Player::Player()
 {
@@ -259,12 +255,23 @@ bool Player::checkAudioCollsion(Collision &collision)
     return false;
 }
 
-void Player::applyDamage(int ammount, SoundManager &soundmngr)
+bool Player::checkDamageCollision(Collision &collision, float damageAmount)
 {
-    health -= ammount;
-    if (health <= 0) {
-        killPlayer(soundmngr);
+    for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
+        if (collision.checkAABBcollision(boundingBox.getPosition().x,
+                                         boundingBox.getPosition().y,
+                                         size.x, size.y, //Players size
+                                         collision.collVector[i]->bbox.getPosition().x,
+                                         collision.collVector[i]->bbox.getPosition().y,
+                                         collision.collVector[i]->bbox.getSize().x,
+                                         collision.collVector[i]->bbox.getSize().y)) {
+            //Collided
+        	health -= damageAmount;
+            return true;
+        }
     }
+    //Did not collide
+    return false;	
 }
 
 void Player::killPlayer(SoundManager &soundmngr)
@@ -286,7 +293,7 @@ void Player::respawn(Camera &camera, SoundManager &soundmngr, int randomNumber)
         health = 100;
         isActive = true;
         isPlayingRespawnSound = false;
-
+		
         //Randomly spawn the player, then update the camera.
         boundingBox.setPosition(spawnPoints[randomNumber]);
         camera.setCamCenter(sf::Vector2f(boundingBox.getPosition().x, boundingBox.getPosition().y));

@@ -1,5 +1,4 @@
 #include "include/ResuplySystem.h"
-#include <iostream>
 
 ResuplySystem::ResuplySystem()
 {

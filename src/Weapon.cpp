@@ -1,5 +1,4 @@
 #include "include/Weapon.h"
-#include "include/Player.h"
 
 Weapon::Weapon(std::string path, float dmg, int ammoMax, int magSize, 
                     sf::Time RoF, sf::Time reload, std::string name)
@@ -41,6 +40,12 @@ void Weapon::reload(SoundManager &soundmngr)
         	soundmngr.playSoundByID(soundmngr.bnkWeaponEffects, "lmgReload");
         }
     }
+}
+
+void Weapon::resetWeapParams()
+{
+	ammoInMagazine = magazineSize;
+	maxAmmo = startingAmmo;
 }
 
 void Weapon::update(Player &player)

@@ -2,6 +2,8 @@
 #define MOUSE_H
 
 #include <SFML/Graphics.hpp>
+#include <cmath>
+#include "Player.h"
 
 //Mouse functions and events
 class Mouse

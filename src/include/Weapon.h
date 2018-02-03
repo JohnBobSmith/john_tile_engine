@@ -61,6 +61,9 @@ class Weapon
 
         //Reload our gun
         void reload(SoundManager &soundmngr);
+        
+        //Reset weapon paramaters
+        void resetWeapParams();
 
         //Update the sprite
         void update(Player &player);

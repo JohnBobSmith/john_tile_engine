@@ -1,6 +1,4 @@
 #include "include/Bullet.h"
-#include <cmath>
-#include <iostream>
 
 Bullet::Bullet()
 {
@@ -51,7 +49,7 @@ void Bullet::shoot(SoundManager &soundmngr, Weapon &weapon, float mouseAngle, fl
 }
 //*/
 
-void Bullet::move()
+void Bullet::moveBullet()
 {
     //Move our bullets every frame
     for (int i = 0; i < maxBullets; ++i) {

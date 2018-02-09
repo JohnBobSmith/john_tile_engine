@@ -32,8 +32,8 @@ int main()
     Mouse mouse;
     Font font;
     HealthBar hpbar;
-    Ai ai("../textures/entity/ai.png");
-
+    Ai ai;
+    
     //Load our worlds
     World grassland;
     World farmland;
@@ -74,6 +74,7 @@ int main()
 
     //Our weapons
     Bullet bullet;
+    Bullet aiBulllet;
     
     //Our resuply system
     ResuplySystem resuplysystem;
@@ -200,6 +201,9 @@ int main()
     soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/weapons/outOfAmmo.wav", "outOfAmmo");
     soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/weapons/lmg/lmgFire.wav", "lmgFire");
     soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/weapons/lmg/lmgReload.wav", "lmgReload");
+    
+    //Register our AI
+    ai.registerNewAi(ai.bnkAi);
     
     //Initialize SFML
     sf::Event event;
@@ -445,7 +449,7 @@ int main()
                 }
             }
         }
-
+		
         //Animate and render the player when the player is alive (active)
         if (player.isActive) {
             player.animateLegs();
@@ -512,7 +516,7 @@ int main()
         
         //Update the status of our health bar
         hpbar.update(player);
-	
+        
 		//Update the font stuff
 		if (lmg.isEquipped) {
 			font.update(lmg);
@@ -521,6 +525,9 @@ int main()
         if (pistol.isEquipped) {
         	font.update(pistol);
         }
+        
+        //Update our AI
+        ai.update(ai.bnkAi);
         
         //Player respawn and shader work
         //*
@@ -548,11 +555,10 @@ int main()
         window.draw(resuplysystem.healthBox);
         
         //Draw our AI
-        ai.aiSprite.setPosition(100, -100);
-        ai.trackTarget(player);
-        ai.update();
-        window.draw(ai.aiSprite);
-        window.draw(ai.aiVision);
+		for (int i = 0; i < ai.bnkAi.size(); ++i) {
+        	window.draw(ai.bnkAi[i]->aiSprite);
+        	window.draw(ai.bnkAi[i]->aiVision);
+        }
         
         //Run the application
         window.display();

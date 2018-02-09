@@ -3,26 +3,27 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
-#include <iostream>
-#include <cmath>
+#include <vector>
+#include <memory>
 #include "Player.h"
-#include "Bullet.h"
 
-class Ai : public Bullet
+class Ai
 {
     public:
-    	Ai(std::string path);
+    	//Store our AI structs in an std::vector
+    	struct jteAi
+    	{
+    		sf::Sprite aiSprite;
+    		sf::Texture aiTexture;
+    		sf::CircleShape aiVision;
+	    	float aiAngle;
+    	};
+
+        void registerNewAi(std::vector<std::shared_ptr<jteAi>> &bnk);
+		void trackTarget(Player &player, std::vector<std::shared_ptr<jteAi>> &bnk);
+    	void update(std::vector<std::shared_ptr<jteAi>> &bnk);
     	
-        sf::Sprite aiSprite;
-    	
-    	sf::CircleShape aiVision;
-    	
-		void trackTarget(Player &player);
-    	
-    	void update();
-    	
-    private:
-        sf::Texture aiSpriteTexture;
+        std::vector<std::shared_ptr<jteAi>> bnkAi;
 };
 
 #endif //AI_H

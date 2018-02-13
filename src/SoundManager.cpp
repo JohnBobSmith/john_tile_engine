@@ -30,7 +30,7 @@ void SoundManager::playFootsteps(int randomNumber)
 
 void SoundManager::playSoundByID(std::vector<std::shared_ptr<jteSound>> &bnk, std::string name)
 {
-	for (int i = 0; i < bnk.size(); ++i) {
+	for (unsigned int i = 0; i < bnk.size(); ++i) {
 		if (bnk[i]->id == name) {
 			bnk[i]->snd.play();
 		}

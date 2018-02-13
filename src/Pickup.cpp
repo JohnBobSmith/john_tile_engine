@@ -26,6 +26,8 @@ bool Pickup::load(sf::Vector2i objSize, std::string path)
 	}
 	
 	pickupSprite.setTexture(pickupTexture);
+	
+	return true;
 }
 
 void Pickup::equip()

@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -Wall -g
+CXXFLAGS = -g -Wall
 PROG  = johntileengine
 ODIR  = obj
 #SRC = $(wildcard *.cpp $(wildcard nope/*.cpp))
@@ -11,10 +11,10 @@ all: $(PROG)
 
 $(ODIR)/%.o: %.cpp
 	mkdir -p $(ODIR)
-	$(CXX) -c -o $@ $^
+	$(CXX) -c -o $@ $^ $(CXXFLAGS)
 
 $(PROG): $(OBJS)
-	$(CXX) -o $(PROG) $^ $(CXXFLAGS) $(LD)
+	$(CXX) -o $(PROG) $^ $(LD)
 
 clean:
 	rm -f $(ODIR)/*.o johntileengine 

@@ -414,7 +414,7 @@ int main()
             window.draw(bullet.bulletStorage[i]->bbox);
         }        
         //*/
-        /*
+        //*
         //Draw player collision box
         window.draw(player.boundingBox);
         //*/
@@ -528,6 +528,9 @@ int main()
         
         //Update our AI
         ai.update(ai.bnkAi);
+        ai.moveAi(collision, player, ai.bnkAi);
+        ai.trackTarget(player, ai.bnkAi);
+        ai.checkPlayerCollision(collision, player, ai.bnkAi);
         
         //Player respawn and shader work
         //*
@@ -555,9 +558,10 @@ int main()
         window.draw(resuplysystem.healthBox);
         
         //Draw our AI
-		for (int i = 0; i < ai.bnkAi.size(); ++i) {
+		for (unsigned int i = 0; i < ai.bnkAi.size(); ++i) {
         	window.draw(ai.bnkAi[i]->aiSprite);
         	window.draw(ai.bnkAi[i]->aiVision);
+        	window.draw(ai.bnkAi[i]->aiPersonalSpace);
         }
         
         //Run the application

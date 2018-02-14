@@ -18,17 +18,21 @@ class Ai
     		sf::Texture aiTexture;
     		sf::CircleShape aiVision;
     		sf::CircleShape aiPersonalSpace;
+    		sf::Vector2i aiSize;
 	    	float aiAngle;
 	    	float aiDirectionX;
 	    	float aiDirectionY;
+	    	float aiSpeed;
+	    	bool isRoaming;
     	};
 
         void registerNewAi(std::vector<std::shared_ptr<jteAi>> &bnk);
 		void trackTarget(Player &player, std::vector<std::shared_ptr<jteAi>> &bnk);
-    	void update(std::vector<std::shared_ptr<jteAi>> &bnk);
+    	void update(Collision &collision, Player &player, std::vector<std::shared_ptr<jteAi>> &bnk);
+    	void moveAi(Collision &collision, Player &player, std::vector<std::shared_ptr<jteAi>> &bnk);
     	bool checkPlayerCollision(Collision &collision, Player &player, std::vector<std::shared_ptr<jteAi>> &bnk);
     	bool checkPersonalSpaceCollision(Collision &collision, Player &player, std::vector<std::shared_ptr<jteAi>> &bnk);
-    	void moveAi(Collision &collision, Player &player, std::vector<std::shared_ptr<jteAi>> &bnk);
+    	bool checkLevelCollision(Collision &collision, std::vector<std::shared_ptr<jteAi>> &bnk);
     	
         std::vector<std::shared_ptr<jteAi>> bnkAi;
 };

@@ -527,11 +527,16 @@ int main()
         }
         
         //Update our AI
-        ai.update(ai.bnkAi);
+        ai.update(collision, player, ai.bnkAi);
         ai.moveAi(collision, player, ai.bnkAi);
         ai.trackTarget(player, ai.bnkAi);
         ai.checkPlayerCollision(collision, player, ai.bnkAi);
-        
+        ai.checkLevelCollision(farmlandCollision, ai.bnkAi);
+        ai.checkLevelCollision(animPropsCollision, ai.bnkAi);
+        ai.checkLevelCollision(grasslandCollision, ai.bnkAi);
+        ai.checkLevelCollision(rocklandCollision, ai.bnkAi);
+        ai.checkLevelCollision(junglelandCollision, ai.bnkAi);
+
         //Player respawn and shader work
         //*
         if (!player.isActive) {

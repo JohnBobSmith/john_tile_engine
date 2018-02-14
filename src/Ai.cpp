@@ -30,8 +30,11 @@ void Ai::registerNewAi(std::vector<std::shared_ptr<jteAi>> &bnk)
 		bnk[i]->aiPersonalSpace.setPointCount(50);
 		bnk[i]->aiSpeed = 0.8;
 		bnk[i]->isRoaming = false;
-		bnk[i]->aiSize.x = 5;
-		bnk[i]->aiSize.y = 5;
+		bnk[i]->hitObstacle = false;
+		bnk[i]->aiSize.x = 15;
+		bnk[i]->aiSize.y = 15;
+        bnk[i]->bbox.setSize(sf::Vector2f(bnk[i]->aiSize.x, bnk[i]->aiSize.y));
+        bnk[i]->bbox.setFillColor(sf::Color::Magenta);
     }
 }
 
@@ -66,7 +69,7 @@ bool Ai::checkPersonalSpaceCollision(Collision &collision, Player &player, std::
 {
 	for (unsigned int i = 0; i < bnk.size(); ++i) {
 		if (collision.checkCircleToRectCollision(bnk[i]->aiPersonalSpace, player.boundingBox.getPosition().x,
-											player.boundingBox.getPosition().y, player.size.x, player.size.y)) {							
+										   player.boundingBox.getPosition().y, player.size.x, player.size.y)) {							
 			
 			return true;
 		}
@@ -76,23 +79,35 @@ bool Ai::checkPersonalSpaceCollision(Collision &collision, Player &player, std::
 
 bool Ai::checkLevelCollision(Collision &collision, std::vector<std::shared_ptr<jteAi>> &bnk)
 {
-    for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
-    	for (unsigned int j = 0; j < bnk.size(); ++j) {
-        	if (collision.checkAABBcollision(bnk[j]->aiSprite.getPosition().x,
-                                         bnk[j]->aiSprite.getPosition().y,
-                                         bnk[j]->aiSize.x, bnk[j]->aiSize.y,
-                                         collision.collVector[i]->bbox.getPosition().x,
-                                         collision.collVector[i]->bbox.getPosition().y,
-                                         collision.collVector[i]->bbox.getSize().x,
-                                         collision.collVector[i]->bbox.getSize().y)) {
-				return true;
-				std::cout << "WORKS\n";
+	for (unsigned int i = 0; i < bnk.size(); ++i) {
+		for (int j = 0; j < collision.MAX_COLLISION_BOXES; ++j) {
+	    	if (collision.checkAABBcollision(bnk[i]->bbox.getPosition().x,
+	    						bnk[i]->bbox.getPosition().y,
+	    						bnk[i]->bbox.getSize().x, bnk[i]->bbox.getSize().y,
+								collision.collVector[j]->bbox.getPosition().x,	
+								collision.collVector[j]->bbox.getPosition().y,
+								collision.collVector[j]->bbox.getSize().x,
+								collision.collVector[j]->bbox.getSize().y)) {					
+				
+				std::cout << "WOrkS\n";
+				bnk[i]->hitObstacle = true;
+				if (bnk[i]->aiDirectionX < 0) {
+					bnk[i]->aiDirectionX = 0.5;
+				} else {
+					bnk[i]->aiDirectionX = -0.5;
+				}
+				
+				if (bnk[i]->aiDirectionY < 0) {
+					bnk[i]->aiDirectionY = 0.5;
+				} else {
+					bnk[i]->aiDirectionY = -0.5;
+				}
+				
 			} else {
-				std::cout << "FALSE\n";
+				bnk[i]->hitObstacle = false; 
 			}
 		}
 	}
-	return false;
 }
 
 void Ai::moveAi(Collision &collision, Player &player, std::vector<std::shared_ptr<jteAi>> &bnk)
@@ -100,8 +115,8 @@ void Ai::moveAi(Collision &collision, Player &player, std::vector<std::shared_pt
 	float newDirX = 0;
 	float newDirY = 0;
 
-	for (unsigned int i = 0; i < bnk.size(); ++i) {
-		if (!bnk[i]->isRoaming) {
+	for (unsigned int i = 0; i < bnk.size(); ++i) {		
+		if (!bnk[i]->isRoaming && !bnk[i]->hitObstacle) {
 			if (!checkPersonalSpaceCollision(collision, player, bnk)) {	
 				if (checkPlayerCollision(collision, player, bnk)) {
 					if (bnk[i]->aiSprite.getPosition().x - player.body.getPosition().x < 0) {
@@ -123,6 +138,8 @@ void Ai::moveAi(Collision &collision, Player &player, std::vector<std::shared_pt
 		bnk[i]->aiDirectionX = newDirX;
 		bnk[i]->aiDirectionY = newDirY;
 		bnk[i]->aiSprite.move(bnk[i]->aiDirectionX, bnk[i]->aiDirectionY);
+		bnk[i]->bbox.setPosition(bnk[i]->aiSprite.getPosition().x - bnk[i]->aiSize.x / 2,
+								bnk[i]->aiSprite.getPosition().y - bnk[i]->aiSize.y / 2);
 	}
 }
 
@@ -142,7 +159,7 @@ void Ai::update(Collision &collision, Player &player, std::vector<std::shared_pt
 		}
 							
 		if (checkPersonalSpaceCollision(collision, player, bnk)) {
-			player.health -= 0.5;
+			//player.health -= 0.5;
 		}
 	}
 }

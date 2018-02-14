@@ -327,6 +327,13 @@ int main()
         player.checkCollision(rocklandCollision, camera);
         player.checkCollision(junglelandCollision, camera);
         
+        //Ai collision checking
+        ai.checkLevelCollision(farmlandCollision, ai.bnkAi);
+        ai.checkLevelCollision(animPropsCollision, ai.bnkAi);
+        ai.checkLevelCollision(grasslandCollision, ai.bnkAi);
+        ai.checkLevelCollision(rocklandCollision, ai.bnkAi);
+        ai.checkLevelCollision(junglelandCollision, ai.bnkAi);
+
         //Damage collison checking
         player.checkDamageCollision(poisonObjectsInRockland, 1);
         
@@ -390,7 +397,7 @@ int main()
         window.draw(animprops.windmill);
 
         //Draw collision boxes
-        /*
+        //*
         for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
             window.draw(grasslandCollision.collVector[i]->bbox);
             window.draw(grasslandGrass.collVector[i]->bbox);
@@ -530,13 +537,7 @@ int main()
         ai.update(collision, player, ai.bnkAi);
         ai.moveAi(collision, player, ai.bnkAi);
         ai.trackTarget(player, ai.bnkAi);
-        ai.checkPlayerCollision(collision, player, ai.bnkAi);
-        ai.checkLevelCollision(farmlandCollision, ai.bnkAi);
-        ai.checkLevelCollision(animPropsCollision, ai.bnkAi);
-        ai.checkLevelCollision(grasslandCollision, ai.bnkAi);
-        ai.checkLevelCollision(rocklandCollision, ai.bnkAi);
-        ai.checkLevelCollision(junglelandCollision, ai.bnkAi);
-
+        
         //Player respawn and shader work
         //*
         if (!player.isActive) {
@@ -567,6 +568,7 @@ int main()
         	window.draw(ai.bnkAi[i]->aiSprite);
         	window.draw(ai.bnkAi[i]->aiVision);
         	window.draw(ai.bnkAi[i]->aiPersonalSpace);
+        	window.draw(ai.bnkAi[i]->bbox);
         }
         
         //Run the application

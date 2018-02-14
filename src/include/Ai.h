@@ -19,11 +19,13 @@ class Ai
     		sf::CircleShape aiVision;
     		sf::CircleShape aiPersonalSpace;
     		sf::Vector2i aiSize;
+    		sf::RectangleShape bbox;
 	    	float aiAngle;
 	    	float aiDirectionX;
 	    	float aiDirectionY;
 	    	float aiSpeed;
 	    	bool isRoaming;
+	    	bool hitObstacle;
     	};
 
         void registerNewAi(std::vector<std::shared_ptr<jteAi>> &bnk);

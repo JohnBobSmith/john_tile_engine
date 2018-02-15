@@ -25,7 +25,6 @@ class Ai
 	    	float aiDirectionY;
 	    	float aiSpeed;
 	    	bool isRoaming;
-	    	bool hitObstacle;
     	};
 
         void registerNewAi(std::vector<std::shared_ptr<jteAi>> &bnk);

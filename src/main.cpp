@@ -134,14 +134,17 @@ int main()
     cloudsBackground.setTextureRect(sf::IntRect(0, 0, config.getScreenWidth() * 8,
                                                    config.getScreenHeight() * 8));
     cloudsBackground.setPosition(-1000, -1000);
-
+    
+    //Register our AI
+    ai.registerNewAi(ai.bnkAi);
+    
     //Init the player
     if (!player.loadTexture("../textures/entity/player.anim_lmg.png")) {
         return -1; //Error missing required texture files.
     }
     
     //Setup the player's position and texture
-    player.boundingBox.setPosition(64, 64);
+    player.boundingBox.setPosition(364, 64);
     player.body.setTextureRect(sf::IntRect(0, 0, 22, 32));
 
     //Init our fonts
@@ -201,9 +204,6 @@ int main()
     soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/weapons/outOfAmmo.wav", "outOfAmmo");
     soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/weapons/lmg/lmgFire.wav", "lmgFire");
     soundmngr.registerNewSound(soundmngr.bnkWeaponEffects, "../audio/effects/weapons/lmg/lmgReload.wav", "lmgReload");
-    
-    //Register our AI
-    ai.registerNewAi(ai.bnkAi);
     
     //Initialize SFML
     sf::Event event;

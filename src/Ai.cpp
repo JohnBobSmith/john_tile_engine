@@ -30,9 +30,9 @@ void Ai::registerNewAi(std::vector<std::shared_ptr<jteAi>> &bnk)
 		bnk[i]->aiPersonalSpace.setPointCount(50);
 		bnk[i]->aiSpeed = 0.8;
 		bnk[i]->isRoaming = false;
-		bnk[i]->hitObstacle = false;
 		bnk[i]->aiSize.x = 15;
 		bnk[i]->aiSize.y = 15;
+		bnk[i]->bbox.setPosition(100, -100);
         bnk[i]->bbox.setSize(sf::Vector2f(bnk[i]->aiSize.x, bnk[i]->aiSize.y));
         bnk[i]->bbox.setFillColor(sf::Color::Magenta);
     }
@@ -79,6 +79,10 @@ bool Ai::checkPersonalSpaceCollision(Collision &collision, Player &player, std::
 
 bool Ai::checkLevelCollision(Collision &collision, std::vector<std::shared_ptr<jteAi>> &bnk)
 {
+	//*
+	static int counter = 0;
+	counter += 1;
+	//*/
 	for (unsigned int i = 0; i < bnk.size(); ++i) {
 		for (int j = 0; j < collision.MAX_COLLISION_BOXES; ++j) {
 	    	if (collision.checkAABBcollision(bnk[i]->bbox.getPosition().x,
@@ -88,26 +92,26 @@ bool Ai::checkLevelCollision(Collision &collision, std::vector<std::shared_ptr<j
 								collision.collVector[j]->bbox.getPosition().y,
 								collision.collVector[j]->bbox.getSize().x,
 								collision.collVector[j]->bbox.getSize().y)) {					
-				
-				std::cout << "WOrkS\n";
-				bnk[i]->hitObstacle = true;
+				//*
+				std::cout << "Works" << counter << std::endl;
+				//*/
 				if (bnk[i]->aiDirectionX < 0) {
-					bnk[i]->aiDirectionX = 0.5;
-				} else {
-					bnk[i]->aiDirectionX = -0.5;
+					bnk[i]->bbox.move(1, 0);
+				} 
+				if (bnk[i]->aiDirectionX > 0) {
+					bnk[i]->bbox.move(-1, 0);
 				}
-				
 				if (bnk[i]->aiDirectionY < 0) {
-					bnk[i]->aiDirectionY = 0.5;
-				} else {
-					bnk[i]->aiDirectionY = -0.5;
+					bnk[i]->bbox.move(0, 1);
 				}
-				
-			} else {
-				bnk[i]->hitObstacle = false; 
+				if (bnk[i]->aiDirectionY > 0) {
+					bnk[i]->bbox.move(0, -1);
+				}
+				return true;
 			}
 		}
 	}
+	return false;
 }
 
 void Ai::moveAi(Collision &collision, Player &player, std::vector<std::shared_ptr<jteAi>> &bnk)
@@ -115,8 +119,8 @@ void Ai::moveAi(Collision &collision, Player &player, std::vector<std::shared_pt
 	float newDirX = 0;
 	float newDirY = 0;
 
-	for (unsigned int i = 0; i < bnk.size(); ++i) {		
-		if (!bnk[i]->isRoaming && !bnk[i]->hitObstacle) {
+	for (unsigned int i = 0; i < bnk.size(); ++i) {
+		if (!bnk[i]->isRoaming) {
 			if (!checkPersonalSpaceCollision(collision, player, bnk)) {	
 				if (checkPlayerCollision(collision, player, bnk)) {
 					if (bnk[i]->aiSprite.getPosition().x - player.body.getPosition().x < 0) {
@@ -137,9 +141,9 @@ void Ai::moveAi(Collision &collision, Player &player, std::vector<std::shared_pt
 		
 		bnk[i]->aiDirectionX = newDirX;
 		bnk[i]->aiDirectionY = newDirY;
-		bnk[i]->aiSprite.move(bnk[i]->aiDirectionX, bnk[i]->aiDirectionY);
-		bnk[i]->bbox.setPosition(bnk[i]->aiSprite.getPosition().x - bnk[i]->aiSize.x / 2,
-								bnk[i]->aiSprite.getPosition().y - bnk[i]->aiSize.y / 2);
+		bnk[i]->bbox.move(bnk[i]->aiDirectionX, bnk[i]->aiDirectionY);
+		bnk[i]->aiSprite.setPosition(bnk[i]->bbox.getPosition().x - bnk[i]->aiSize.x / 2,
+									bnk[i]->bbox.getPosition().y - bnk[i]->aiSize.y / 2);
 	}
 }
 

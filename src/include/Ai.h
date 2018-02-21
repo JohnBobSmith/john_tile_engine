@@ -25,16 +25,18 @@ class Ai
 	    	float aiDirectionY;
 	    	float aiSpeed;
 	    	bool isRoaming;
+	    	bool canMoveX;
+	    	bool canMoveY;
     	};
 
         void registerNewAi(std::vector<std::shared_ptr<jteAi>> &bnk);
 		void trackTarget(Player &player, std::vector<std::shared_ptr<jteAi>> &bnk);
     	void update(Collision &collision, Player &player, std::vector<std::shared_ptr<jteAi>> &bnk);
     	void moveAi(Collision &collision, Player &player, std::vector<std::shared_ptr<jteAi>> &bnk);
+    	void checkLevelCollision(Collision &collision, std::vector<std::shared_ptr<jteAi>> &bnk);
     	bool checkPlayerCollision(Collision &collision, Player &player, std::vector<std::shared_ptr<jteAi>> &bnk);
     	bool checkPersonalSpaceCollision(Collision &collision, Player &player, std::vector<std::shared_ptr<jteAi>> &bnk);
-    	bool checkLevelCollision(Collision &collision, std::vector<std::shared_ptr<jteAi>> &bnk);
-    	
+    	    	
         std::vector<std::shared_ptr<jteAi>> bnkAi;
 };
 

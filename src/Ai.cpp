@@ -17,7 +17,6 @@ void Ai::registerNewAi(std::vector<std::shared_ptr<jteAi>> &bnk)
         bnk[i]->aiSprite.setTexture(bnk[i]->aiTexture);
         bnk[i]->aiSprite.setOrigin(11, 16);
         bnk[i]->aiSprite.setTextureRect(sf::IntRect(0, 0, 22, 32));
-		bnk[i]->aiSprite.setPosition(100, -100);
 		bnk[i]->aiVision.setFillColor(sf::Color::Transparent);
 		bnk[i]->aiVision.setOutlineThickness(2);
 		bnk[i]->aiVision.setOutlineColor(sf::Color::Green);
@@ -30,6 +29,8 @@ void Ai::registerNewAi(std::vector<std::shared_ptr<jteAi>> &bnk)
 		bnk[i]->aiPersonalSpace.setPointCount(50);
 		bnk[i]->aiSpeed = 0.8;
 		bnk[i]->isRoaming = false;
+		bnk[i]->canMoveX = true;
+		bnk[i]->canMoveY = true;
 		bnk[i]->aiSize.x = 15;
 		bnk[i]->aiSize.y = 15;
 		bnk[i]->bbox.setPosition(100, -100);
@@ -77,12 +78,8 @@ bool Ai::checkPersonalSpaceCollision(Collision &collision, Player &player, std::
 	return false;
 }
 
-bool Ai::checkLevelCollision(Collision &collision, std::vector<std::shared_ptr<jteAi>> &bnk)
+void Ai::checkLevelCollision(Collision &collision, std::vector<std::shared_ptr<jteAi>> &bnk)
 {
-	//*
-	static int counter = 0;
-	counter += 1;
-	//*/
 	for (unsigned int i = 0; i < bnk.size(); ++i) {
 		for (int j = 0; j < collision.MAX_COLLISION_BOXES; ++j) {
 	    	if (collision.checkAABBcollision(bnk[i]->bbox.getPosition().x,
@@ -92,26 +89,30 @@ bool Ai::checkLevelCollision(Collision &collision, std::vector<std::shared_ptr<j
 								collision.collVector[j]->bbox.getPosition().y,
 								collision.collVector[j]->bbox.getSize().x,
 								collision.collVector[j]->bbox.getSize().y)) {					
-				//*
-				std::cout << "Works" << counter << std::endl;
-				//*/
+
 				if (bnk[i]->aiDirectionX < 0) {
-					bnk[i]->bbox.move(1, 0);
+					bnk[i]->bbox.move(0.5, 0);
+					bnk[i]->canMoveX = false;
+					bnk[i]->canMoveY = true;
 				} 
 				if (bnk[i]->aiDirectionX > 0) {
-					bnk[i]->bbox.move(-1, 0);
+					bnk[i]->bbox.move(-0.5, 0);
+					bnk[i]->canMoveX = false;
+					bnk[i]->canMoveY = true;
 				}
 				if (bnk[i]->aiDirectionY < 0) {
-					bnk[i]->bbox.move(0, 1);
+					bnk[i]->bbox.move(0, 0.5);
+					bnk[i]->canMoveY = false;
+					bnk[i]->canMoveX = true;
 				}
 				if (bnk[i]->aiDirectionY > 0) {
-					bnk[i]->bbox.move(0, -1);
+					bnk[i]->bbox.move(0, -0.5);
+					bnk[i]->canMoveY = false;
+					bnk[i]->canMoveX = true;
 				}
-				return true;
 			}
 		}
 	}
-	return false;
 }
 
 void Ai::moveAi(Collision &collision, Player &player, std::vector<std::shared_ptr<jteAi>> &bnk)
@@ -123,14 +124,16 @@ void Ai::moveAi(Collision &collision, Player &player, std::vector<std::shared_pt
 		if (!bnk[i]->isRoaming) {
 			if (!checkPersonalSpaceCollision(collision, player, bnk)) {	
 				if (checkPlayerCollision(collision, player, bnk)) {
-					if (bnk[i]->aiSprite.getPosition().x - player.body.getPosition().x < 0) {
+					if (bnk[i]->aiSprite.getPosition().x - player.body.getPosition().x < 0 && bnk[i]->canMoveX) {
 						newDirX = 0.5;
-					} else {
+					}
+					if (bnk[i]->aiSprite.getPosition().x - player.body.getPosition().x > 0 && bnk[i]->canMoveX) {
 						newDirX = -0.5;
 					}
-					if (bnk[i]->aiSprite.getPosition().y - player.body.getPosition().y < 0) {
+					if (bnk[i]->aiSprite.getPosition().y - player.body.getPosition().y < 0 && bnk[i]->canMoveY) {
 						newDirY = 0.5;
-					} else {
+					} 
+					if (bnk[i]->aiSprite.getPosition().y - player.body.getPosition().y > 0 && bnk[i]->canMoveY) {
 						newDirY = -0.5;
 					}
 				}
@@ -142,8 +145,7 @@ void Ai::moveAi(Collision &collision, Player &player, std::vector<std::shared_pt
 		bnk[i]->aiDirectionX = newDirX;
 		bnk[i]->aiDirectionY = newDirY;
 		bnk[i]->bbox.move(bnk[i]->aiDirectionX, bnk[i]->aiDirectionY);
-		bnk[i]->aiSprite.setPosition(bnk[i]->bbox.getPosition().x - bnk[i]->aiSize.x / 2,
-									bnk[i]->bbox.getPosition().y - bnk[i]->aiSize.y / 2);
+		bnk[i]->aiSprite.setPosition(bnk[i]->bbox.getPosition().x + 11, bnk[i]->bbox.getPosition().y + 11);
 	}
 }
 
@@ -154,8 +156,8 @@ void Ai::update(Collision &collision, Player &player, std::vector<std::shared_pt
 									bnk[i]->aiSprite.getPosition().y - bnk[i]->aiVision.getRadius());	
 									
 		bnk[i]->aiPersonalSpace.setPosition(bnk[i]->aiSprite.getPosition().x - bnk[i]->aiPersonalSpace.getRadius(), 
-											bnk[i]->aiSprite.getPosition().y - bnk[i]->aiPersonalSpace.getRadius());	
-									
+											bnk[i]->aiSprite.getPosition().y - bnk[i]->aiPersonalSpace.getRadius());
+												
 		if (!checkPlayerCollision(collision, player, bnk)) {
 			bnk[i]->isRoaming = true;			
 		} else {

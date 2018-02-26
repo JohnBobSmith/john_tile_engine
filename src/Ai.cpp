@@ -89,7 +89,7 @@ void Ai::checkLevelCollision(Collision &collision, std::vector<std::shared_ptr<j
 								collision.collVector[j]->bbox.getPosition().y,
 								collision.collVector[j]->bbox.getSize().x,
 								collision.collVector[j]->bbox.getSize().y)) {					
-
+				
 				if (bnk[i]->aiDirectionX < 0) {
 					bnk[i]->bbox.move(0.5, 0);
 					bnk[i]->canMoveX = false;
@@ -102,16 +102,17 @@ void Ai::checkLevelCollision(Collision &collision, std::vector<std::shared_ptr<j
 				}
 				if (bnk[i]->aiDirectionY < 0) {
 					bnk[i]->bbox.move(0, 0.5);
-					bnk[i]->canMoveY = false;
 					bnk[i]->canMoveX = true;
+					bnk[i]->canMoveY = false;
 				}
 				if (bnk[i]->aiDirectionY > 0) {
 					bnk[i]->bbox.move(0, -0.5);
-					bnk[i]->canMoveY = false;
 					bnk[i]->canMoveX = true;
+					bnk[i]->canMoveY = false;
 				}
 			}
 		}
+		//std::cout << bnk[i]->canMoveX << " " << bnk[i]->canMoveY << std::endl;
 	}
 }
 
@@ -139,7 +140,9 @@ void Ai::moveAi(Collision &collision, Player &player, std::vector<std::shared_pt
 				}
 			}
 		} else { //if (!bnk[i]->isRoaming) {
-			
+			/*TODO: 
+				Add code about what to do when not chasing the player
+			*/
 		}
 		
 		bnk[i]->aiDirectionX = newDirX;

@@ -78,7 +78,7 @@ bool Ai::checkPersonalSpaceCollision(Collision &collision, Player &player, std::
 	return false;
 }
 
-void Ai::checkLevelCollision(Collision &collision, std::vector<std::shared_ptr<jteAi>> &bnk)
+bool Ai::checkLevelCollision(Collision &collision, std::vector<std::shared_ptr<jteAi>> &bnk)
 {
 	for (unsigned int i = 0; i < bnk.size(); ++i) {
 		for (int j = 0; j < collision.MAX_COLLISION_BOXES; ++j) {
@@ -90,29 +90,41 @@ void Ai::checkLevelCollision(Collision &collision, std::vector<std::shared_ptr<j
 								collision.collVector[j]->bbox.getSize().x,
 								collision.collVector[j]->bbox.getSize().y)) {					
 				
-				if (bnk[i]->aiDirectionX < 0) {
-					bnk[i]->bbox.move(0.5, 0);
-					bnk[i]->canMoveX = false;
-					bnk[i]->canMoveY = true;
-				} 
-				if (bnk[i]->aiDirectionX > 0) {
-					bnk[i]->bbox.move(-0.5, 0);
-					bnk[i]->canMoveX = false;
-					bnk[i]->canMoveY = true;
-				}
-				if (bnk[i]->aiDirectionY < 0) {
-					bnk[i]->bbox.move(0, 0.5);
-					bnk[i]->canMoveX = true;
-					bnk[i]->canMoveY = false;
-				}
-				if (bnk[i]->aiDirectionY > 0) {
-					bnk[i]->bbox.move(0, -0.5);
-					bnk[i]->canMoveX = true;
-					bnk[i]->canMoveY = false;
-				}
+                return true;
 			}
 		}
-		//std::cout << bnk[i]->canMoveX << " " << bnk[i]->canMoveY << std::endl;
+	}
+	return false;
+}
+
+void Ai::resolveCollisions(Collision &collision, std::vector<std::shared_ptr<jteAi>> &bnk)
+{
+    for (unsigned int i = 0; i < bnk.size(); ++i) {
+	    if (checkLevelCollision(collision, bnk)) {
+		    if (bnk[i]->aiDirectionX < 0) {
+			    bnk[i]->bbox.move(0.5, 0);
+			    bnk[i]->canMoveX = false;
+			    bnk[i]->canMoveY = true;
+		    } 
+		    if (bnk[i]->aiDirectionX > 0) {
+			    bnk[i]->bbox.move(-0.5, 0);
+			    bnk[i]->canMoveX = false;
+			    bnk[i]->canMoveY = true;
+		    }
+		    if (bnk[i]->aiDirectionY < 0) {
+			    bnk[i]->bbox.move(0, 0.5);
+			    bnk[i]->canMoveX = true;
+			    bnk[i]->canMoveY = false;
+		    }
+		    if (bnk[i]->aiDirectionY > 0) {
+			    bnk[i]->bbox.move(0, -0.5);
+			    bnk[i]->canMoveX = true;
+			    bnk[i]->canMoveY = false;
+		    }
+	    } else {
+	        bnk[i]->canMoveX = true;
+	        bnk[i]->canMoveY = true;
+	    }
 	}
 }
 

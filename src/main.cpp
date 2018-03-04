@@ -328,11 +328,11 @@ int main()
         player.checkCollision(junglelandCollision, camera);
         
         //Ai collision checking
-        ai.checkLevelCollision(farmlandCollision, ai.bnkAi);
-        ai.checkLevelCollision(animPropsCollision, ai.bnkAi);
-        ai.checkLevelCollision(grasslandCollision, ai.bnkAi);
-        ai.checkLevelCollision(rocklandCollision, ai.bnkAi);
-        ai.checkLevelCollision(junglelandCollision, ai.bnkAi);
+        ai.resolveCollisions(farmlandCollision, ai.bnkAi);
+        ai.resolveCollisions(animPropsCollision, ai.bnkAi);
+        ai.resolveCollisions(grasslandCollision, ai.bnkAi);
+        ai.resolveCollisions(rocklandCollision, ai.bnkAi);
+        ai.resolveCollisions(junglelandCollision, ai.bnkAi);
 
         //Damage collison checking
         player.checkDamageCollision(poisonObjectsInRockland, 1);
@@ -397,7 +397,7 @@ int main()
         window.draw(animprops.windmill);
 
         //Draw collision boxes
-        //*
+        /*
         for (int i = 0; i < collision.MAX_COLLISION_BOXES; ++i) {
             window.draw(grasslandCollision.collVector[i]->bbox);
             window.draw(grasslandGrass.collVector[i]->bbox);
@@ -421,7 +421,7 @@ int main()
             window.draw(bullet.bulletStorage[i]->bbox);
         }        
         //*/
-        //*
+        /*
         //Draw player collision box
         window.draw(player.boundingBox);
         //*/

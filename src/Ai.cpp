@@ -29,8 +29,6 @@ void Ai::registerNewAi(std::vector<std::shared_ptr<jteAi>> &bnk)
 		bnk[i]->aiPersonalSpace.setPointCount(50);
 		bnk[i]->aiSpeed = 0.8;
 		bnk[i]->isRoaming = false;
-		bnk[i]->canMoveX = true;
-		bnk[i]->canMoveY = true;
 		bnk[i]->aiSize.x = 15;
 		bnk[i]->aiSize.y = 15;
 		bnk[i]->bbox.setPosition(100, -100);
@@ -89,7 +87,7 @@ bool Ai::checkLevelCollision(Collision &collision, std::vector<std::shared_ptr<j
 								collision.collVector[j]->bbox.getPosition().y,
 								collision.collVector[j]->bbox.getSize().x,
 								collision.collVector[j]->bbox.getSize().y)) {					
-				
+
                 return true;
 			}
 		}
@@ -99,31 +97,24 @@ bool Ai::checkLevelCollision(Collision &collision, std::vector<std::shared_ptr<j
 
 void Ai::resolveCollisions(Collision &collision, std::vector<std::shared_ptr<jteAi>> &bnk)
 {
+	for (unsigned int i = 0; i < bnk.size(); ++i) {
+		 if (checkLevelCollision(collision, bnk)) {
+		    if (bnk[i]->aiDirectionY < 0) {
+			    bnk[i]->bbox.move(0, 0.5);
+		    }
+		    if (bnk[i]->aiDirectionY > 0) {
+			    bnk[i]->bbox.move(0, -0.5);
+		    }
+		}
+	}
     for (unsigned int i = 0; i < bnk.size(); ++i) {
 	    if (checkLevelCollision(collision, bnk)) {
 		    if (bnk[i]->aiDirectionX < 0) {
 			    bnk[i]->bbox.move(0.5, 0);
-			    bnk[i]->canMoveX = false;
-			    bnk[i]->canMoveY = true;
 		    } 
 		    if (bnk[i]->aiDirectionX > 0) {
 			    bnk[i]->bbox.move(-0.5, 0);
-			    bnk[i]->canMoveX = false;
-			    bnk[i]->canMoveY = true;
 		    }
-		    if (bnk[i]->aiDirectionY < 0) {
-			    bnk[i]->bbox.move(0, 0.5);
-			    bnk[i]->canMoveX = true;
-			    bnk[i]->canMoveY = false;
-		    }
-		    if (bnk[i]->aiDirectionY > 0) {
-			    bnk[i]->bbox.move(0, -0.5);
-			    bnk[i]->canMoveX = true;
-			    bnk[i]->canMoveY = false;
-		    }
-	    } else {
-	        bnk[i]->canMoveX = true;
-	        bnk[i]->canMoveY = true;
 	    }
 	}
 }
@@ -137,16 +128,16 @@ void Ai::moveAi(Collision &collision, Player &player, std::vector<std::shared_pt
 		if (!bnk[i]->isRoaming) {
 			if (!checkPersonalSpaceCollision(collision, player, bnk)) {	
 				if (checkPlayerCollision(collision, player, bnk)) {
-					if (bnk[i]->aiSprite.getPosition().x - player.body.getPosition().x < 0 && bnk[i]->canMoveX) {
+					if (bnk[i]->aiSprite.getPosition().x - player.body.getPosition().x < 0) {
 						newDirX = 0.5;
 					}
-					if (bnk[i]->aiSprite.getPosition().x - player.body.getPosition().x > 0 && bnk[i]->canMoveX) {
+					if (bnk[i]->aiSprite.getPosition().x - player.body.getPosition().x > 0) {
 						newDirX = -0.5;
 					}
-					if (bnk[i]->aiSprite.getPosition().y - player.body.getPosition().y < 0 && bnk[i]->canMoveY) {
+					if (bnk[i]->aiSprite.getPosition().y - player.body.getPosition().y < 0) {
 						newDirY = 0.5;
 					} 
-					if (bnk[i]->aiSprite.getPosition().y - player.body.getPosition().y > 0 && bnk[i]->canMoveY) {
+					if (bnk[i]->aiSprite.getPosition().y - player.body.getPosition().y > 0) {
 						newDirY = -0.5;
 					}
 				}

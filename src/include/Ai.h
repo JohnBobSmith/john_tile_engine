@@ -25,8 +25,6 @@ class Ai
 	    	float aiDirectionY;
 	    	float aiSpeed;
 	    	bool isRoaming;
-	    	bool canMoveX;
-	    	bool canMoveY;
     	};
 
         void registerNewAi(std::vector<std::shared_ptr<jteAi>> &bnk);

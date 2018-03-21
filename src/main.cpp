@@ -136,7 +136,9 @@ int main()
     cloudsBackground.setPosition(-1000, -1000);
     
     //Register our AI
-    ai.registerNewAi(ai.bnkAi);
+    ai.registerNewAi(ai.bnkAi, 100, 100);
+    ai.registerNewAi(ai.bnkAi, 200, 100);
+    ai.registerNewAi(ai.bnkAi, 300, 100);
     
     //Init the player
     if (!player.loadTexture("../textures/entity/player.anim_lmg.png")) {
@@ -566,9 +568,11 @@ int main()
         //Draw our AI
 		for (unsigned int i = 0; i < ai.bnkAi.size(); ++i) {
         	window.draw(ai.bnkAi[i]->aiSprite);
+        	/*
         	window.draw(ai.bnkAi[i]->aiVision);
         	window.draw(ai.bnkAi[i]->aiPersonalSpace);
         	window.draw(ai.bnkAi[i]->bbox);
+        	//*/
         }
         
         //Run the application

@@ -2,7 +2,7 @@
 #include <cmath>
 #include <iostream>
 
-void Ai::registerNewAi(std::vector<std::shared_ptr<jteAi>> &bnk)
+void Ai::registerNewAi(std::vector<std::shared_ptr<jteAi>> &bnk, int spawnPointX, int spawnPointY)
 {
     //Initialize our Ai's attributes.
     static int counter = 0;
@@ -27,11 +27,10 @@ void Ai::registerNewAi(std::vector<std::shared_ptr<jteAi>> &bnk)
 		bnk[i]->aiPersonalSpace.setOutlineColor(sf::Color::Blue);
 		bnk[i]->aiPersonalSpace.setRadius(25);
 		bnk[i]->aiPersonalSpace.setPointCount(50);
-		bnk[i]->aiSpeed = 0.8;
-		bnk[i]->isRoaming = false;
+		bnk[i]->aiSpeed = 0.5;
 		bnk[i]->aiSize.x = 15;
 		bnk[i]->aiSize.y = 15;
-		bnk[i]->bbox.setPosition(100, -100);
+		bnk[i]->bbox.setPosition(spawnPointX, spawnPointY);
         bnk[i]->bbox.setSize(sf::Vector2f(bnk[i]->aiSize.x, bnk[i]->aiSize.y));
         bnk[i]->bbox.setFillColor(sf::Color::Magenta);
     }
@@ -100,22 +99,18 @@ void Ai::resolveCollisions(Collision &collision, std::vector<std::shared_ptr<jte
 	for (unsigned int i = 0; i < bnk.size(); ++i) {
 		 if (checkLevelCollision(collision, bnk)) {
 		    if (bnk[i]->aiDirectionY < 0) {
-			    bnk[i]->bbox.move(0, 0.5);
+			    bnk[i]->bbox.move(0, bnk[i]->aiSpeed / 2);
 		    }
 		    if (bnk[i]->aiDirectionY > 0) {
-			    bnk[i]->bbox.move(0, -0.5);
+			    bnk[i]->bbox.move(0, -bnk[i]->aiSpeed / 2);
 		    }
-		}
-	}
-    for (unsigned int i = 0; i < bnk.size(); ++i) {
-	    if (checkLevelCollision(collision, bnk)) {
 		    if (bnk[i]->aiDirectionX < 0) {
-			    bnk[i]->bbox.move(0.5, 0);
+			    bnk[i]->bbox.move(bnk[i]->aiSpeed / 2, 0);
 		    } 
 		    if (bnk[i]->aiDirectionX > 0) {
-			    bnk[i]->bbox.move(-0.5, 0);
+			    bnk[i]->bbox.move(-bnk[i]->aiSpeed / 2, 0);
 		    }
-	    }
+		}
 	}
 }
 
@@ -125,27 +120,19 @@ void Ai::moveAi(Collision &collision, Player &player, std::vector<std::shared_pt
 	float newDirY = 0;
 
 	for (unsigned int i = 0; i < bnk.size(); ++i) {
-		if (!bnk[i]->isRoaming) {
-			if (!checkPersonalSpaceCollision(collision, player, bnk)) {	
-				if (checkPlayerCollision(collision, player, bnk)) {
-					if (bnk[i]->aiSprite.getPosition().x - player.body.getPosition().x < 0) {
-						newDirX = 0.5;
-					}
-					if (bnk[i]->aiSprite.getPosition().x - player.body.getPosition().x > 0) {
-						newDirX = -0.5;
-					}
-					if (bnk[i]->aiSprite.getPosition().y - player.body.getPosition().y < 0) {
-						newDirY = 0.5;
-					} 
-					if (bnk[i]->aiSprite.getPosition().y - player.body.getPosition().y > 0) {
-						newDirY = -0.5;
-					}
-				}
+		if (!checkPersonalSpaceCollision(collision, player, bnk)) {	
+			if (bnk[i]->aiSprite.getPosition().x - player.body.getPosition().x < 0) {
+				newDirX = bnk[i]->aiSpeed;
 			}
-		} else { //if (!bnk[i]->isRoaming) {
-			/*TODO: 
-				Add code about what to do when not chasing the player
-			*/
+			if (bnk[i]->aiSprite.getPosition().x - player.body.getPosition().x > 0) {
+				newDirX = -bnk[i]->aiSpeed;
+			}
+			if (bnk[i]->aiSprite.getPosition().y - player.body.getPosition().y < 0) {
+				newDirY = bnk[i]->aiSpeed;
+			} 
+			if (bnk[i]->aiSprite.getPosition().y - player.body.getPosition().y > 0) {
+				newDirY = -bnk[i]->aiSpeed;
+			}
 		}
 		
 		bnk[i]->aiDirectionX = newDirX;
@@ -163,12 +150,6 @@ void Ai::update(Collision &collision, Player &player, std::vector<std::shared_pt
 									
 		bnk[i]->aiPersonalSpace.setPosition(bnk[i]->aiSprite.getPosition().x - bnk[i]->aiPersonalSpace.getRadius(), 
 											bnk[i]->aiSprite.getPosition().y - bnk[i]->aiPersonalSpace.getRadius());
-												
-		if (!checkPlayerCollision(collision, player, bnk)) {
-			bnk[i]->isRoaming = true;			
-		} else {
-			bnk[i]->isRoaming = false;
-		}
 							
 		if (checkPersonalSpaceCollision(collision, player, bnk)) {
 			//player.health -= 0.5;

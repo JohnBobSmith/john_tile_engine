@@ -80,7 +80,7 @@ class Player
         //Allow the player to respawn at a random spawn point
         void respawn(Camera &camera, SoundManager &soundmngr, int randomNumber = 0);
         
-        //Update play attributes
+        //Update player attributes
         void update();
 
     private:

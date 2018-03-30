@@ -335,9 +335,7 @@ int main()
         ai.resolveCollisions(grasslandCollision, ai.bnkAi);
         ai.resolveCollisions(rocklandCollision, ai.bnkAi);
         ai.resolveCollisions(junglelandCollision, ai.bnkAi);
-
-        //Damage collison checking
-        player.checkDamageCollision(poisonObjectsInRockland, 1);
+        ai.checkBulletToAiCollision(collision, bullet, ai.bnkAi);
         
 	    //Bullet collision checking
         bullet.checkBulletCollision(farmlandCollision);
@@ -567,12 +565,15 @@ int main()
         
         //Draw our AI
 		for (unsigned int i = 0; i < ai.bnkAi.size(); ++i) {
-        	window.draw(ai.bnkAi[i]->aiSprite);
-        	/*
-        	window.draw(ai.bnkAi[i]->aiVision);
-        	window.draw(ai.bnkAi[i]->aiPersonalSpace);
-        	window.draw(ai.bnkAi[i]->bbox);
-        	//*/
+			if (ai.bnkAi[i]->isActive) {
+        		window.draw(ai.bnkAi[i]->aiLegs);
+        		window.draw(ai.bnkAi[i]->aiSprite);
+        		/*
+        		window.draw(ai.bnkAi[i]->aiVision);
+        		window.draw(ai.bnkAi[i]->aiPersonalSpace);
+        		window.draw(ai.bnkAi[i]->bbox);
+        		//*/
+        	}
         }
         
         //Run the application

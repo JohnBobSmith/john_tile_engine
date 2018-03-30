@@ -7,6 +7,7 @@
 #include <memory>
 #include "Player.h"
 #include "Collision.h"
+#include "Bullet.h"
 
 class Ai
 {
@@ -16,7 +17,9 @@ class Ai
     	{
     		//Sprite and texture
     		sf::Sprite aiSprite;
+    		sf::Sprite aiLegs;
     		sf::Texture aiTexture;
+    		sf::Texture aiLegsTexture;
     		
     		//The AI's vision. Allows the AI to "see" the player.
     		sf::CircleShape aiVision;
@@ -41,6 +44,10 @@ class Ai
 	    	
 	    	//How fast is the AI?
 	    	float aiSpeed;
+	    	
+	    	//Is the ai active? Used for things like killing and
+	    	//respawning the AI and what not.
+	    	bool isActive;
     	};
 
 		//Add an AI to the game
@@ -58,11 +65,17 @@ class Ai
     	//Take care of collision checking.
     	void resolveCollisions(Collision &collision, std::vector<std::shared_ptr<jteAi>> &bnk);
     	
-    	//Check vairous collisions. Returns true if collision else false.
+    	//Animate the sprites
+    	void animateLegs(std::vector<std::shared_ptr<jteAi>> &bnk);
+  		
+  		//Check if a bullet collides with the AI. If so, kill the AI.  	
+	  	void checkBulletToAiCollision(Collision &collision, Bullet &bullet, std::vector<std::shared_ptr<jteAi>> &bnk);
+  	
+    	//Check for vairous collisions. Returns true if collision else false.
     	bool checkLevelCollision(Collision &collision, std::vector<std::shared_ptr<jteAi>> &bnk);
     	bool checkPlayerCollision(Collision &collision, Player &player, std::vector<std::shared_ptr<jteAi>> &bnk);
     	bool checkPersonalSpaceCollision(Collision &collision, Player &player, std::vector<std::shared_ptr<jteAi>> &bnk);
-    	
+ 	
     	//The vector of AI's. 
         std::vector<std::shared_ptr<jteAi>> bnkAi;
 };
